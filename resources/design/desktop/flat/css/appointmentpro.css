@@ -1,0 +1,29 @@
+.third-main-panel {
+    width: calc(100% - 90px);
+    float: right;
+    margin-right: 0;
+}
+.second-vertical-bar-menu {
+    width: 90px;
+    background-color: #36353dd1;
+    position: absolute;
+    float: left;
+    height: 100%;
+    margin: -15px -15px;
+}
+.second-vertical-bar-menu .active {
+    background-color: #2D2C32;
+    color: #fff;
+}
+.second-vertical-bar-menu a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 26px;
+    line-height: 20px;
+}
+.second-vertical-bar-menu span {
+    font-size: 12px;
+}

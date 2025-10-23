@@ -1,0 +1,236 @@
+<ion-modal-view
+  cache-view="false"
+  class="appointmentpro appointmentpro-confirm-booking"
+>
+  <ion-header-bar class="bar-custom">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeModalConfirmBooking()">
+        <i ng-class="backButtonIcon()"></i>
+      </button>
+    </div>
+    <h1 class="title">{{ ::"Confirm" | translate:"appointmentpro" }}</h1>
+  </ion-header-bar>
+
+  <ion-content id="appointmentpro-content" class="has-header">
+    <div class="loader" ng-show="is_loading_modal">
+      <ion-spinner class="spinner-custom"></ion-spinner>
+    </div>
+
+    <div
+      class="list"
+      ng-class="{'card' : settings.list_design}"
+      ng-show="!is_loading_modal"
+    >
+      <div
+        class="item item-custom item-thumbnail-left remove-border"
+        ng-if="!booking_info.is_class"
+      >
+        <img
+          class="location-image-grid"
+          ng-src="{{ appointmentproImage(booking_info.featured_image) }}"
+          style="border-radius: 10px"
+        />
+        <h2>{{booking_info.location_name}}</h2>
+        <p>{{booking_info.address}}</p>
+      </div>
+
+      <div
+        class="item item-custom item-thumbnail-left remove-border"
+        ng-if="booking_info.is_class"
+      >
+        <img
+          class="location-image-grid"
+          ng-src="{{ appointmentproImage(booking_info.featured_image) }}"
+          style="border-radius: 10px"
+        />
+        <h2>{{booking_info.location_name}}</h2>
+        <p>{{booking_info.address}}</p>
+      </div>
+
+      <div
+        class="item item-divider item-divider-custom appointmentpro-divider-item"
+      >
+        <h2 style="padding: 8px 0px" ng-if="!booking_info.is_class">
+          {{ getLabelName('service') }}
+        </h2>
+        <h2 ng-if="booking_info.is_class">{{ getLabelName('class') }}</h2>
+      </div>
+
+      <div class="item item-custom item-avatar remove-border">
+        <img
+          class="service-image-grid"
+          ng-src="{{ appointmentproImage(booking_info.service_image) }}"
+        />
+        <h2>{{booking_info.service_name}}</h2>
+        <p ng-hide="settings.price_hide">
+          <span class="details-price" ng-if="!booking_info.is_sale">
+            <i class="icon ion-pricetag"></i>
+            {{booking_info.amount_with_currency}}
+          </span>
+          <span class="details-price" ng-if="booking_info.is_sale">
+            <i class="icon ion-pricetag"></i>
+            {{booking_info.amount_with_currency}}
+            <del><small>{{ booking_info.orginal_price }}</small></del>
+          </span>
+          <span
+            class="pull-right"
+            ng-if="booking_info.service_points > 0 && settings.enable_plc_points"
+          >
+            + {{booking_info.service_points}} {{ ::"Points" |
+            translate:"appointmentpro" }}
+          </span>
+        </p>
+      </div>
+
+      <div
+        class="item item-divider item-divider-custom appointmentpro-divider-item"
+      >
+        <h2 style="padding: 8px 0px">{{ getLabelName('provider') }}</h2>
+      </div>
+      <div class="item item-custom item-avatar remove-border">
+        <img
+          class="location-image-grid"
+          ng-src="{{ appointmentproImage(booking_info.provider_image) }}"
+        />
+        <h2>{{booking_info.provider_name}}</h2>
+        <p>{{booking_info.designation}}</p>
+      </div>
+
+      <div
+        class="item item-divider item-divider-custom appointmentpro-divider-item"
+      >
+        <h2 style="padding: 8px 0px">
+          {{ ::"Your Info" | translate:"appointmentpro" }}
+        </h2>
+      </div>
+      <div class="item item-custom item-avatar remove-border">
+        <img
+          class="location-image-grid"
+          ng-src="{{ avatarUrl() }}"
+          src="data:image/jpeg;base64,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"
+        />
+        <h2>{{cart.customer.firstname}} {{cart.customer.lastname}}</h2>
+        <p>{{cart.customer.mobile}}</p>
+      </div>
+
+      <div
+        class="item item-divider item-divider-custom appointmentpro-divider-item"
+      >
+        <h2 style="padding: 8px 0px">
+          {{ ::"Date And Time" | translate:"appointmentpro" }}
+        </h2>
+      </div>
+      <div class="item item-custom remove-border">
+        <p>
+          <i class="icon ion-calendar"></i>&nbsp;
+          {{booking_info.slot_display_date}}
+          <i class="icon ion-at"></i>
+          {{booking_info.slot_display_time}}
+        </p>
+        <p ng-if="booking_info.schedule_type == 'weekly'">
+          {{ ::"On Every" | translate:"appointmentpro" }} -
+          {{booking_info.day_of_week}}
+        </p>
+      </div>
+
+      <div
+        class="item item-divider item-divider-custom appointmentpro-divider-item"
+        ng-if="booking_info.order_note != ''"
+      >
+        <h2 style="padding: 8px 0px">
+          {{ ::"Note" | translate:"appointmentpro" }}
+        </h2>
+      </div>
+      <div
+        class="item item-custom remove-border"
+        ng-if="booking_info.order_note != ''"
+      >
+        <p>{{booking_info.order_note}}</p>
+      </div>
+
+      <div
+        class="item item-divider item-divider-custom remove-border"
+        ng-hide="settings.price_hide"
+      >
+        <h2 style="padding: 8px 0px">
+          {{ ::"Summary" | translate:"appointmentpro" }}
+        </h2>
+      </div>
+      <div
+        class="item item-custom remove-border"
+        ng-if="booking_info.is_class"
+        ng-hide="settings.price_hide"
+      >
+        <p>
+          {{ ::"Total Tickets" | translate:"appointmentpro" }}
+          <span class="pull-right">{{booking_info.tickets_qty}}</span>
+        </p>
+      </div>
+
+      <div
+        class="item item-custom remove-border"
+        ng-if="booking_info.is_class"
+        ng-hide="settings.price_hide"
+      >
+        <p ng-if="booking_info.is_class">
+          {{ ::"Per Ticket Amount" | translate:"appointmentpro" }}
+          <span class="pull-right">{{booking_info.amount_with_currency}}</span>
+        </p>
+      </div>
+
+      <div
+        class="item item-custom remove-border"
+        ng-if="settings.display_tax && !booking_info.is_class"
+        ng-hide="settings.price_hide"
+      >
+        <p>
+          {{ ::"Amount" | translate:"appointmentpro" }}
+          <span class="pull-right">{{booking_info.amount_with_currency}}</span>
+        </p>
+      </div>
+
+      <div
+        class="item item-custom remove-border"
+        ng-if="settings.display_tax"
+        ng-hide="settings.price_hide"
+      >
+        <p>
+          {{ ::"Tax" | translate:"appointmentpro" }}
+          ({{booking_info.tax_percentage}}%)
+          <span class="pull-right"
+            >{{booking_info.tax_amount_with_currency}}</span
+          >
+        </p>
+      </div>
+
+      <div class="item item-custom remove-border" ng-hide="settings.price_hide">
+        <h2>
+          {{ ::"Total Amount" | translate:"appointmentpro" }}
+          <span class="pull-right"
+            >{{booking_info.total_amount_with_currency}}</span
+          >
+        </h2>
+      </div>
+
+      <label class="item item-custom remove-border">
+        <button
+          class="button button-full button-positive-custom remove-border"
+          ng-click="continueOrder()"
+          ng-show="!is_loading_modal"
+          ng-if="!settings.booking_without_payment"
+        >
+          {{ ::"Continue" | translate:"appointmentpro" }}
+        </button>
+
+        <button
+          class="button button-full button-positive-custom remove-border"
+          ng-click="submitOrderWithoutPay()"
+          ng-show="!is_loading_modal"
+          ng-if="settings.booking_without_payment"
+        >
+          {{ ::"Submit" | translate:"appointmentpro" }}
+        </button>
+      </label>
+    </div>
+  </ion-content>
+</ion-modal-view>

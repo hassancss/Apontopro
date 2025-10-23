@@ -1,0 +1,45 @@
+<ion-modal-view cache-view="false"
+                class="appointmentpro appointmentpro-location-service">
+
+    <ion-header-bar class="bar-custom">
+        <div class="buttons">
+            <button class="button button-clear"
+                    ng-click="closeModalLocationService()">
+                    <i ng-class="backButtonIcon()"></i>
+            </button>
+        </div>
+        <h1 class="title">{{ ::"Services" | translate:"appointmentpro" }} </h1>
+    </ion-header-bar>
+
+    <ion-content id="appointmentpro-content"
+                 class="has-header">
+
+        <div class="loader"
+                ng-show="is_loading_modal">
+                <ion-spinner class="spinner-custom"></ion-spinner>
+        </div>
+
+
+        <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading_modal"  ng-repeat="service in location_service">
+            <a class="item item-custom item-avatar remove-border  item-icon-right">
+              <img  ng-click="bookAService(service)"  class="service-image-grid" ng-src="{{ appointmentproImage(service.featured_image) }}">
+              <h2  ng-click="bookAService(service)" >{{service.name}}</h2>
+              <p ng-hide="settings.price_hide">
+                <span ng-if="!service.is_sale">
+                  {{service.price_with_currency}}
+                </span>
+                <span ng-if="service.is_sale">
+                  {{service.price_with_currency}} <del><small>{{ service.orginal_price }}</small></del>
+                </span> 
+                <span class="pull-right" ng-if="service.service_points > 0 && settings.enable_plc_points">(+{{service.service_points}} Points)</span>  </p> 
+
+                <p nf-if="service.description!=''" sb-html="service.description" ng-click="descriptionInfo(service.description)"></p>
+
+               <i class="icon ion-chevron-right" ng-if="settings.enable_booking"  ng-click="bookAService(service)" ></i>
+             </a>
+ 
+        </div>
+
+    </ion-content>
+
+</ion-modal-view>

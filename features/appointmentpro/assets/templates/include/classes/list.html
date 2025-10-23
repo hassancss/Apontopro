@@ -1,0 +1,29 @@
+<div class="list" ng-class="{'card' : settings.list_design}">
+     <a class="item item-custom item-thumbnail-left remove-border" ng-repeat="class in payout.classes" ng-click="classDetails(class.service_id)">
+		<img class="location-image-grid" ng-src="{{ appointmentproImage(class.featured_image) }}">
+		<h2 class="location-name">{{class.name}}</h2>
+		<p><i class="icon ion-location"></i> {{class.location_name}}</p>
+		<p> 
+			<span ng-if="!class.is_sale" ng-hide="settings.price_hide">
+				<i class="icon ion-pricetag"></i> {{class.price_with_currency}} - 
+			</span>
+			<span ng-if="class.is_sale" ng-hide="settings.price_hide">
+				<i class="icon ion-pricetag"></i>
+				{{class.price_with_currency}}
+				<del><small>{{ class.orginal_price }}</small></del> - 
+			</span>{{class.service_time}} - 
+			<span ng-if="class.seats_left > 0">{{class.seats_left}} {{ ::"left" | translate:"appointmentpro" }}</span>
+			<span class="icon-active-custom" ng-if="class.seats_left < 5 && class.seats_left > 0">
+			({{ ::"Hurry, Only few left!" | translate:"appointmentpro" }})</span>
+			<span class="icon-active-custom" ng-if="class.seats_left == 0">
+			{{ ::"Sold Out" | translate:"appointmentpro" }}</span></p>
+		<p><i class="icon ion-calendar"></i> 
+			<span ng-if="!class.is_recurring">{{class.class_date}} {{class.class_time}}</span>
+			<span ng-if="class.is_recurring">{{class.schedule_type}} {{ ::"at" | translate:"appointmentpro" }} {{class.class_time}}</span>
+			<span class="pull-right" ng-if="class.distance > 0">
+				{{class.distance}} {{class.distanceUnit}}
+			</span>
+		</p>	 	
+	</a>
+
+</div>

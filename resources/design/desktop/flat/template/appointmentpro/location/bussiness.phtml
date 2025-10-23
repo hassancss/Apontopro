@@ -1,0 +1,212 @@
+<?php $value_id = (new Appointmentpro_Model_Appointmentpro())->getCurrentValueId();?>
+<?php $defaultDays = (new Appointmentpro_Model_Appointmentpro())->getDefaultDays();
+$location = $this->getLocation();  
+$times = Appointmentpro_Model_Utils::timeOptions(); 
+$business_timing = Siberian_Json::decode($location->getBusinessTiming());
+$date_break_template = '<div class="date-break">#DATE#<input type="hidden" name="timing[date_break][]" value="#DATE#"><i class="fa fa-times remove_date_break"></i></div>';
+?>
+
+<div class="container-fluid appointmentpro">
+	<div class="container-fluid">
+		<div id="wrapper" class="left-toggled">
+          <div class="right-toggled">
+            <div class="sidebars has-sidebar">
+            <?php include(dirname(__DIR__)."/partials/menu.phtml"); ?>
+            <div class="subcontent third-main-panel">
+				<form role="form" id="locationform" class="setup-from" action="<?php echo $this->getUrl('appointmentpro/location/savebussiness'); ?>" method="post" enctype="multipart/form-data">
+
+				<div class="row app-features">
+					<div class="responsive-part col-md-12">
+			         <div class="page-content-wrapper form-horizontal">
+			            <div class="content solo-page">
+			                <h3 class="title-editor border-blue text-center">
+			                  <?php echo p__("appointmentpro","Set %s Bussiness Hours", $location->getName());?>
+                        	<a href="/appointmentpro/location/list" id="back" class="color-blue btn sb-tour pull-right">
+                                <?php echo  p__("appointmentpro", "Back"); ?>   
+                            </a>
+			                </h3>
+			           <div class="subcontent content-color container-fluid">
+					   	<input type="hidden" name="value_id" value="<?php echo $value_id; ?>">
+	          			 <input type="hidden" name="location_id" value="<?php echo $location->getLocationId(); ?>">
+							<div class="row">
+							    <div class="col-md-3">
+							    	 <h4><?php echo p__("appointmentpro", "Days"); ?></h4>
+							    </div>
+							    <div class="col-md-3">
+							    	 <h4><?php echo p__("appointmentpro", "Working"); ?></h4>
+							    </div>
+							    <div class="col-md-3">
+							    	 <h4><?php echo p__("appointmentpro", "Start time"); ?></h4>
+							    </div>
+							    <div class="col-md-3">
+							    	 <h4><?php echo p__("appointmentpro", "End time"); ?></h4>
+							    </div>
+							</div>
+
+	          				<?php foreach ($defaultDays as $key => $dayValue) { ?>	
+                            	<div class="row">
+								    <div class="col-md-3">
+								     
+			                                  <label>
+			                                        <?php echo  p__("appointmentpro", ucfirst($dayValue)); ?></label>
+			                                <input type="hidden" name="timing[is_active][<?php echo $dayValue; ?>]" value="0">
+			                            
+								    </div>
+								    <div class="col-md-3">
+								     	<div class="form-group">
+			                                <input type="checkbox" data-day="<?php echo $dayValue; ?>" id="is_active_<?php echo $dayValue; ?>" name="timing[is_active][<?php echo $dayValue; ?>]" value="1" class="color-blue checkbox sb-tour" <?php echo $business_timing['is_active'][$dayValue] == 1 ? 'checked': ''; ?> />
+			                                
+			                            </div>
+								    </div>
+								    <div class="col-md-3">
+								      <div class="form-group">
+								      	<div class="col-md-6">
+			                              <select class="required styled-select color-blue" name="timing[from_time][<?php echo $dayValue; ?>]" id="from_time_<?php echo $dayValue; ?>">
+                                            <?php 
+                                               foreach ($times as $key => $value) { ?>
+                                                    <option value="<?php echo $key; ?>" <?php echo $business_timing['from_time'][$dayValue] == $key ? 'selected': ''; ?>>
+                                                     <?php echo $value; ?>
+                                                    </option>
+                                            <?php } ?>
+                                     		</select>
+                                     	</div>
+			                           </div>
+								    </div>
+								    <div class="col-md-3">
+								      <div class="form-group">
+								     	<div class="col-md-6">
+			                              <select class="required styled-select color-blue" name="timing[to_time][<?php echo $dayValue; ?>]" id="to_time_<?php echo $dayValue; ?>">
+                                            <?php 
+                                               foreach ($times as $key => $value) { ?>
+                                                    <option value="<?php echo $key; ?>" <?php echo $business_timing['to_time'][$dayValue] == $key ? 'selected': ''; ?>>
+                                                     <?php echo $value; ?>
+                                                    </option>
+                                            <?php } ?>
+                                     		</select>
+                                     	  </div>
+			                            </div>
+								    </div>
+								</div>
+							<?php } ?>
+                            </div>
+                         </div>
+			          </div>
+				   </div>
+				</div>
+
+				<div class="row app-features">
+					<div class="responsive-part col-md-12">
+			         <div class="page-content-wrapper form-horizontal">
+			            <div class="content solo-page">
+			                <h3 class="title-editor border-blue text-center">
+			                  <?php echo p__("appointmentpro","Set %s Date breaks/Holidays", $location->getName());?>
+			                </h3>
+                             <div class="subcontent content-color container-fluid">
+
+							    <div class="form-group">
+	                                <div class="col-sm-2">
+	                                    <label for="name">
+	                                        <?php echo p__("appointmentpro", 'Select Date'); ?></label>
+	                                </div>
+	                                <div class="col-sm-4">
+	                                    <input type="text" value="" class="input-flat" name="break_date" id="break_date" autocomplete="off" />
+	                                </div>
+	                                 <div class="col-sm-6">
+	                                 	<a id='select-break-date' class="color-blue btn">
+	                                 		<?php echo p__("appointmentpro", 'Ok'); ?></a>
+	                                 </div>
+	                              </div>                        
+	                            
+	                            <div class="break-date-container">
+	                            	<?php foreach ($business_timing['date_break'] as $key => $value) {
+	                            		 echo str_replace('#DATE#', $value,$date_break_template);
+	                            	} ?>
+	                            </div>
+                             
+                              </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
+				<div class="row">
+					 <div class="col-md-12 remove-message-warring" style="display: none;">
+					 	<p class="alert alert-warning small"><?php echo p__("appointmentpro", "Please note that you need to click the Save button to commit the changes"); ?>.</p>
+				    </div>
+				    <div class="col-md-12">
+				     <button class="color-blue btn pull-right" type="submit"><?php echo p__("appointmentpro", "Save"); ?></button>
+				    </div>
+				</div>
+				</form>
+			 </div>
+		 </div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<script type="text/javascript">
+   $('#locationform').submit(function(e) {
+          e.preventDefault();
+          var formData = new FormData(this);    
+        if($(this).valid()) {
+            reload(this, this.action, formData, function(data) {  
+                if(data.success) {
+                   location.reload();
+                }
+            });
+        }
+        return false;
+    }); 
+
+
+   $(document).ready(function() {
+     	var date_break_template = '<div class="date-break">#DATE#<input type="hidden" name="timing[date_break][]" value="#DATE#"><i class="fa fa-times remove_date_break"></i></div>';
+
+     	var disableSpecificDates = function(date) {
+		    var values = $(".break-date-container input[name='timing[date_break][]']")
+		        .map(function() { return this.value;})
+		        .toArray();
+		    var string = $.datepicker.formatDate("dd/mm/yy", date);
+		    return [values.indexOf(string) == -1];
+		};
+
+       
+        if($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']) {
+            $.datepicker.setDefaults($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']);
+        } else {
+            $.datepicker.setDefaults($.datepicker.regional['en']);
+        }
+        $( "#break_date" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,            
+            dateFormat: 'dd/mm/yy',
+            onSelect: function(date, instance) {
+                $(this).data('datepicker').inline = true;
+                $(this).datepicker("refresh");
+            },
+            onClose: function( selectedDate ) {
+                $(this).data('datepicker').inline = false;
+            },
+            beforeShowDay: function(date) {
+                return disableSpecificDates(date);
+            }
+        });
+
+
+   		$(document).on("click", "#select-break-date", function() {
+   			 var break_date = $('#break_date').val();
+   			 $(".break-date-container").append(date_break_template.replace(/\#DATE\#/g, break_date));
+   			 $('#break_date').val('');
+   			 $('.remove-message-warring').show();
+        });
+
+         $(document).on("click","i.remove_date_break",function() {
+	        $(this).parents("div.date-break").fadeOut(200, function() { $(this).remove();});
+	        $('.remove-message-warring').show();
+	    });
+
+    });
+
+</script>

@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <appointmentpro_application_edit>
+        <views>
+            <content class="application_view_customization_features_edit_tabbareditor"
+                     template="application/customization/features/edit/tabbar_editor.phtml"/>
+            <content_editor class="core_view_default" template="appointmentpro/application/edit.phtml"/>
+        </views>
+    </appointmentpro_application_edit>
+
+    <appointmentpro_dashboard_list>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Dashboard</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/dashboard/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>appointmentprodashboard</code></content>
+        </actions>
+    </appointmentpro_dashboard_list>
+
+    <appointmentpro_location_list>
+        <addLayout name="admin_menu" />
+        
+        <base>
+            <title>Location</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/location/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>location</code></content>
+        </actions>
+    </appointmentpro_location_list>
+
+    <appointmentpro_location_add>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Location Add</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/location/add.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>locationadd</code></content>
+        </actions>
+    </appointmentpro_location_add>
+
+    <appointmentpro_location_edit>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Location Edit</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/location/edit.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>location</code></content>
+        </actions>
+    </appointmentpro_location_edit>
+
+    <appointmentpro_location_bussiness>
+        <addLayout name="admin_menu" />
+        <base>
+            <title>Location bussiness</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/location/bussiness.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>location</code></content>
+        </actions>
+    </appointmentpro_location_bussiness>
+
+    <appointmentpro_location_gallery>
+        <addLayout name="admin_menu" />
+        <base>
+            <title>Location gallery</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/location/gallery.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>location</code></content>
+        </actions>
+    </appointmentpro_location_gallery>
+
+    <appointmentpro_location_gateways>
+        <addLayout name="admin_menu" />
+        <base>
+            <title>Location Gateways</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/location/gateways.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>location</code></content>
+        </actions>
+    </appointmentpro_location_gateways>
+
+    <appointmentpro_category_list>
+        <addLayout name="admin_menu" />
+        
+        <base>
+            <title>Category</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/category/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>category</code></content>
+        </actions>
+    </appointmentpro_category_list>
+
+    <appointmentpro_category_add>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Category Add</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/category/add.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>categoryadd</code></content>
+        </actions>
+    </appointmentpro_category_add>
+
+    <appointmentpro_category_edit>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Category Edit</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/category/edit.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>category</code></content>
+        </actions>
+    </appointmentpro_category_edit>
+
+   <appointmentpro_service_list>
+        <addLayout name="admin_menu" />
+        
+        <base>
+            <title>Services</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/service/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>service</code></content>
+        </actions>
+    </appointmentpro_service_list>
+
+    <appointmentpro_service_add>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Service Add</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/service/add.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>serviceadd</code></content>
+        </actions>
+    </appointmentpro_service_add>
+
+    <appointmentpro_service_edit>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Service Edit</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/service/edit.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>service</code></content>
+        </actions>
+    </appointmentpro_service_edit>
+
+   <appointmentpro_provider_list>
+        <addLayout name="admin_menu" />
+        
+        <base>
+            <title>Providers</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/provider/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>provider</code></content>
+        </actions>
+    </appointmentpro_provider_list>
+
+    <appointmentpro_provider_add>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Provider Add</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/provider/add.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>provideradd</code></content>
+        </actions>
+    </appointmentpro_provider_add>
+
+    <appointmentpro_provider_edit>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Provider Edit</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/provider/edit.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>provider</code></content>
+        </actions>
+    </appointmentpro_provider_edit>
+
+    <appointmentpro_provider_bussiness>
+        <addLayout name="admin_menu" />
+        <base>
+            <title>Provider bussiness</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/provider/bussiness.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>provider</code></content>
+        </actions>
+    </appointmentpro_provider_bussiness>
+
+    <appointmentpro_class_list>
+        <addLayout name="admin_menu" />
+        
+        <base>
+            <title>Class</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/class/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>class</code></content>
+        </actions>
+    </appointmentpro_class_list>
+
+    <appointmentpro_class_add>
+         <addLayout name="admin_menu" />
+        <addLayout name="customization_default" />      
+        <base>
+            <title>Class Add</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/class/add.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>classadd</code></content>
+        </actions>
+    </appointmentpro_class_add>
+
+    <appointmentpro_class_edit>
+         <addLayout name="admin_menu" />
+        <addLayout name="customization_default" />        
+        <base>
+            <title>Class Edit</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/class/edit.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>class</code></content>
+        </actions>
+    </appointmentpro_class_edit>
+
+    <appointmentpro_provider_service>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Provider Service</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/provider/service.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>provider</code></content>
+        </actions>
+    </appointmentpro_provider_service>
+
+    <appointmentpro_booking_list>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>All Bookings</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/booking/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>bookingall</code></content>
+        </actions>
+    </appointmentpro_booking_list>
+
+     <appointmentpro_booking_add>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Add Booking</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/booking/new_booking.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>bookingadd</code></content>
+        </actions>
+    </appointmentpro_booking_add>
+
+     <appointmentpro_booking_classes>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>All Bookings</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/booking/classes.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>classesall</code></content>
+        </actions>
+    </appointmentpro_booking_classes>
+
+    <appointmentpro_booking_view>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Booking Details</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/booking/view.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>bookingall</code></content>
+        </actions>
+    </appointmentpro_booking_view>
+
+    <appointmentpro_report_list>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>Reports</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/report/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>reports</code></content>
+        </actions>
+    </appointmentpro_report_list>
+
+    <appointmentpro_calendar_list>
+        <addLayout name="admin_menu" />    
+        <base>
+            <title>Calendar</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/calendar/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>calendar</code></content>
+        </actions>
+    </appointmentpro_calendar_list>
+    <appointmentpro_history_list>
+        <addLayout name="admin_menu" />        
+        <base>
+            <title>History</title>
+        </base>
+        <views>
+            <content class="admin_view_default" template="appointmentpro/history/list.phtml" />
+        </views>
+        <actions>
+            <content name="setCurrentLink"><code>historyall</code></content>
+        </actions>
+    </appointmentpro_history_list>
+
+
+</layout>

@@ -1,0 +1,180 @@
+<?php
+$gatewayModel = (new Appointmentpro_Model_Gateways())
+    ->find(['gateway_code' => 'paypal', 'value_id' => $value_id, 'location_id' => $location->getLocationId()]);
+?>
+
+<form role="form" id="paypalform" class="setup-from" action="<?php echo $this->getUrl('appointmentpro/gateways/addpaypal'); ?>" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="col-md-8">
+            <input type="hidden" name="id" value="<?php echo $gatewayModel->getId(); ?>">
+            <input type="hidden" name="gateway_code" value="paypal">
+            <input type="hidden" name="value_id" value="<?php echo $value_id; ?>">
+            <input type="hidden" name="location_id" value="<?php echo $location->getLocationId(); ?>">
+
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="lable_name">
+                        <?php echo p__("appointmentpro", 'Label Name'); ?><span>*</span></label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="required input-flat" name="lable_name" id="lable_name" value="<?php echo $gatewayModel->getLableName(); ?>" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="shot_description">
+                        <?php echo p__("appointmentpro", 'Short Description'); ?><span>*</span></label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="required input-flat" name="shot_description" id="shot_description" value="<?php echo $gatewayModel->getShotDescription(); ?>" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="payment_mode">
+                        <?php echo p__("appointmentpro", 'Payment Mode'); ?><span>*</span></label>
+                </div>
+                <div class="col-sm-8">
+                    <select class="required styled-select color-blue" name="payment_mode" id="payment_mode">
+                        <option value="0" <?php echo $gatewayModel->getPaymentMode() == 0 ? "selected" : ""; ?>> <?php echo p__("appointmentpro", 'Sandbox'); ?></option>
+                        <option value="1" <?php echo $gatewayModel->getPaymentMode() == 1 ? "selected" : ""; ?>> <?php echo p__("appointmentpro", 'Live'); ?></option>
+                    </select>
+                </div>
+            </div>
+            <div id="show_live_paypal" <?php echo $gatewayModel->getPaymentMode() == 1 ? "style='display:block;'" : "style='display:none;'"; ?>>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="username">
+                            <?php echo p__("appointmentpro", 'Username'); ?><span>*</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" value="<?php echo $gatewayModel->getUsername(); ?>" class="input-flat" name="username" id="username" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="signature">
+                            <?php echo p__("appointmentpro", 'Signature'); ?><span>*</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" value="<?php echo $gatewayModel->getSignature(); ?>" class="input-flat" name="signature" id="signature" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="password">
+                            <?php echo p__("appointmentpro", 'Password'); ?><span>*</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" value="<?php echo $gatewayModel->getPassword(); ?>" class="input-flat" name="password" id="password" />
+                    </div>
+                </div>
+            </div>
+            <!-- sandbox -->
+            <div id="show_sandbox_paypal" <?php echo $gatewayModel->getPaymentMode() == 0 ? "style='display:block;'" : "style='display:none;'"; ?>>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="sandboxusername">
+                            <?php echo p__("appointmentpro", 'Sandbox Username'); ?><span>*</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" value="<?php echo $gatewayModel->getSandboxusername(); ?>" class="input-flat" name="sandboxusername" id="sandboxusername" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="sandboxsignature">
+                            <?php echo p__("appointmentpro", 'Sandbox Signature'); ?><span>*</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" value="<?php echo $gatewayModel->getSandboxsignature(); ?>" class="input-flat" name="sandboxsignature" id="sandboxsignature" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="sandboxpassword">
+                            <?php echo p__("appointmentpro", 'Sandbox Password'); ?><span>*</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" value="<?php echo $gatewayModel->getSandboxpassword(); ?>" class="input-flat" name="sandboxpassword" id="sandboxpassword" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-8">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="status" <?php echo $gatewayModel->getStatus() == 'active' ? "checked" : ""; ?> name="status" value="1" class="color-blue checkbox sb-tour" />
+                        <?php echo p__("appointmentpro", 'Active'); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="color-blue btn pull-right" type="submit"><?php echo p__("appointmentpro", "Save"); ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $('#paypalform').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        if ($(this).valid()) {
+            reload(this, this.action, formData, function(data) {
+                if (data.success) {
+                    feature_form_success(data.message);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1500)
+                }
+
+                if (data.error) {
+                    feature_form_error(data.message);
+                }
+            });
+        }
+        return false;
+    });
+
+    function formlivecondition() {
+        $('#sandboxusername').parent().parent().hide();
+        $('#sandboxpassword').parent().parent().hide();
+        $('#sandboxsignature').parent().parent().hide();
+        $('#username').parent().parent().show();
+        $('#password').parent().parent().show();
+        $('#signature').parent().parent().show();
+    }
+
+    function formsandboxcondition() {
+        $('#sandboxusername').parent().parent().show();
+        $('#sandboxpassword').parent().parent().show();
+        $('#sandboxsignature').parent().parent().show();
+        $('#username').parent().parent().hide();
+        $('#password').parent().parent().hide();
+        $('#signature').parent().parent().hide();
+    }
+    $('#payment_mode').change(function() {
+        if ($(this).val() == 0) {
+            // show_live_paypal
+            $('#show_live_paypal').hide();
+            $('#show_sandbox_paypal').show();
+            formsandboxcondition();
+        } else {
+            $('#show_live_paypal').show();
+            $('#show_sandbox_paypal').hide();
+            formlivecondition();
+        }
+    });
+</script>

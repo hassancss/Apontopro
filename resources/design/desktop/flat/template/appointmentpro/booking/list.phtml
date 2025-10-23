@@ -1,0 +1,802 @@
+<?php $bookingStatus = $this->getBookingStatus();
+$type = $this->getType();
+$locations = $this->getLocations(); ?>
+<div class="container-fluid appointmentpro">
+    <div class="container-fluid">
+        <div id="wrapper" class="left-toggled">
+            <div class="right-toggled">
+                <div class="sidebars has-sidebar">
+                    <?php include(dirname(__DIR__) . "/partials/menu.phtml"); ?>
+                    <div class="subcontent third-main-panel">
+                        <div class="row app-features">
+                            <div class="responsive-part col-md-12">
+                                <div class="page-content-wrapper form-horizontal">
+                                    <div class="content solo-page">
+                                        <h3 class="title-editor border-blue text-center">
+                                            <?php echo p__("appointmentpro", "%s Appointments", ucfirst($type)); ?>
+                                        </h3>
+                                        <div class="subcontent content-color container-fluid">
+                                            <div class="form-group">
+
+                                                <div id="row">
+                                                    <div class="col-md-2">
+                                                        <select class="input-flat dt-search color-blue" name="location_id" id="location_id" data-dynatable-query="location_id">
+                                                            <option value="all"><?php echo p__("appointmentpro", 'Select Location'); ?></option>
+                                                            <option value="all" selected><?php echo p__("appointmentpro", 'All'); ?></option>
+                                                            <?php foreach ($locations as $lkey => $location) { ?>
+                                                                <option value="<?php echo $location->getLocationId(); ?>"><?php echo $location->getName(); ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select class="input-flat dt-search color-blue" name="provider_id" id="provider_id" data-dynatable-query="provider_id" disabled="disabled">
+                                                            <option value="all"><?php echo p__("appointmentpro", 'Select Provider'); ?></option>
+                                                            <option value="all" selected><?php echo p__("appointmentpro", 'All'); ?></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select class="input-flat dt-search color-blue" name="status" id="status" data-dynatable-query="status">
+                                                            <option value="all"><?php echo p__("appointmentpro", 'Select Status'); ?></option>
+                                                            <option value="all" selected><?php echo p__("appointmentpro", 'All'); ?></option>
+                                                            <?php foreach ($bookingStatus as $key => $value) { ?>
+                                                                <option value="<?php echo $key; ?>"><?php echo p__("appointmentpro", $value); ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <?php if ($type != 'today') : ?>
+                                                        <div class="col-md-1">
+                                                            <label for="from"><?php echo  p__("appointmentpro", "From"); ?></label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" id="from" name="from" class="input-flat dt-search" autocomplete="off" data-dynatable-query="from">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label for="to"><?php echo  p__("appointmentpro", "To"); ?></label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" id="to" name="to" class="input-flat dt-search" autocomplete="off" data-dynatable-query="to">
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <table id="dynamic-location" class="table content-white-bkg sb-pager">
+                                                        <thead>
+                                                            <tr class="border-grey">
+                                                                <th style="width: 5%"><?php echo  p__("appointmentpro", "ID"); ?></th>
+                                                                <th style="width: 40%"><?php echo  p__("appointmentpro", "Customer"); ?> / <?php echo  p__("appointmentpro", "Location"); ?> / <?php echo  p__("appointmentpro", "Service"); ?></th>
+                                                                <th style="width: 10%"><?php echo  p__("appointmentpro", "Date"); ?></th>
+                                                                <th style="width: 15%"><?php echo  p__("appointmentpro", "Slot"); ?></th>
+                                                                <th style="width: 15%"><?php echo  p__("appointmentpro", "Amount"); ?></th>
+                                                                <th style="width: 10%"><?php echo  p__("appointmentpro", "Status"); ?></th>
+                                                                <th style="width: 5%"><?php echo  p__("appointmentpro", "Action"); ?></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="connectedSortable"></tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Provider Modal -->
+<div id="changeProviderModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><?php echo p__("appointmentpro", "Change Provider"); ?></h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Single Provider Selection (for non-break time services) -->
+                <div id="single-provider-section">
+                    <div class="form-group">
+                        <label for="provider-select"><?php echo p__("appointmentpro", "Select New Provider"); ?></label>
+                        <select id="provider-select" class="form-control">
+                            <option value=""><?php echo p__("appointmentpro", "Loading..."); ?></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dual Provider Selection (for break time services) -->
+                <div id="dual-provider-section" style="display: none;">
+                    <div class="alert alert-info">
+                        <i class="fa fa-info-circle"></i>
+                        <strong><?php echo p__("appointmentpro", "Break Time Service"); ?></strong>
+                        <p><?php echo p__("appointmentpro", "This service has a break period. You can assign different providers for before and after the break."); ?></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="provider-before-break">
+                            <i class="fa fa-user"></i> <?php echo p__("appointmentpro", "Provider 1 (Before & During Break)"); ?>
+                        </label>
+                        <select id="provider-before-break" class="form-control">
+                            <option value=""><?php echo p__("appointmentpro", "Loading..."); ?></option>
+                        </select>
+                        <small class="text-muted"><?php echo p__("appointmentpro", "Handles initial work and break period"); ?></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="provider-after-break">
+                            <i class="fa fa-user"></i> <?php echo p__("appointmentpro", "Provider 2 (After Break)"); ?>
+                        </label>
+                        <select id="provider-after-break" class="form-control">
+                            <option value=""><?php echo p__("appointmentpro", "Loading..."); ?></option>
+                        </select>
+                        <small class="text-muted"><?php echo p__("appointmentpro", "Handles work after break period"); ?></small>
+                    </div>
+
+                    <div id="provider-2-availability" class="alert" style="display: none;">
+                        <span id="provider-2-message"></span>
+                    </div>
+                </div>
+
+                <div id="availability-status" class="alert" style="display: none;">
+                    <span id="availability-message"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <?php echo p__("appointmentpro", "Cancel"); ?>
+                </button>
+                <button type="button" class="btn btn-primary" id="confirm-provider-change" disabled>
+                    <?php echo p__("appointmentpro", "Change Provider"); ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="/app/sae/design/desktop/flat/js/dynatable/jquery.dynatable.css" media="screen" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/app/sae/design/desktop/flat/js/dynatable/jquery.dynatable.js"></script>
+
+
+<script type="text/javascript">
+    var uriParams = {};
+    let rowTemplate = `
+    <tr class="dynarow booking_row" id="element_(ID)">
+        <td>#(ID)</td>
+        <td>
+            <p><b>(CUSTOMER) ((MOBILE))</b></p>
+            <p>(LOCATIONNAME) / (SERVICENAME)</p>
+        </td>
+        <td>(BOOKINGDATE)</td>
+        <td>(STARTTIME) - (ENDTIME)</td> 
+        <td>(AMOUNT)<br><span class="small (PAYMENTTEXTCOLOR)">((PAYMENTSTATUS) / (PAYMENTMODE))<span></td>
+        <td class="(TEXTCOLOR)">(BOOKINGSTATUS)</td>
+        <td> 
+        <ul class="nav nav-pills">
+              <li class="dropdown" id="asdf">
+                <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" data-target="#" href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                    <li><a class="edit-location" href="/appointmentpro/booking/view/type/<?php echo $type; ?>/id/(ID)">
+                         <i class="fa fa-eye" aria-hidden="true"></i>
+                            <?php echo p__("appointmentpro", "View"); ?>
+                        </a>
+                    </li>
+                    <li class="(CHANGEPROVIDERHIDE)"><a class="change-provider-btn" href="#" data-appointment-id="(ID)">
+                         <i class="fa fa-user-md" aria-hidden="true"></i>
+                         <?php echo p__("appointmentpro", "Change Provider"); ?>
+                        </a>
+                    </li>
+                    <li class="(ISCOMPLETEDHIDE) (ISREJECTEDHIDE) (ISACCEPTEDHIDE)"><a class="booking-status" href="/appointmentpro/booking/update-status/bstatus/3/id/(ID)">
+                         <i class="fa fa-check" aria-hidden="true"></i>
+                        <?php echo p__("appointmentpro", "Accept"); ?>
+                        </a>
+                    </li>   
+                    <li class="(ISCOMPLETEDHIDE) (ISREJECTEDHIDE) (ISACCEPTEDHIDE)"><a class="booking-status" href="/appointmentpro/booking/update-status/bstatus/8/id/(ID)">
+                         <i class="fa fa-times" aria-hidden="true"></i>
+                         <?php echo p__("appointmentpro", "Reject"); ?>
+                        </a>
+                    </li>   
+                    <li class="(ISCOMPLETEDHIDE) (ISREJECTEDHIDE) (ISACPJECTACTIONHIDE)"><a class="booking-status" href="/appointmentpro/booking/update-status/bstatus/4/id/(ID)">
+                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                         <?php echo p__("appointmentpro", "Mark As Completed"); ?>
+                         
+                        </a>
+                    </li>   
+                    <li class="(ISPAYMENTHIDE) (ISREJECTEDHIDE)"><a class="booking-status" href="/appointmentpro/booking/update-payment-status/pstatus/2/id/(ID)">
+                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                         <?php echo p__("appointmentpro", "Mark As Paid"); ?>
+                         
+                        </a>
+                    </li>                 
+                    <li class="divider (ISCOMPLETEDHIDE)"></li>
+                    <li class="(ISCOMPLETEDHIDE) (ISREJECTEDHIDE) (ISACPJECTACTIONHIDE)"><a class="booking-status" href="/appointmentpro/booking/update-status/bstatus/6/id/(ID)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <?php echo p__("appointmentpro", "Cancel"); ?>
+                       </a>
+                   </li>
+                    <li class="(ISCOMPLETEDHIDE)"><a class="booking-status" href="/appointmentpro/booking/update-status/bstatus/delete/id/(ID)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <?php echo p__("appointmentpro", "Delete"); ?>
+                       </a>
+                   </li>
+                </ul>
+              </li>
+            </ul>
+         </td>
+       
+    </tr>`;
+
+    function rowWriter(rowIndex, record, columns, cellWriter) {
+        return rowTemplate
+            .replace(/\(ID\)/g, record.appointment_id)
+            .replace(/\(CUSTOMER\)/g, record.customer)
+            .replace(/\(BOOKINGDATE\)/g, record.booking_date)
+            .replace(/\(STARTTIME\)/g, record.start_time)
+            .replace(/\(ENDTIME\)/g, record.end_time)
+            .replace(/\(AMOUNT\)/g, record.amount_with_currency)
+            .replace(/\(BOOKINGSTATUS\)/g, record.status)
+            .replace(/\(PAYMENTSTATUS\)/g, record.payment_status)
+            .replace(/\(TEXTCOLOR\)/g, record.text_color)
+            .replace(/\(PAYMENTTEXTCOLOR\)/g, record.payment_text_color)
+            .replace(/\(SERVICENAME\)/g, record.service_name)
+            .replace(/\(LOCATIONNAME\)/g, record.location_name)
+            .replace(/\(ISCOMPLETEDHIDE\)/g, record.is_completed_hide)
+            .replace(/\(ISREJECTEDHIDE\)/g, record.is_rejected_hide)
+            .replace(/\(ISPAYMENTHIDE\)/g, record.is_payment_hide)
+            .replace(/\(ISACCEPTEDHIDE\)/g, record.is_accepted_hide)
+            .replace(/\(PAYMENTMODE\)/g, record.payment_type)
+            .replace(/\(ISACPJECTACTIONHIDE\)/g, record.is_rejected_accepted_action)
+            .replace(/\(CHANGEPROVIDERHIDE\)/g, record.change_provider_hide)
+            .replace(/\(MOBILE\)/g, record.mobile_number);
+    }
+    $.dynatableSetup({
+        table: {
+            defaultColumnIdStyle: 'noStyle'
+        },
+        features: {
+            paginate: true,
+            sort: false,
+            pushState: true,
+            search: false,
+            recordCount: false,
+            perPageSelect: false,
+        },
+    });
+
+    let tableCustomers = $('#dynamic-location');
+
+    tableCustomers.bind('dynatable:preinit', function(e, dynatable) {
+        dynatable.utility.textTransform.noStyle = function(text) {
+            return text;
+        };
+
+    });
+
+    tableCustomers.bind('dynatable:afterProcess', function(e, data) {
+        console.log("dynatable", data);
+        uriParams = data.queries;
+
+        if ($('#location_id').val() === 'all') {
+            $('#provider_id').attr("disabled", true);
+        } else {
+            if (!isNaN(data.queries.location_id)) {
+                $('#provider_id').removeAttr("disabled");
+            } else {
+                $('#provider_id').attr("disabled", true);
+            }
+        }
+
+    });
+
+    tableCustomers.bind('dynatable:init', function(e, dynatable) {
+        dynatable.queries.functions['to'] = function(r, queryValue) {
+            return queryValue;
+        };
+        dynatable.queries.functions['from'] = function(r, queryValue) {
+            return queryValue;
+        };
+
+    });
+
+    tableCustomers.bind('dynatable:push', function(e, dynatable) {
+        uriParams = dynatable.queries;
+    });
+
+    // And on the table
+    tableCustomers.dynatable({
+        dataset: {
+            ajax: true,
+            ajaxUrl: '/appointmentpro/booking/find-all/type/<?php echo $type; ?>/service_type/services',
+            ajaxOnLoad: true,
+            records: [],
+            perPageDefault: 25
+        },
+        inputs: {
+            processingText: '<?php echo __jss("Loading ...") ?>',
+            searchPlaceholder: '<?php echo __jss("Search customer ...") ?>',
+            recordCountText: '<?php echo __jss("Showing") ?> ',
+            filteredFrom: ' (<?php echo __jss("filtered from #TOTAL# total records") ?>)',
+            recordText: '<?php echo __jss("record") ?>',
+            recordTextPlural: '<?php echo __jss("records") ?>',
+            textOf: '<?php echo __jss("of") ?>',
+            textTo: '<?php echo __jss("to") ?>',
+            queries: $('.dt-search')
+        },
+        writers: {
+            _rowWriter: rowWriter
+        }
+    });
+
+    $(document).ready(function() {
+        if ($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']) {
+            $.datepicker.setDefaults($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']);
+        } else {
+            $.datepicker.setDefaults($.datepicker.regional['en']);
+        }
+        $("#from").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            dateFormat: 'yy-mm-dd',
+            onClose: function(selectedDate) {
+                $("#to").datepicker("option", "minDate", selectedDate);
+            }
+        });
+
+        $("#to").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            dateFormat: 'yy-mm-dd',
+            onClose: function(selectedDate) {
+                $("#from").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+
+        var type = "<?php echo $type; ?>";
+        if (type == "upcoming") {
+            setTimeout(function() {
+                $("#from").datepicker("option", "minDate", new Date());
+            }, 1500)
+        }
+    });
+
+
+    $(document).ready(function() {
+
+        $("#location_id").change(function() {
+            $('#provider_id').empty();
+            $('#provider_id').append('<option value="all" selected="selected"><?php echo p__("appointmentpro", "Select provider"); ?></option>');
+            $("#provider_id").val("all").change();
+
+
+            if (!isNaN($(this).val())) {
+                $.ajax({
+                    type: "GET",
+                    url: '/appointmentpro/booking/get-providers/location_id/' + $(this).val(),
+                    dataType: "json",
+                    success: function(data) {
+                        for (x in data.providers) {
+                            $('#provider_id').append('<option value="' + data.providers[x].provider_id + '">' + data.providers[x].name + '</option>');
+                        }
+                    },
+                    error: function() {
+                        feature_form_error("Something went wrong!");
+                        $('#provider_id').empty();
+                    }
+                });
+            }
+
+        });
+    });
+
+
+    $(document).off("click", ".booking-status");
+    $(document).on("click", ".booking-status", function(e) {
+        e.preventDefault();
+        let deleteHref = $(this).attr("href");
+        swal({
+            title: "<?php echo P__("appointmentpro", "Confirmation") ?>",
+            text: "<?php echo P__("appointmentpro", "Are you sure you want to change status?") ?>",
+            showCancelButton: true,
+            confirmButtonColor: '#0099C7',
+            confirmButtonText: "<?php echo P__("appointmentpro", "Yes!") ?>",
+            cancelButtonText: "<?php echo P__("appointmentpro", "No") ?>",
+            buttons: true
+        }, function(value) {
+            if (!value) {
+                return false;
+            }
+
+            formget(deleteHref, {},
+                function(data) {
+                    feature_form_success(data.message);
+                    // Reload only on success and when done!
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1500)
+                },
+                function(data) {
+                    feature_form_error(JSON.parse(data.responseText).message);
+                },
+                false);
+        });
+    });
+
+    // Change Provider functionality
+    var currentAppointmentId = null;
+    var availableProviders = [];
+    var hasBreakTime = false;
+    var currentProvider2Id = null;
+
+    // Handle change provider button click
+    $(document).off("click", ".change-provider-btn");
+    $(document).on("click", ".change-provider-btn", function(e) {
+        e.preventDefault();
+        currentAppointmentId = $(this).data('appointment-id');
+
+        // Show loading alert (old SweetAlert syntax)
+        swal({
+            title: '<?php echo p__("appointmentpro", "Loading..."); ?>',
+            text: '<?php echo p__("appointmentpro", "Please wait while we load available providers"); ?>',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false
+        });
+
+        loadAvailableProviders();
+    });
+
+    // Handle provider selection change for single provider
+    $('#provider-select').change(function() {
+        var selectedProviderId = $(this).val();
+        if (selectedProviderId) {
+            validateProviderAvailability(selectedProviderId);
+        } else {
+            hideAvailabilityStatus();
+            $('#confirm-provider-change').prop('disabled', true);
+        }
+    });
+
+    // Handle provider 1 (before break) selection change
+    $('#provider-before-break').change(function() {
+        validateDualProviders();
+    });
+
+    // Handle provider 2 (after break) selection change
+    $('#provider-after-break').change(function() {
+        validateDualProviders();
+    });
+
+    // Handle provider change confirmation
+    $('#confirm-provider-change').click(function() {
+        if (hasBreakTime) {
+            var provider1Id = $('#provider-before-break').val();
+            var provider2Id = $('#provider-after-break').val();
+            if (provider1Id && provider2Id) {
+                changeDualProviders(provider1Id, provider2Id);
+            }
+        } else {
+            var selectedProviderId = $('#provider-select').val();
+            if (selectedProviderId) {
+                changeProvider(selectedProviderId);
+            }
+        }
+    });
+
+    function loadAvailableProviders() {
+        $.ajax({
+            type: 'GET',
+            url: '/appointmentpro/booking/get-available-providers',
+            data: {
+                appointment_id: currentAppointmentId
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    availableProviders = response.providers;
+                    hasBreakTime = response.has_break_time || false;
+                    currentProvider2Id = response.current_provider_2_id || null;
+
+                    if (hasBreakTime) {
+                        // Show dual provider section
+                        $('#single-provider-section').hide();
+                        $('#dual-provider-section').show();
+                        populateDualProviderSelects(response.providers, response.current_provider_id, currentProvider2Id);
+                    } else {
+                        // Show single provider section
+                        $('#single-provider-section').show();
+                        $('#dual-provider-section').hide();
+                        populateProviderSelect(response.providers, response.current_provider_id);
+                    }
+
+                    // Close the loading alert and open modal
+                    swal.close();
+                    $('#changeProviderModal').modal('show');
+                } else {
+                    // Close loader and show error
+                    swal({
+                        title: '<?php echo p__("appointmentpro", "Error"); ?>',
+                        text: 'Failed to load providers: ' + response.message,
+                        type: 'error',
+                        confirmButtonText: '<?php echo p__("appointmentpro", "OK"); ?>'
+                    });
+                }
+            },
+            error: function() {
+                // Close loader and show error
+                swal({
+                    title: '<?php echo p__("appointmentpro", "Error"); ?>',
+                    text: '<?php echo p__("appointmentpro", "Failed to load providers. Please try again."); ?>',
+                    type: 'error',
+                    confirmButtonText: '<?php echo p__("appointmentpro", "OK"); ?>'
+                });
+            }
+        });
+    }
+
+    function populateProviderSelect(providers, currentProviderId) {
+        var select = $('#provider-select');
+        select.empty();
+
+        // Debug: Check what value is being passed
+        console.log('Single Provider - Current Provider ID:', currentProviderId, 'Type:', typeof currentProviderId);
+
+        // Add empty option only if no provider is currently selected
+        if (!currentProviderId || currentProviderId == '' || currentProviderId == null) {
+            select.append('<option value=""><?php echo p__("appointmentpro", "Select Provider"); ?></option>');
+        }
+
+        $.each(providers, function(index, provider) {
+            console.log('Checking provider:', provider.provider_id, 'Name:', provider.name, 'Type:', typeof provider.provider_id, 'against currentProviderId:', currentProviderId);
+
+            // Add all providers to the dropdown
+            var option = $('<option></option>')
+                .val(provider.provider_id)
+                .text(provider.name);
+
+            // Mark the current provider as selected
+            if (currentProviderId && String(provider.provider_id) == String(currentProviderId)) {
+                console.log('Matched! Setting as selected:', provider.name);
+                option.prop('selected', true);
+            }
+
+            select.append(option);
+        });
+    }
+
+    function validateProviderAvailability(providerId) {
+        showAvailabilityStatus('info', '<?php echo p__("appointmentpro", "Checking availability..."); ?>');
+        $('#confirm-provider-change').prop('disabled', true);
+
+        $.ajax({
+            type: 'GET',
+            url: '/appointmentpro/booking/validate-provider-availability',
+            data: {
+                appointment_id: currentAppointmentId,
+                provider_id: providerId
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    showAvailabilityStatus('success', response.message);
+                    $('#confirm-provider-change').prop('disabled', false);
+                } else {
+                    showAvailabilityStatus('danger', response.message);
+                    $('#confirm-provider-change').prop('disabled', true);
+                }
+            },
+            error: function() {
+                showAvailabilityStatus('danger', '<?php echo p__("appointmentpro", "Failed to check availability. Please try again."); ?>');
+                $('#confirm-provider-change').prop('disabled', true);
+            }
+        });
+    }
+
+    function changeProvider(providerId) {
+        var button = $('#confirm-provider-change');
+        var originalText = button.text();
+        button.text('<?php echo p__("appointmentpro", "Changing..."); ?>').prop('disabled', true);
+
+        $.ajax({
+            type: 'POST',
+            url: '/appointmentpro/booking/change-provider',
+            data: {
+                appointment_id: currentAppointmentId,
+                provider_id: providerId
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Show success message
+                    swal({
+                        title: "<?php echo p__("appointmentpro", "Success"); ?>",
+                        text: response.message,
+                        type: "success",
+                        confirmButtonText: "<?php echo p__("appointmentpro", "OK"); ?>"
+                    }, function() {
+                        // Reload page to show updated provider
+                        location.reload();
+                    });
+                } else {
+                    showError(response.message);
+                    button.text(originalText).prop('disabled', false);
+                }
+            },
+            error: function() {
+                showError('<?php echo p__("appointmentpro", "Failed to change provider. Please try again."); ?>');
+                button.text(originalText).prop('disabled', false);
+            }
+        });
+    }
+
+    function populateDualProviderSelects(providers, currentProviderId, currentProvider2Id) {
+        var select1 = $('#provider-before-break');
+        var select2 = $('#provider-after-break');
+
+        // Debug: Check what values are being passed
+        console.log('Current Provider ID:', currentProviderId, 'Type:', typeof currentProviderId);
+        console.log('Current Provider 2 ID:', currentProvider2Id, 'Type:', typeof currentProvider2Id);
+
+        select1.empty();
+        select2.empty();
+
+        // Add empty option only if no provider is currently selected
+        if (!currentProviderId || currentProviderId == '' || currentProviderId == null) {
+            select1.append('<option value=""><?php echo p__("appointmentpro", "Select Provider 1"); ?></option>');
+        }
+        if (!currentProvider2Id || currentProvider2Id == '' || currentProvider2Id == null) {
+            select2.append('<option value=""><?php echo p__("appointmentpro", "Select Provider 2"); ?></option>');
+        }
+
+        $.each(providers, function(index, provider) {
+            console.log('Checking provider:', provider.provider_id, 'Type:', typeof provider.provider_id, 'against currentProviderId:', currentProviderId);
+
+            // Provider 1 dropdown - select current provider (provider 1)
+            var option1 = $('<option></option>')
+                .val(provider.provider_id)
+                .text(provider.name);
+            // Select in dropdown 1 if it matches the FIRST provider (using String comparison for type safety)
+            if (currentProviderId && String(provider.provider_id) == String(currentProviderId)) {
+                console.log('Matched! Setting provider 1 as selected:', provider.name);
+                option1.prop('selected', true);
+            }
+            select1.append(option1);
+
+            // Provider 2 dropdown - select second provider if set
+            var option2 = $('<option></option>')
+                .val(provider.provider_id)
+                .text(provider.name);
+            // Select in dropdown 2 if it matches the SECOND provider (using String comparison for type safety)
+            if (currentProvider2Id && String(provider.provider_id) == String(currentProvider2Id)) {
+                console.log('Matched! Setting provider 2 as selected:', provider.name);
+                option2.prop('selected', true);
+            }
+            select2.append(option2);
+        });
+    }
+
+    function validateDualProviders() {
+        var provider1Id = $('#provider-before-break').val();
+        var provider2Id = $('#provider-after-break').val();
+
+        $('#confirm-provider-change').prop('disabled', true);
+        hideAvailabilityStatus();
+        $('#provider-2-availability').hide();
+
+        if (!provider1Id || !provider2Id) {
+            return;
+        }
+
+        // Validate both providers' availability
+        showAvailabilityStatus('info', '<?php echo p__("appointmentpro", "Checking availability for both providers..."); ?>');
+
+        $.ajax({
+            type: 'GET',
+            url: '/appointmentpro/booking/validate-dual-provider-availability',
+            data: {
+                appointment_id: currentAppointmentId,
+                provider_1_id: provider1Id,
+                provider_2_id: provider2Id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    showAvailabilityStatus('success', response.message);
+                    $('#confirm-provider-change').prop('disabled', false);
+                } else {
+                    showAvailabilityStatus('danger', response.message);
+                }
+            },
+            error: function() {
+                showAvailabilityStatus('danger', '<?php echo p__("appointmentpro", "Failed to check availability. Please try again."); ?>');
+            }
+        });
+    }
+
+    function changeDualProviders(provider1Id, provider2Id) {
+        var button = $('#confirm-provider-change');
+        var originalText = button.text();
+        button.text('<?php echo p__("appointmentpro", "Changing..."); ?>').prop('disabled', true);
+
+        $.ajax({
+            type: 'POST',
+            url: '/appointmentpro/booking/change-provider',
+            data: {
+                appointment_id: currentAppointmentId,
+                provider_id: provider1Id,
+                provider_2_id: provider2Id,
+                has_break_time: true
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    swal({
+                        title: "<?php echo p__("appointmentpro", "Success"); ?>",
+                        text: response.message,
+                        type: "success",
+                        confirmButtonText: "<?php echo p__("appointmentpro", "OK"); ?>"
+                    }, function() {
+                        location.reload();
+                    });
+                } else {
+                    showError(response.message);
+                    button.text(originalText).prop('disabled', false);
+                }
+            },
+            error: function() {
+                showError('<?php echo p__("appointmentpro", "Failed to change providers. Please try again."); ?>');
+                button.text(originalText).prop('disabled', false);
+            }
+        });
+    }
+
+    function showAvailabilityStatus(type, message) {
+        var statusDiv = $('#availability-status');
+        var messageSpan = $('#availability-message');
+
+        statusDiv.removeClass('alert-info alert-success alert-danger alert-warning')
+            .addClass('alert-' + type)
+            .show();
+        messageSpan.text(message);
+    }
+
+    function hideAvailabilityStatus() {
+        $('#availability-status').hide();
+    }
+
+    function showError(message) {
+        swal({
+            title: "<?php echo p__("appointmentpro", "Error"); ?>",
+            text: message,
+            type: "error",
+            confirmButtonText: "<?php echo p__("appointmentpro", "OK"); ?>"
+        });
+    }
+</script>
+<style type="text/css">
+    .booking_row>td {
+        vertical-align: middle !important;
+    }
+
+    .booking_row p {
+        margin: 0 0 0px;
+    }
+
+    #dynamic-location {
+        margin-top: 10px;
+        overflow: auto !important;
+    }
+
+    .dropdown-menu {
+        margin: 0px -140px 0px;
+    }
+</style>

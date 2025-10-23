@@ -1,0 +1,54 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-profile">
+
+    <ion-nav-title>{{ ::"My Profile" | translate:"appointmentpro" }}</ion-nav-title>
+
+    <ion-nav-buttons side="secondary">
+      <button class="button button-clear header-item"
+              ui-sref="appointmentpro-account({value_id: value_id})">
+            <i class="icon ion-android-contact"></i>
+      </button>
+    </ion-nav-buttons>
+ 
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+      <div class="loader"
+           ng-show="is_loading">
+          <ion-spinner icon="android"
+                       class="spinner-custom"></ion-spinner>
+      </div>
+
+ 	<div class="list" ng-show="!is_loading">
+
+	  <label class="item item-custom item-input item-stacked-label">
+	    <span class="input-label">{{ ::"Name" | translate:"appointmentpro" }} *</span>
+	    <input type="text" ng-model="profile.name" ng-init="profile.name === ''" ng-value="">
+	  </label>
+
+	  <label class="item item-custom item-input item-stacked-label">
+	    <span class="input-label">{{ ::"Mobile Number" | translate:"appointmentpro" }} *</span>
+	    <input type="text" ng-model="profile.mobile_number" ng-init="profile.mobile_number === ''" ng-value="">
+	  </label>
+
+	  <label class="item item-custom item-input item-stacked-label">
+	    <span class="input-label">{{ ::"description" | translate:"appointmentpro" }} *</span>
+	    <input type="text" ng-model="profile.description" ng-init="profile.description === ''" ng-value="">
+	  </label>
+
+	   <div class="item item-custom remove-border">
+            <button ng-click="profileSave()" ng-disabled="((profile.name === '' || profile.mobile_number === '' || profile.description === '' ) ? true : false)" class="button button-full button-positive-custom">
+                {{ ::"Save" | translate:"claims" }}
+            </button>            
+        </div> 
+
+	</div>
+
+
+
+ </ion-content>
+
+</ion-view>

@@ -1,0 +1,231 @@
+<ion-view sb-page-background class="appointmentpro appointmentpro-payment">
+  <ion-nav-title>{{ ::"Payment" | translate:"appointmentpro" }}</ion-nav-title>
+
+  <ion-content
+    class="has-header"
+    id="item-content"
+    scrollbar-y="false"
+    overflow-scroll="false"
+    delegate-handle="mainScroll"
+  >
+    <div class="loader" ng-show="is_loading">
+      <ion-spinner icon="android" class="spinner-custom"></ion-spinner>
+    </div>
+
+    <div
+      class="list"
+      ng-class="{'card' : settings.list_design}"
+      ng-show="!is_loading"
+      ng-if="!settings.price_hide"
+    >
+      <div class="item item-divider item-divider-custom remove-border">
+        {{ ::"Summary" | translate:"appointmentpro" }}
+      </div>
+      <div class="item item-custom remove-border">
+        <b
+          >{{ ::"Total Amount" | translate:"appointmentpro" }}:
+          <span class="pull-right">
+            {{cart.details.total_amount_with_currency}}
+          </span></b
+        >
+      </div>
+    </div>
+
+    <div
+      class="list"
+      ng-class="{'card' : settings.list_design}"
+      ng-show="!is_loading"
+    >
+      <div class="item item-divider item-divider-custom remove-border">
+        {{ ::"Choose a payment option" | translate:"appointmentpro" }}
+      </div>
+
+      <div
+        class="item item-custom remove-border"
+        ng-repeat="(key, method) in payout.gateways"
+        ng-if="payout.gateways.length > 0"
+      >
+        <ion-radio
+          ng-model="cart.payment_method"
+          ng-value="method.id"
+          class="item item-custom radio-custom"
+          ng-click="selectPaymentMethod(method)"
+        >
+          <h2>{{method.lable_name}}</h2>
+          <p>{{method.shot_description}}</p>
+          <p
+            ng-if="method.gateway_code == 'banktransfer'"
+            ng-show="method.gateway_code == gateway_code"
+            style="white-space: normal"
+            sb-html="method.instructions"
+          ></p>
+        </ion-radio>
+
+        <div
+          id="appointmentpro_card_element"
+          class="item item-custom"
+          ng-hide="gateway_code != 'stripe'"
+          ng-if="method.gateway_code == 'stripe'"
+        ></div>
+        <div
+          id="appointmentpro_card_errors_parent"
+          ng-if="method.gateway_code == 'stripe'"
+          ng-hide="gateway_code != 'stripe'"
+          class="item item-custom remove-border ng-hide"
+        >
+          <span
+            style="font-size: 0.9em; white-space: normal"
+            id="appointmentpro_card_errors"
+            class="assertive assertive-custom"
+          ></span>
+        </div>
+        <button
+          ng-click="payStripeNow()"
+          ng-if="method.gateway_code == 'stripe'"
+          ng-show="method.gateway_code == gateway_code"
+          id="appointmentpro_save_element"
+          class="button button-full button-positive button-positive-custom"
+        >
+          {{ ::"Continue with" | translate:"appointmentpro" }}
+          {{method.lable_name}}
+        </button>
+
+        <button
+          class="button button-full button-positive-custom remove-border"
+          ng-click="placeOrder()"
+          ng-show="method.gateway_code == gateway_code"
+          ng-if="gateway_code != 'stripe' && method.gateway_code != 'nmi'"
+        >
+          {{ ::"Continue with" | translate:"appointmentpro" }}
+          {{method.lable_name}}
+        </button>
+
+        <!-- nmi form -->
+        <form
+          id="nmi-form"
+          ng-if="method.gateway_code == 'nmi'"
+          ng-show="method.gateway_code == gateway_code"
+        >
+          <div class="list">
+            <!-- Adds Processing fees on  -->
+            <div class="item item-text-wrap">
+              <table style="width: 100%; border-collapse: collapse">
+                <tr>
+                  <td
+                    style="
+                      font-weight: bold;
+                      padding: 8px;
+                      border: 1px solid #ddd;
+                    "
+                  >
+                    {{ ::"Total Amount" | translate:"appointmentpro" }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      padding: 8px;
+                      border: 1px solid #ddd;
+                    "
+                  >
+                    {{ cart.details.total_amount_with_currency || 0 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      font-weight: bold;
+                      padding: 8px;
+                      border: 1px solid #ddd;
+                    "
+                  >
+                    {{ ::"Processing Fee" | translate:"appointmentpro" }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      padding: 8px;
+                      border: 1px solid #ddd;
+                    "
+                  >
+                    {{ ((cart.details.total_amount || 0) * method.processing_fee
+                    / 100) }} {{ cart.details.currency }}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      font-weight: bold;
+                      padding: 8px;
+                      border: 1px solid #ddd;
+                    "
+                  >
+                    {{ ::"Total Amount With Processing fee" |
+                    translate:"appointmentpro" }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      padding: 8px;
+                      border: 1px solid #ddd;
+                    "
+                  >
+                    {{ ((cart.details.total_amount || 0) +
+                    ((cart.details.total_amount || 0) * method.processing_fee /
+                    100)) }} {{ cart.details.currency }}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <label class="item item-input">
+              <span class="input-label">
+                {{ ::"Card Number" | translate:"appointmentpro" }}
+              </span>
+              <input
+                type="text"
+                ng-model="nmi.card_number"
+                placeholder="Card Number"
+                required
+              />
+            </label>
+            <label class="item item-input">
+              <span class="input-label">
+                {{ ::"Expiry Date" | translate:"appointmentpro" }}
+              </span>
+              <input type="text" ng-model="nmi.expiry_date" required />
+            </label>
+            <label class="item item-input">
+              <span class="input-label">
+                {{ ::"CVV" | translate:"appointmentpro" }}
+              </span>
+              <input
+                type="text"
+                ng-model="nmi.card_cvc"
+                placeholder="CVV"
+                required
+              />
+            </label>
+          </div>
+        </form>
+        <button
+          class="button button-full button-positive-custom remove-border"
+          ng-click="payNmiNow()"
+          ng-show="method.gateway_code == gateway_code"
+          ng-if="method.gateway_code == 'nmi'"
+        >
+          {{ ::"Continue with" | translate:"appointmentpro" }}
+          {{method.lable_name}}
+        </button>
+      </div>
+
+      <div ng-if="payout.gateways.length == 0">
+        <div class="item item--custom remove-border text-center">
+          <p>
+            {{ ::"No payment method available" | translate:"appointmentpro" }}
+          </p>
+        </div>
+      </div>
+
+      <div sb-html="responsePayfast"></div>
+    </div>
+  </ion-content>
+</ion-view>

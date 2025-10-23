@@ -1,0 +1,38 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-category">
+
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+ 
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+      <div class="loader"
+           ng-show="is_loading">
+          <ion-spinner icon="android"
+                       class="spinner-custom"></ion-spinner>
+      </div>      
+
+      <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading" ng-repeat="category in payout.categories">
+         <a ui-sref="appointmentpro-service({value_id: value_id, category_id: category.main_category_id})" class="item item-custom item-avatar remove-border item-icon-right" >
+          <img class="category-image-grid" ng-src="{{ appointmentproImage(category.category_image) }}">
+          <h2>{{category.category_name}}</h2>
+          <p>{{category.total_service}} {{ "Types" | translate:"appointmentpro" }} </p>
+          <i class="icon ion-chevron-right"></i>
+        </a>
+      </div>
+    
+      <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading" ng-if="payout.categories.length == 0">
+       <a class="item item-custom remove-border">
+          <div class="row text-center">
+              <div class="col text-center ">
+                <p> {{ "No category available" | translate:"appointmentpro" }}!</p>
+              </div>
+            </div>
+        </a>
+       </div>
+
+  </ion-content>
+</ion-view>

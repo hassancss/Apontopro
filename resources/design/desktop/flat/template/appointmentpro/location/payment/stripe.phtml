@@ -1,0 +1,94 @@
+<?php
+$gatewayModel = (new Appointmentpro_Model_Gateways())
+                                ->find(['gateway_code' => 'stripe', 'value_id' => $value_id, 'location_id' => $location->getLocationId() ]);
+?>
+
+<form role="form" id="stripeform" class="setup-from" action="<?php echo $this->getUrl('appointmentpro/gateways/addstripe'); ?>" method="post" enctype="multipart/form-data">		        					        
+       <div class="form-group">                     
+        <div class="col-md-8">    
+          <input type="hidden" name="id" value="<?php echo $gatewayModel->getId(); ?>"> 
+          <input type="hidden" name="gateway_code" value="stripe">
+          <input type="hidden" name="value_id" value="<?php echo $value_id; ?>">
+          <input type="hidden" name="location_id" value="<?php echo $location->getLocationId(); ?>">
+
+           <div class="form-group">
+            <div class="col-sm-4">
+                <label for="lable_name">
+                <?php echo p__("appointmentpro", 'Label Name'); ?><span>*</span></label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="required input-flat" name="lable_name" id="lable_name" value="<?php echo $gatewayModel->getLableName(); ?>" />
+            </div>
+          </div> 
+
+           <div class="form-group">
+            <div class="col-sm-4">
+                <label for="shot_description">
+                    <?php echo p__("appointmentpro", 'Short Description'); ?><span>*</span></label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="required input-flat" name="shot_description" id="shot_description" value="<?php echo $gatewayModel->getShotDescription(); ?>"  />
+            </div>
+          </div>    
+
+           <div class="form-group">
+            <div class="col-sm-4">
+                <label for="publishable_key">
+                    <?php echo p__("appointmentpro", 'Publishable key'); ?><span>*</span></label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" value="<?php echo $gatewayModel->getPublishableKey(); ?>"  class="required input-flat" name="publishable_key" id="publishable_key" />
+            </div>
+          </div>   
+
+           <div class="form-group">
+            <div class="col-sm-4">
+                <label for="secret_key">
+                    <?php echo p__("appointmentpro", 'Secret Key'); ?><span>*</span></label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" value="<?php echo $gatewayModel->getSecretKey(); ?>" class="required input-flat" name="secret_key" id="secret_key" />
+            </div>
+          </div>     
+
+            <div class="form-group">
+              <div class="col-sm-4">
+              </div>
+                <div class="col-sm-8">
+                    <label  class="checkbox-inline">
+                        <input type="checkbox" id="status" name="status" value="1" class="color-blue checkbox sb-tour" <?php echo $gatewayModel->getStatus() == 'active' ? "checked": ""; ?> />
+                       <?php echo p__("appointmentpro", 'Active'); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+				    <div class="col-md-12">
+				     <button class="color-blue btn pull-right" type="submit"><?php echo p__("appointmentpro", "Save"); ?></button>
+				    </div>
+				</div>
+         </div>
+     </div>
+  </form>
+
+
+<script type="text/javascript">
+   $('#stripeform').submit(function(e) {
+          e.preventDefault();
+          var formData = new FormData(this);    
+        if($(this).valid()) {
+            reload(this, this.action, formData, function(data) {  
+                if(data.success) {
+                   feature_form_success(data.message);
+                   setTimeout(function () {
+                       location.reload();
+                    }, 1500)
+                } 
+
+                if(data.error) {
+                  feature_form_error(data.message);
+                } 
+            });
+        }
+        return false;
+    }); 
+</script>

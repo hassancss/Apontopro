@@ -1,0 +1,63 @@
+<?php
+$value_id = (new Appointmentpro_Model_Appointmentpro())->getCurrentValueId();
+$location = $this->getLocation();
+
+/*Payment Gateways Info*/
+$gatewaysModel = new Appointmentpro_Model_Gateways();
+$defailtGatewaysList = $gatewaysModel->getDefaults(); ?>
+<div class="container-fluid appointmentpro">
+	<div class="container-fluid">
+		<div id="wrapper" class="left-toggled">
+			<div class="right-toggled">
+				<div class="sidebars has-sidebar">
+					<?php include(dirname(__DIR__) . "/partials/menu.phtml"); ?>
+					<div class="subcontent third-main-panel">
+						<div class="row app-features">
+							<div class="responsive-part col-md-12">
+								<div class="page-content-wrapper form-horizontal">
+									<div class="content solo-page">
+										<h3 class="title-editor border-blue text-center">
+											<?php echo p__("appointmentpro", "%s - Payment Settings", $location->getName()); ?>
+											<a href="/appointmentpro/location/list" id="back" class="color-blue btn sb-tour pull-right">
+												<?php echo  p__("appointmentpro", "Back"); ?>
+											</a>
+										</h3>
+									</div>
+									<p class="pull-left">
+										*<?php echo  p__("appointmentpro", "Accept payment in own account"); ?>:
+										<span class="<?php echo $location->getIsAllowAcceptPayment() == 1 ?  "text-success" : "text-danger"; ?>">
+											<b><?php echo $location->getIsAllowAcceptPayment() == 1 ? p__("appointmentpro", "Enable") : p__("appointmentpro", "Disable"); ?></b>
+										</span>
+										<a href="/appointmentpro/location/edit/id/<?php echo $location->getLocationId(); ?>">(<?php echo  p__("appointmentpro", "change"); ?>)</a>
+									</p>
+									<?php foreach ($defailtGatewaysList as $key => $gateway):
+										if ($gateway['code'] != 'wallet') :
+									?>
+											<div class="content solo-page">
+												<h3 class="title-editor border-blue text-center">
+													<?php echo p__("appointmentpro", $gateway['name']); ?>
+												</h3>
+												<div class="subcontent content-color container-fluid">
+
+													<?php if ($gateway['code'] == 'cod'): include(dirname(__DIR__) . "/location/payment/cash.phtml");
+													endif; ?>
+													<?php if ($gateway['code'] == 'stripe'): include(dirname(__DIR__) . "/location/payment/stripe.phtml");
+													endif; ?>
+													<?php if ($gateway['code'] == 'paypal'): include(dirname(__DIR__) . "/location/payment/paypal.phtml");
+													endif; ?>
+													<?php if ($gateway['code'] == 'nmi'): include(dirname(__DIR__) . "/location/payment/nmi.phtml");
+													endif; ?>
+
+												</div>
+											</div>
+									<?php endif;;
+									endforeach ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,79 @@
+<div
+  class="list"
+  ng-show="!is_loading"
+  ng-if="settings.is_service_booking && is_logged_in"
+>
+  <a
+    class="item item-divider item-divider-custom remove-border"
+    style="padding: 10px 10px"
+  >
+    {{ ::"Appointments" | translate:"appointmentpro" }}
+  </a>
+
+  <a
+    class="item item-icon-left item-custom remove-border"
+    ui-sref="appointmentpro-booking({value_id: value_id, type: 'upcoming', service_type: 'services' })"
+  >
+    <i class="icon ion-android-time"></i>
+    {{ ::"Upcoming" | translate:"appointmentpro" }}
+  </a>
+
+  <a
+    class="item item-icon-left item-custom remove-border"
+    ui-sref="appointmentpro-booking({value_id: value_id, type: 'all', service_type: 'services'})"
+  >
+    <i class="icon ion-ios-list-outline"></i>
+    {{ ::"All" | translate:"appointmentpro" }}
+  </a>
+
+  <a
+    class="item item-icon-left item-custom remove-border"
+    ui-sref="appointmentpro-booking({value_id: value_id, type: 'history', service_type: 'services'})"
+  >
+    <i class="icon ion-clock"></i>
+    {{ ::"History" | translate:"appointmentpro" }}
+  </a>
+</div>
+
+<div
+  class="list"
+  ng-show="!is_loading"
+  ng-if="settings.is_class_booking && is_logged_in"
+>
+  <a class="item item-divider item-divider-custom remove-border">
+    {{ getLabelName('classes') }}
+  </a>
+
+  <a
+    class="item item-icon-left item-custom remove-border"
+    ui-sref="appointmentpro-booking({value_id: value_id, type: 'upcoming', service_type: 'classes' })"
+  >
+    <i class="icon ion-android-time"></i>
+    {{ ::"Upcoming" | translate:"appointmentpro" }}
+  </a>
+
+  <a
+    class="item item-icon-left item-custom remove-border"
+    ui-sref="appointmentpro-booking({value_id: value_id, type: 'all', service_type: 'classes'})"
+  >
+    <i class="icon ion-ios-list-outline"></i>
+    {{ ::"All" | translate:"appointmentpro" }}
+  </a>
+</div>
+
+<div class="list" ng-show="!is_loading && is_logged_in">
+  <a
+    class="item item-divider item-divider-custom remove-border"
+    style="padding: 10px 10px"
+  >
+    {{ ::"Settings" | translate:"appointmentpro" }}
+  </a>
+
+  <a
+    class="item item-icon-left item-custom remove-border"
+    ng-click="notificationSettings()"
+  >
+    <i class="icon ion-ios-bell-outline"></i>
+    {{ ::"Notification" | translate:"appointmentpro" }}
+  </a>
+</div>

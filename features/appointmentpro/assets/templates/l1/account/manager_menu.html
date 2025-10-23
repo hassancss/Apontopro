@@ -1,0 +1,119 @@
+<div class="list">
+   <a class="item item-divider item-divider-custom remove-border">
+        {{ ::"Account" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" ui-sref="appointmentpro-manager-profile({value_id: value_id })">
+      <i class="icon ion-person"></i> 
+      {{ ::"My Profile" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" ng-if="settings.providerInfo.user_role == 'manager'"  ui-sref="appointmentpro-manager-location({value_id: value_id })">
+      <i class="icon ion-location"></i> 
+      {{ ::"My Location" | translate:"appointmentpro" }}
+    </a>
+
+     <a class="item item-icon-left item-custom remove-border" ng-if="settings.providerInfo.user_role == 'manager'" ui-sref="appointmentpro-manager-customers({value_id: value_id })">
+      <i class="icon ion-person-stalker"></i> 
+      {{ ::"Customers" | translate:"appointmentpro" }}
+    </a>
+ 
+    <a class="item item-icon-left item-custom remove-border" ng-class="{ 'item-icon-right' : settings.providerInfo.is_active_google_calendar}" ng-click="activeGoogle()" ng-if="settings.client_id != null && settings.client_id != '' && settings.enable_google_calendar">
+      <i class="icon ion-social-google"></i> 
+      {{ ::"Google Calendar " | translate:"appointmentpro" }}
+      <p>{{ ::"Integrate with your Google Calendar" | translate:"appointmentpro" }}.</p>
+      <i class="icon ion-checkmark" ng-if="settings.providerInfo.is_active_google_calendar"></i>
+
+    </a>
+
+</div>
+
+<div class="list" ng-if="settings.is_service_booking">
+   <a class="item item-divider item-divider-custom remove-border">
+        {{ ::"Appointments" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" ui-sref="appointmentpro-manager-booking({value_id: value_id, service_type : 'services', tab: 'all'})">
+      <i class="icon ion-ios-list-outline"></i>  
+      {{ ::"All" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" ui-sref="appointmentpro-manager-booking({value_id: value_id, service_type : 'services', tab: 'upcoming'})">
+      <i class="icon ion-ios-list-outline"></i> 
+      {{ ::"Upcoming" | translate:"appointmentpro" }}
+    </a>
+
+     <a class="item item-icon-left item-custom remove-border" ui-sref="appointmentpro-manager-booking({value_id: value_id,  service_type : 'services', tab: 'completed'})">
+      <i class="icon ion-ios-list-outline"></i> 
+      {{ ::"Completed" | translate:"appointmentpro" }}
+    </a>
+
+</div>
+
+<div class="list" ng-if="settings.is_class_booking">
+   <a class="item item-divider item-divider-custom remove-border">
+        {{ ::"Classes Booking" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" ui-sref="appointmentpro-manager-booking({value_id: value_id, service_type : 'classes', tab: 'all'})">
+      <i class="icon ion-ios-list-outline"></i>  
+      {{ ::"All" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" ui-sref="appointmentpro-manager-booking({value_id: value_id, service_type : 'classes', tab: 'upcoming'})">
+      <i class="icon ion-ios-list-outline"></i> 
+      {{ ::"Upcoming" | translate:"appointmentpro" }}
+    </a>
+
+     <a class="item item-icon-left item-custom remove-border" ui-sref="appointmentpro-manager-booking({value_id: value_id,  service_type : 'classes', tab: 'completed'})">
+      <i class="icon ion-ios-list-outline"></i> 
+      {{ ::"Completed" | translate:"appointmentpro" }}
+    </a>
+
+</div>
+
+<!-- 
+<div class="list" ng-if="settings.providerInfo.user_role == 'manager'">
+    <a class="item item-divider item-divider-custom remove-border">
+        {{ ::"Manage" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border">
+      <i class="icon ion-android-people"></i>
+      {{ ::"Staff Members" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" >
+      <i class="icon ion-ios-folder"></i> 
+     {{ ::"Service Category" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" >
+      <i class="icon ion-ios-list-outline"></i>
+     {{ ::"Services" | translate:"appointmentpro" }}
+    </a>
+
+</div> -->
+<!-- 
+<div class="list" ng-if="settings.providerInfo.user_role == 'manager'">
+    <a class="item item-divider item-divider-custom remove-border">
+        {{ ::"Revenues" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border">
+      <i class="icon ion-stats-bars"></i>   
+      {{ ::"This Week" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" >
+      <i class="icon ion-stats-bars"></i> 
+     {{ ::"Monthly" | translate:"appointmentpro" }}
+    </a>
+
+    <a class="item item-icon-left item-custom remove-border" >
+      <i class="icon ion-stats-bars"></i> 
+     {{ ::"Yearly" | translate:"appointmentpro" }}
+    </a>
+    
+</div>
+ -->

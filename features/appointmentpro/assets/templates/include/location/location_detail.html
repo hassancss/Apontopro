@@ -1,0 +1,78 @@
+<div
+  class="list"
+  ng-class="{'card' : settings.list_design}"
+  ng-if="location_info.location_id > 0"
+  ng-show="!is_loading"
+>
+  <div class="item item-custom item-body location-body remove-border">
+    <img
+      class="full-image location-feature-img"
+      ng-src="{{ appointmentproImage(location_info.featured_image) }}"
+      style="border-radius: 10px"
+    />
+
+    <button
+      ng-click="bookNow()"
+      ng-if="settings.enable_booking"
+      ng-show="!is_loading"
+      class="button button-small button-positive button-positive-custom book-button-details"
+    >
+      {{ ::"Book Now" | translate:"appointmentpro" }}
+    </button>
+
+    <h2 class="location-name">{{location_info.name}}</h2>
+    <p class="location-address">
+      <i class="icon ion-location"></i>
+      {{location_info.address}}
+    </p>
+  </div>
+</div>
+
+<div class="tabs tabs-custom location-tabs" ng-show="!is_loading">
+  <a
+    class="tab-item"
+    ng-click="clickTabs('about')"
+    ng-class="{ 'active' : activeTab  == 'about'}"
+  >
+    {{ ::"About" | translate:"appointmentpro" }}
+  </a>
+  <a
+    class="tab-item"
+    ng-click="clickTabs('service')"
+    ng-class="{ 'active' : activeTab  == 'service'}"
+    >{{ getLabelName('services') }}
+  </a>
+  <a
+    class="tab-item"
+    ng-click="clickTabs('provider')"
+    ng-class="{ 'active' : activeTab  == 'provider'}"
+  >
+    {{ getLabelName('providers') }}
+  </a>
+  <a
+    class="tab-item"
+    ng-click="clickTabs('gallery')"
+    ng-class="{ 'active' : activeTab  == 'gallery'}"
+    >{{ ::"Gallery" | translate:"appointmentpro" }}
+  </a>
+</div>
+
+<ng-include
+  ng-if="!is_loading && activeTab == 'about'"
+  src="'./features/appointmentpro/assets/templates/include/location/about.html'"
+></ng-include>
+
+<ng-include
+  ng-if="!is_loading && activeTab == 'service'"
+  src="'./features/appointmentpro/assets/templates/include/location/service.html'"
+></ng-include>
+
+<ng-include
+  ng-if="!is_loading && activeTab == 'gallery'"
+  src="'./features/appointmentpro/assets/templates/include/location/gallery.html'"
+></ng-include>
+
+<ng-include
+  ng-if="!is_loading && activeTab == 'provider'"
+  src="'./features/appointmentpro/assets/templates/include/location/provider.html'"
+></ng-include>

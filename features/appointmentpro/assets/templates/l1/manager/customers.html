@@ -1,0 +1,70 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-customers">
+
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+
+    <ion-nav-buttons side="secondary">
+      
+      <button class="button button-clear header-item"
+              ui-sref="appointmentpro-account({value_id: value_id})">
+            <i class="icon ion-android-contact"></i>
+      </button>
+    </ion-nav-buttons>
+  
+     <ion-header-bar class="bar-subheader bar-custom bar bar-header">
+      <div class="list list-inset home-serach-list">
+            <a class="item item-input item-button-right home-serach-item">
+                <i class="icon ion-search placeholder-icon"></i>
+                 <input type="search"
+                     ng-modal="payout.search_text"
+                     ng-init="payout.search_text = ''"
+                     ng-value=""
+                     id="customerSearch"
+                     class="search-input"
+                     placeholder="{{ forTranslate('Search customer') }}"  
+                     ng-keyup="loadSearchContent()" />
+            </a>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="has-header has-subheader"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+      <div class="loader"
+           ng-show="is_loading">
+          <ion-spinner icon="android"
+                       class="spinner-custom"></ion-spinner>
+      </div>
+
+      <div class="list" ng-if="!is_loading && managerCustomers.length">
+          <div ng-repeat="value in managerCustomers">
+              <a id="c-{{value.customer_id}}" class="item item-custom item-avatar item-icon-right item-icon-right">
+                  <img  ng-src="{{ customer_avatar(value.image) }}" />
+                  <h2>{{ value.firstname }} {{ value.lastname }} </h2>  
+                  <p> {{ value.email }}</p>
+                  <p ng-show="{{ isMobileNumber(value.mobile) }}">{{value.mobile}}</p>
+                  <i ng-show="{{ isMobileNumber(value.mobile) }}" ng-click="call(value.mobile)" class="icon ion-ios-telephone-outline icon-active-custom"></i>
+               </a>
+          </div>
+       </div>
+
+      <div class="list" ng-if="!is_loading && !managerCustomers.length">
+          <div class="item text-center item-custom">
+              {{ ::"No customers found" | translate:"appointmentpro" }}
+          </div>
+      </div>
+
+    </ion-content>
+
+    <ion-infinite-scroll ng-if="can_load_older_manager_customers"
+                 on-infinite="loadMoreManagerCustomer()"
+                 immediate-check="false"
+                 distance="50%"
+                 class="spinner-custom">
+    </ion-infinite-scroll>
+
+
+</ion-view>

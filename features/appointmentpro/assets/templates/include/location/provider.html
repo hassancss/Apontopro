@@ -1,0 +1,18 @@
+<div class="list" ng-class="{'card' : settings.list_design}" ng-repeat="provider in location_info.providers">
+   <a class="item item-custom item-avatar remove-border item-icon-right" ng-click="goToProviderService(provider)" >
+		<img class="provider-image-grid" ng-src="{{ appointmentproImage(provider.image) }}">
+		<h2>{{provider.name}}</h2>
+		<p sb-html="provider.designation"></p>
+		<i class="icon ion-chevron-right"></i>
+	</a>
+</div>
+
+<div class="list" ng-class="{'card' : settings.list_design}"  ng-if="location_info.providers.length == 0">
+    <a class="item item-custom remove-border">
+		<div class="row text-center">
+	      <div class="col text-center">
+	        <p> {{ "No provider available" | translate:"appointmentpro" }}!</p>
+	      </div>
+	    </div>
+	</a>
+</div>

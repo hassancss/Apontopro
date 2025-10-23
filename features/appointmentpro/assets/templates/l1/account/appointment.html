@@ -1,0 +1,150 @@
+<ion-view sb-page-background class="appointmentpro appointmentpro-appointment">
+  <ion-nav-title
+    >{{ ::"Appointments" | translate:"appointmentpro" }}</ion-nav-title
+  >
+
+  <ion-content
+    class="has-header"
+    id="item-content"
+    scrollbar-y="false"
+    overflow-scroll="false"
+    delegate-handle="mainScroll"
+  >
+    <div class="loader" ng-show="is_loading">
+      <ion-spinner icon="android" class="spinner-custom"></ion-spinner>
+    </div>
+
+    <!-- is_type_history -->
+    <!-- search input filter and service dropdown  -->
+    <div
+      style="margin-right: 18px"
+      ng-if="!is_loading && payout.bookings.length > 0 && is_type_history"
+    >
+      <div class="list list-inset home-serach-list">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            {{ ::"Filter By" | translate:"appointmentpro" }}
+          </div>
+          <!-- services, service.service_name, service.service_id -->
+          <select
+            style="width: 100%"
+            ng-change="setService(history.service_id)"
+            ng-model="history.service_id"
+            ng-options="service.service_id as service.name for service in services"
+          ></select>
+        </label>
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input
+            type="text"
+            placeholder="{{ ::'Search' | translate }}"
+            ng-model="history.searchText"
+          />
+        </label>
+      </div>
+    </div>
+
+    <div
+      class="card"
+      ng-if="!is_loading && payout.bookings.length > 0 && is_type_history"
+      ng-repeat="(key, value) in payout.bookings | filter:history.searchText"
+      ng-click="bookingDetailsById(value.appointment_id)"
+    >
+      <div class="item item-divider item-divider-custom remove-border">
+        #{{value.appointment_id}}
+        <span class="pull-right" ng-if="!settings.price_hide">
+          <b>{{value.status}}</b>
+        </span>
+      </div>
+
+      <div class="item item-custom remove-border">
+        <h2>{{ value.service_name }}</h2>
+        <h2 ng-if="!value.is_class">
+          <i class="icon ion-location icon-active-custom"></i>
+          {{value.location_name}}
+        </h2>
+        <p ng-if="value.is_class">
+          <i class="icon ion-location icon-active-custom"></i>
+          {{value.location_name}}
+        </p>
+        <p ng-if="value.is_class">
+          <i class="icon ion-person-stalker icon-active-custom"></i>
+          {{value.booked_seat_class}} {{ ::"Member" | translate:"appointmentpro"
+          }}
+        </p>
+        <p ng-if="!settings.price_hide">
+          <i class="icon ion-pricetag icon-active-custom"></i>
+          {{value.amount_with_currency}} (<span class="icon-active-custom"
+            >{{value.payment_status}}</span
+          >)
+        </p>
+        <div class="row text-center">
+          <div class="col-50">
+            <h2>{{value.created_at}}</h2>
+            <p>{{ ::"Date of request" | translate:"appointmentpro" }}</p>
+          </div>
+          <div class="col-50">
+            <h2>{{value.booking_date}} {{value.start_time}}</h2>
+            <p>{{ ::"Date of Appointment" | translate:"appointmentpro" }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- is_type_history end-->
+    <div
+      class="card"
+      ng-if="!is_loading && payout.bookings.length > 0 && !is_type_history"
+      ng-repeat="(key, value) in payout.bookings"
+      ng-click="bookingDetailsById(value.appointment_id)"
+    >
+      <div class="item item-divider item-divider-custom remove-border">
+        #{{value.appointment_id}}
+        <span class="pull-right" ng-if="!settings.price_hide">
+          <b>{{value.status}}</b>
+        </span>
+      </div>
+
+      <div class="item item-custom remove-border">
+        <h2 ng-if="value.is_class">{{ value.service_name }}</h2>
+        <h2 ng-if="!value.is_class">
+          <i class="icon ion-location icon-active-custom"></i>
+          {{value.location_name}}
+        </h2>
+        <p ng-if="value.is_class">
+          <i class="icon ion-location icon-active-custom"></i>
+          {{value.location_name}}
+        </p>
+        <p ng-if="value.is_class">
+          <i class="icon ion-person-stalker icon-active-custom"></i>
+          {{value.booked_seat_class}} {{ ::"Member" | translate:"appointmentpro"
+          }}
+        </p>
+        <p ng-if="!settings.price_hide">
+          <i class="icon ion-pricetag icon-active-custom"></i>
+          {{value.amount_with_currency}} (<span class="icon-active-custom"
+            >{{value.payment_status}}</span
+          >)
+        </p>
+        <div class="row text-center">
+          <div class="col-50">
+            <h2>{{value.created_at}}</h2>
+            <p>{{ ::"Date of request" | translate:"appointmentpro" }}</p>
+          </div>
+          <div class="col-50">
+            <h2>{{value.booking_date}} {{value.start_time}}</h2>
+            <p>{{ ::"Date of Appointment" | translate:"appointmentpro" }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list" ng-if="!is_loading && payout.bookings.length == 0">
+      <div class="item item-custom remove-border">
+        <p class="text-center">
+          {{ ::"You do not have any class scheduled" |
+          translate:"appointmentpro" }}!
+        </p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

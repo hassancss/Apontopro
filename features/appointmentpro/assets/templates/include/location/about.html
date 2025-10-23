@@ -1,0 +1,31 @@
+<div class="list" ng-class="{'card' : settings.list_design}" ng-show="!is_loading">
+    <div class="item item-custom item-body remove-border">
+      <p sb-html="location_info.about_us"></p>
+    </div>
+</div>
+
+<div class="list" ng-class="{'card' : settings.list_design}" ng-show="!is_loading">
+    <div class="item item-divider item-divider-custom appointmentpro-divider-item">
+      <h2>{{ ::"Opening Hours" | translate:"appointmentpro" }}</h2>
+    </div>
+     <div class="item item-custom remove-border">
+        <div class="row" ng-repeat="opening in location_info.openings">
+          <div class="col-30">{{opening.name}}</div>
+          <div class="col-50" ng-if="opening.status">{{opening.fromTime}} - {{opening.toTime}}</div>
+          <div class="col-50" ng-if="!opening.status"></div>
+          <div class="col-20">
+            <span ng-if="opening.status" class="icon-active-custom">{{ ::"Open" | translate:"appointmentpro" }}</span>
+            <span ng-if="!opening.status">{{ ::"Closed" | translate:"appointmentpro" }}</span>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="list" ng-class="{'card' : settings.list_design}" ng-show="!is_loading">
+    <div class="item item-custom remove-border" ng-if="settings.enable_booking">
+      <button ng-click="bookNow()" ng-show="!is_loading" class="button button-block button-positive button-positive-custom">
+        {{ ::"Book Now" | translate:"appointmentpro" }}
+      </button>
+    </div>
+</div>
+

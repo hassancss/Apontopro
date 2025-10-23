@@ -1,0 +1,204 @@
+<?php $currentLink = $this->getCurrentLink(); ?>
+
+<!-- Sidebar -->
+<div id="left-sidebar-wrapper" class="bkg-sidebar-left appointmentpro-menu">
+
+    <ul class="sidebar-nav" style="padding-bottom: 40px;">
+        <li id="sb-tour-app-name" class="sidebar-brand sb-tour">
+            <img id="header_app_icon" src="<?php echo $this->getApplication()->getIcon() ?>" class="icon">
+            <span id="header_app_name"><?php echo $this->getApplication()->getName() ?></span>
+        </li>
+        <li>
+            <a href="/appointmentpro/dashboard/list" class="<?php echo $currentLink == 'appointmentprodashboard' ? 'active' : ''; ?>">
+                <i class="fa fa-tachometer"></i>
+                <span class="sb-left-title">
+                    <?php echo p__('appointmentpro', "Dashboard") ?></span>
+            </a>
+        </li>
+        <li>
+            <div id="group-sidebar-left-group-editor" class="collapse in">
+                <a href="#location-left-group-editor" data-toggle="collapse" aria-expanded="true" class="collapsed">
+                    <i class="fa fa-map-marker dynamic-icon"></i>
+                    <span class="sb-left-title"><?php echo p__('appointmentpro', "Locations") ?></span>
+                    <i class="icon ion-chevron-right"></i>
+                </a>
+                <div id="location-left-group-editor" class="collapse sub-bar <?php echo in_array($currentLink, ['location', 'locationadd']) ? 'in' : ''; ?>">
+                    <a href="/appointmentpro/location/list" class="<?php echo $currentLink == 'location' ? 'active' : ''; ?>">
+                        <i class="fa fa-list dynamic-icon"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Manage") ?></span>
+                    </a>
+                    <a href="/appointmentpro/location/add" class="<?php echo $currentLink == 'locationadd' ? 'active' : ''; ?>">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Add") ?></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div id="group-sidebar-left-group-editor" class="collapse in">
+                <a href="#category-left-group-editor" data-toggle="collapse" aria-expanded="true" class="collapsed">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    <span class="sb-left-title"><?php echo p__('appointmentpro', "Category") ?></span>
+                    <i class="icon ion-chevron-right"></i>
+                </a>
+                <div id="category-left-group-editor" class="collapse sub-bar <?php echo in_array($currentLink, ['category', 'categoryadd']) ? 'in' : ''; ?>">
+                    <a href="/appointmentpro/category/list" class="<?php echo $currentLink == 'category' ? 'active' : ''; ?>">
+                        <i class="fa fa-list dynamic-icon"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Manage") ?></span>
+                    </a>
+                    <a href="/appointmentpro/category/add" class="<?php echo $currentLink == 'categoryadd' ? 'active' : ''; ?>">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Add") ?></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div id="group-sidebar-left-group-editor" class="collapse in">
+                <a href="#service-left-group-editor" data-toggle="collapse" aria-expanded="true" class="collapsed">
+                    <i class="fa fa-truck" aria-hidden="true"></i>
+                    <span class="sb-left-title"><?php echo p__('appointmentpro', "Services") ?></span>
+                    <i class="icon ion-chevron-right"></i>
+                </a>
+                <div id="service-left-group-editor" class="collapse sub-bar <?php echo in_array($currentLink, ['service', 'serviceadd']) ? 'in' : ''; ?>">
+                    <a href="/appointmentpro/service/list" class="<?php echo $currentLink == 'service' ? 'active' : ''; ?>">
+                        <i class="fa fa-list dynamic-icon"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Manage") ?></span>
+                    </a>
+                    <a href="/appointmentpro/service/add" class="<?php echo $currentLink == 'serviceadd' ? 'active' : ''; ?>">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Add") ?></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <?php if (\Appointmentpro\Extension::isEnabled('classes')): ?>
+            <li>
+                <div id="group-sidebar-left-group-editor" class="collapse in">
+                    <a href="#classes-left-group-editor" data-toggle="collapse" aria-expanded="true" class="collapsed">
+                        <i class="fa fa-list dynamic-icon fa-graduation-cap" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Classes") ?></span>
+                        <i class="icon ion-chevron-right"></i>
+                    </a>
+                    <div id="classes-left-group-editor" class="collapse sub-bar <?php echo in_array($currentLink, ['class', 'classadd']) ? 'in' : ''; ?>">
+                        <a href="/appointmentpro/class/list" class="<?php echo $currentLink == 'class' ? 'active' : ''; ?>">
+                            <i class="fa fa-list dynamic-icon"></i>
+                            <span class="sb-left-title"><?php echo p__('appointmentpro', "Manage") ?></span>
+                        </a>
+                        <a href="/appointmentpro/class/add" class="<?php echo $currentLink == 'classadd' ? 'active' : ''; ?>">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span class="sb-left-title"><?php echo p__('appointmentpro', "Add") ?></span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        <?php endif; ?>
+        <li>
+            <div id="group-sidebar-left-group-editor" class="collapse in">
+                <a href="#providers-left-group-editor" data-toggle="collapse" aria-expanded="true" class="collapsed">
+                    <i class="fa fa-users dynamic-icon" aria-hidden="true"></i>
+                    <span class="sb-left-title"><?php echo p__('appointmentpro', "Providers") ?></span>
+                    <i class="icon ion-chevron-right"></i>
+                </a>
+                <div id="providers-left-group-editor" class="collapse sub-bar <?php echo in_array($currentLink, ['provider', 'provideradd']) ? 'in' : ''; ?>">
+                    <a href="/appointmentpro/provider/list" class="<?php echo $currentLink == 'provider' ? 'active' : ''; ?>">
+                        <i class="fa fa-list dynamic-icon"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Manage") ?></span>
+                    </a>
+                    <a href="/appointmentpro/provider/add" class="<?php echo $currentLink == 'provideradd' ? 'active' : ''; ?>">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Add") ?></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div id="group-sidebar-left-group-editor" class="collapse in">
+                <a href="#booking-left-group-editor" data-toggle="collapse" aria-expanded="true" class="collapsed">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="sb-left-title"><?php echo p__('appointmentpro', "Bookings") ?></span>
+                    <i class="icon ion-chevron-right"></i>
+                </a>
+
+                <div id="booking-left-group-editor" class="collapse sub-bar <?php echo in_array($currentLink, ['bookingtoday', 'bookingupcoming', 'bookingall', 'bookingadd']) ? 'in' : ''; ?>">
+                    <a href="/appointmentpro/booking/list/type/today" class="<?php echo $currentLink == 'bookingtoday' ? 'active' : ''; ?>">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Today") ?></span>
+                    </a>
+                    <a href="/appointmentpro/booking/list/type/upcoming" class="<?php echo $currentLink == 'bookingupcoming' ? 'active' : ''; ?>">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Upcoming") ?></span>
+                    </a>
+                    <a href="/appointmentpro/booking/list" class="<?php echo $currentLink == 'bookingall' ? 'active' : ''; ?>">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "All") ?></span>
+                    </a>
+                    <a href="/appointmentpro/booking/add" class="<?php echo $currentLink == 'bookingadd' ? 'active' : ''; ?>">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "New Booking") ?></span>
+                    </a>
+                </div>
+
+            </div>
+        </li>
+        <?php if (\Appointmentpro\Extension::isEnabled('classes')): ?>
+            <li>
+                <div id="group-sidebar-left-group-editor" class="collapse in">
+                    <a href="#booking-classes-left-group-editor" data-toggle="collapse" aria-expanded="true" class="collapsed">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span class="sb-left-title"><?php echo p__('appointmentpro', "Classes Bookings") ?></span>
+                        <i class="icon ion-chevron-right"></i>
+                    </a>
+                    <div id="booking-classes-left-group-editor" class="collapse sub-bar <?php echo in_array($currentLink, ['classestoday', 'classesupcoming', 'classesall']) ? 'in' : ''; ?>">
+                        <a href="/appointmentpro/booking/classes/type/today" class="<?php echo $currentLink == 'classestoday' ? 'active' : ''; ?>">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <span class="sb-left-title"><?php echo p__('appointmentpro', "Today") ?></span>
+                        </a>
+                        <a href="/appointmentpro/booking/classes/type/upcoming" class="<?php echo $currentLink == 'classesupcoming' ? 'active' : ''; ?>">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <span class="sb-left-title"><?php echo p__('appointmentpro', "Upcoming") ?></span>
+                        </a>
+                        <a href="/appointmentpro/booking/classes" class="<?php echo $currentLink == 'classesall' ? 'active' : ''; ?>">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <span class="sb-left-title"><?php echo p__('appointmentpro', "All") ?></span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        <?php endif; ?>
+        <li>
+            <a href="/appointmentpro/calendar/list" class="<?php echo $currentLink == 'calendar' ? 'active' : ''; ?>">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span class="sb-left-title">
+                    <?php echo p__('appointmentpro', "Calendar") ?></span>
+            </a>
+        </li>
+        <li>
+            <a href="/appointmentpro/report/list" class="<?php echo $currentLink == 'reports' ? 'active' : ''; ?>">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                <span class="sb-left-title">
+                    <?php echo p__('appointmentpro', "Reports") ?></span>
+            </a>
+        </li>
+        <li>
+            <a href="/appointmentpro/history/list" class="<?php echo $currentLink == 'historyall' ? 'active' : ''; ?>">
+                <i class="fa fa-history" aria-hidden="true"></i>
+                <span class="sb-left-title">
+                    <?php echo p__('appointmentpro', "Customer History") ?></span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+<style type="text/css">
+    .third-main-panel {
+        width: calc(100% - 180px);
+        float: right;
+        margin-right: 0px;
+    }
+
+    .sidebar-nav li {
+        line-height: 50px;
+        text-indent: 0.5em;
+    }
+</style>

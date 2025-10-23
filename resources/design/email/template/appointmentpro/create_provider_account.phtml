@@ -1,0 +1,27 @@
+<table>
+    <tr>
+        <td>
+            <p>
+                <?php echo p__('appointmentpro', 'Congratulations,'); ?>
+            </p>
+            <p>
+                <?php echo p__('appointmentpro', 'Your account has been credited With this account.'); ?>
+            </p>
+            <p>
+                <span><?php echo p__('appointmentpro', 'Here are your credentials:'); ?></span><br />
+                <span><?php echo p__('appointmentpro', 'Login:'); ?> <strong><?php echo $this->getCustomer()->getEmail(); ?></strong></span><br />
+                <span><?php echo p__('appointmentpro', 'Password:'); ?> <strong><i></i><?php echo $this->getPassword(); ?></strong></span><br />
+            </p>           
+            <p>
+                <?php echo p__('appointmentpro', 'Thanks for working with us!'); ?>
+            </p>
+            <p>
+                <span>
+                    <?php echo p__('appointmentpro', 'See you soon,'); ?>
+                    <br />
+                    <?php echo $this->getApp() ?>
+                </span>
+            </p>
+        </td>
+    </tr>
+</table>

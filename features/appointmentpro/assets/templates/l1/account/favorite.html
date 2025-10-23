@@ -1,0 +1,19 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-classes">
+
+    <ion-nav-title>{{ ::"Favorite" | translate:"appointmentpro" }}</ion-nav-title>
+  
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+        <div class="loader"
+             ng-show="is_loading">
+            <ion-spinner icon="android"
+                         class="spinner-custom"></ion-spinner>
+        </div>
+ 
+      </ion-content>
+  </ion-view>

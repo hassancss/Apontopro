@@ -1,0 +1,209 @@
+{
+  "name": "Appointmentpro",
+  "code": "appointmentpro",
+  "version": "1.0.1",
+  "category": "social",
+  "model": "Appointmentpro_Model_Appointmentpro",
+  "desktop_uri": "appointmentpro/application/",
+  "routes": [
+    {
+      "root": true,
+      "state": "appointmentpro-home",
+      "controller": "AppointmentproHomeController",
+      "url": "appointmentpro/mobile_list/home/value_id/:value_id/widget/:widget",
+      "template": "l1/home.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-locations",
+      "controller": "AppointmentproLocationController",
+      "url": "appointmentpro/mobile_location/value_id/:value_id",
+      "template": "l1/location/locations.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-location-details",
+      "controller": "AppointmentproLocationDetailsController",
+      "url": "appointmentpro/mobile_location/value_id/:value_id/location_id/:location_id",
+      "template": "l1/location/location_details.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-category",
+      "controller": "AppointmentproCategoryController",
+      "url": "appointmentpro/mobile_category/value_id/:value_id/location_id/:location_id",
+      "template": "l1/category/list.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-service",
+      "controller": "AppointmentproServiceController",
+      "url": "appointmentpro/mobile_service/value_id/:value_id/category_id/:category_id",
+      "template": "l1/service/list.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-provider",
+      "controller": "AppointmentproProviderController",
+      "url": "appointmentpro/mobile_provider/value_id/:value_id/service_id/:service_id",
+      "template": "l1/provider/list.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-calendar",
+      "controller": "AppointmentproCalendarController",
+      "url": "appointmentpro/mobile_calendar/value_id/:value_id/provider_id/:provider_id",
+      "template": "l1/calendar/list.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-checkout",
+      "controller": "AppointmentproCheckoutController",
+      "url": "appointmentpro/mobile_checkout/value_id/:value_id",
+      "template": "l1/booking/checkout.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-payment",
+      "controller": "AppointmentproPaymentController",
+      "url": "appointmentpro/mobile_payment/value_id/:value_id",
+      "template": "l1/booking/payment.html",
+      "cache": false
+    },
+    {
+      "state": "appointmentpro-booked-success",
+      "controller": "AppointmentproSuccessController",
+      "url": "appointmentpro/mobile_booking/value_id/:value_id/booking_id/:booking_id",
+      "template": "l1/booking/success.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-paypalreturn",
+      "controller": "AppointmentproPaypalReturnController",
+      "url": "appointmentpro/mobile_paypalreturn/index/value_id/:value_id",
+      "template": "l1/booking/paypal/return.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-account",
+      "controller": "AppointmentproAccountController",
+      "url": "appointmentpro/mobile_account/value_id/:value_id",
+      "template": "l1/account/view.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-booking",
+      "controller": "AppointmentproAccountBookingController",
+      "url": "appointmentpro/mobile_account/value_id/:value_id/type/:type/service_type/:service_type/booking_id/:booking_id",
+      "template": "l1/account/appointment.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-classes",
+      "controller": "AppointmentproClassesController",
+      "url": "appointmentpro/mobile_classes/value_id/:value_id/category_id/:category_id",
+      "template": "l1/classes/list.html",
+      "cache": false
+    },
+    {    
+      "state": "book-a-class",
+      "controller": "AppointmentproBookAClassController",
+      "url": "appointmentpro/mobile_classes/value_id/:value_id",
+      "template": "l1/classes/book.html",
+      "cache": false
+    },
+    {    
+      "state": "provider-services",
+      "controller": "AppointmentproProviderServiceController",
+      "url": "appointmentpro/mobile_service/value_id/:value_id/provider_id/:provider_id",
+      "template": "l1/service/provider_service.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-category-location",
+      "controller": "AppointmentproLocationByCategoryController",
+      "url": "appointmentpro/mobile_location/value_id/:value_id/category_id/:category_id",
+      "template": "l1/location/category_location.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-manager-booking",
+      "controller": "AppointmentproManagerBookingController",
+      "url": "appointmentpro/mobile_manager/value_id/:value_id/service_type/:service_type/tab/:tab",
+      "template": "l1/manager/booking.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-manager-customers",
+      "controller": "AppointmentproManagerCustomersController",
+      "url": "appointmentpro/mobile_manager/value_id/:value_id",
+      "template": "l1/manager/customers.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-manager-profile",
+      "controller": "AppointmentproManagerController",
+      "url": "appointmentpro/mobile_manager/value_id/:value_id",
+      "template": "l1/manager/profile.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-manager-location",
+      "controller": "AppointmentproManagerLocationController",
+      "url": "appointmentpro/mobile_manager/value_id/:value_id",
+      "template": "l1/manager/location.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-payfastreturn",
+      "controller": "AppointmentproPayfastReturnController",
+      "url": "appointmentpro/mobile_payfastreturn/index/value_id/:value_id",
+      "template": "l1/booking/payfast/return.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-payfastcancel",
+      "controller": "AppointmentproPayfastCancelController",
+      "url": "appointmentpro/mobile_payfastcancel/index/value_id/:value_id",
+      "template": "l1/booking/payfast/return.html",
+      "cache": false
+    },
+    {    
+      "state": "appointmentpro-mobile_googlereturn",
+      "controller": "AppointmentproGooglereturnController",
+      "url": "appointmentpro/mobile_googlereturn/index/value_id/:value_id/code/:code",
+      "template": "l1/account/google.html",
+      "cache": false
+    }
+  ],
+  "icons": [
+    "icons/appointmentpro-flat1.png",
+    "icons/appointmentpro-flat2.png"
+  ],
+  "files": [
+    "js/controllers/appointmentpro-home-controller.js",
+    "js/controllers/appointmentpro-comman-controller.js",
+    "js/controllers/appointmentpro-location-controller.js",
+    "js/controllers/appointmentpro-location-details-controller.js",
+    "js/controllers/appointmentpro-category-controller.js",
+    "js/controllers/appointmentpro-service-controller.js",
+    "js/controllers/appointmentpro-provider-controller.js",
+    "js/controllers/appointmentpro-calendar-controller.js",
+    "js/controllers/appointmentpro-checkout-controller.js",
+    "js/controllers/appointmentpro-payment-controller.js",
+    "js/controllers/appointmentpro-success-controller.js",
+    "js/controllers/appointmentpro-account-controller.js",
+    "js/controllers/appointmentpro-classes-controller.js",
+    "js/controllers/appointmentpro-manager-booking-controller.js",
+    "js/controllers/appointmentpro-manager-customers-controller.js",
+    "js/controllers/appointmentpro-manager-controller.js",
+    "js/factory/appointmentpro.js",
+    "js/factory/appointmentpro-init.js",
+    "scss/appointmentpro.scss"
+  ],
+  "compile": true,
+  "use_account": true,
+  "only_once": true,
+  "on_start_factory": "AppointmentproInit",
+  "load_on_start": true
+}

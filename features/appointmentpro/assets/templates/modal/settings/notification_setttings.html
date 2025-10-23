@@ -1,0 +1,110 @@
+<ion-modal-view cache-view="false"
+                class="appointmentpro appointmentpro-location-service">
+
+    <ion-header-bar class="bar-custom">
+        <div class="buttons">
+            <button class="button button-clear"
+                    ng-click="closeModalNotificationSettings()">
+                    <i ng-class="backButtonIcon()"></i>
+            </button>
+        </div>
+        <h1 class="title">{{ ::"Notification Settings" | translate:"appointmentpro" }} </h1>
+    </ion-header-bar>
+
+    <ion-content id="appointmentpro-content"
+                 class="has-header">
+
+        <div class="loader"
+                ng-show="is_loading_modal">
+                <ion-spinner class="spinner-custom"></ion-spinner>
+        </div>
+
+      <ion-list ng-show="!is_loading_modal"  ng-class="{'card' : settings.list_design}">
+          <div class="item item-divider item-divider-custom remove-border">
+              {{ ::'Notify on' | translate:'appointmentpro' }}
+          </div>
+          <ion-item class="item-toggle item-custom">
+                {{ ::"Push" | translate:"appointmentpro" }}
+                <label class="toggle toggle-positive">
+                    <input type="checkbox"
+                           ng-model="notification_setting.push_notification"
+                           ng-change="updateNotificationSettings()">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+          </ion-item>
+          <ion-item class="item-toggle item-custom">
+                {{ ::"Email" | translate:"appointmentpro" }}
+                <label class="toggle toggle-positive">
+                    <input type="checkbox"
+                           ng-model="notification_setting.email_notification"
+                           ng-change="updateNotificationSettings()">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+          </ion-item>
+     </ion-list>
+
+
+     <ion-list ng-show="!is_loading_modal"  ng-class="{'card' : settings.list_design}">
+          <div class="item item-divider item-divider-custom remove-border">
+              {{ ::'Reminder Notification' | translate:'appointmentpro' }}
+          </div>
+          <ion-radio ng-model="notification_setting.reminder_time"
+                     ng-value="'15'"
+                     ng-checked='notification_setting.reminder_time == 15'
+                     ng-click="updateNotificationSettings()"
+                     class="item item-custom radio-custom"> 
+                {{ ::'15 Minutes before' | translate:'appointmentpro' }}
+          </ion-radio>
+         <ion-radio ng-model="notification_setting.reminder_time"
+                     ng-value="'30'"
+                     ng-checked='notification_setting.reminder_time == 30'
+                     ng-click="updateNotificationSettings()"
+                     class="item item-custom radio-custom"> 
+                {{ ::'30 Minutes before' | translate:'appointmentpro' }}
+          </ion-radio>
+           <ion-radio ng-model="notification_setting.reminder_time"
+                     ng-value="'60'"
+                     ng-checked='notification_setting.reminder_time == 60'
+                     ng-click="updateNotificationSettings()"
+                     class="item item-custom radio-custom">  
+                {{ ::'1 Hours before' | translate:'appointmentpro' }}
+          </ion-radio>
+           <ion-radio ng-model="notification_setting.reminder_time"
+                     ng-value="'120'"
+                     ng-checked='notification_setting.reminder_time == 120'
+                     ng-click="updateNotificationSettings()"
+                     class="item item-custom radio-custom"> 
+                {{ ::'2 Hours before' | translate:'appointmentpro' }}
+          </ion-radio>
+           <ion-radio ng-model="notification_setting.reminder_time"
+                     ng-value="'360'"
+                     ng-checked='notification_setting.reminder_time == 360'
+                     ng-click="updateNotificationSettings()"
+                     class="item item-custom radio-custom"> 
+                {{ ::'6 Hours before' | translate:'appointmentpro' }}
+          </ion-radio>
+          <ion-radio ng-model="notification_setting.reminder_time"
+                     ng-value="'1440'"
+                     ng-checked='notification_setting.reminder_time == 1440'
+                     ng-click="updateNotificationSettings()"
+                     class="item item-custom radio-custom"> 
+                {{ ::'1 day before' | translate:'appointmentpro' }}
+          </ion-radio>
+          <ion-radio ng-model="notification_setting.reminder_time"
+                     ng-value="'10080'"
+                     ng-checked='notification_setting.reminder_time == "0080'
+                     ng-click="updateNotificationSettings()"
+                     class="item item-custom radio-custom"> 
+                {{ ::'1 Week before' | translate:'appointmentpro' }}
+          </ion-radio>
+
+          
+     </ion-list>
+ 
+ </ion-content>
+
+</ion-modal-view>

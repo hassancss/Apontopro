@@ -1,0 +1,60 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-success">
+
+    <ion-nav-title>{{ ::"Confirmation" | translate:"appointmentpro" }}</ion-nav-title>
+ 
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+      <div class="loader"
+           ng-show="is_loading">
+          <ion-spinner icon="android"
+                       class="spinner-custom"></ion-spinner>
+      </div> 
+
+    <div class="list" ng-class="{'card' : settings.list_design}" ng-show="!is_loading">
+    
+      <div class="list order-summery" ng-show="!is_loading">
+         <div class="item item-divider item-divider-custom remove-border">
+            {{ ::"Summery" | translate:"appointmentpro" }}
+        </div>
+        <div class="item item-custom remove-border">
+          <p>{{ getLabelName('location') }}
+          <span class="pull-right"><b>{{payout.booking.location_name}}</b></span></p>
+        </div>
+        <div class="item item-custom remove-border">
+          <p>{{ ::"Status" | translate:"appointmentpro" }}
+          <span class="pull-right"><b>{{payout.booking.status}}</b></span></p>
+        </div>
+        <div class="item item-custom remove-border">
+          <p>{{ ::"Date" | translate:"appointmentpro" }}
+          <span class="pull-right"><b>{{payout.booking.full_appointment_date}}</b></span></p>
+          <p ng-if="payout.booking.is_class && payout.booking.schedule_type == 'weekly'">
+          <span class="pull-right"><b>{{ ::"On Every" | translate:"appointmentpro" }} - {{payout.booking.day_of_week}}</b></span></p>
+        </div>
+        <div class="item item-custom remove-border" ng-if="!settings.price_hide">
+          <p>{{ ::"Amount" | translate:"appointmentpro" }}
+          <span class="pull-right"><b>{{payout.booking.amount_with_currency}}</b></span></p>
+        </div>
+        <div class="item item-custom remove-border" ng-if="!settings.price_hide">
+          <p>{{ ::"Payment Status" | translate:"appointmentpro" }}
+          <span class="pull-right"><b>{{payout.booking.payment_status}}</b></span></p>
+        </div>
+        <div class="item item-custom remove-border" ng-if="!settings.price_hide">
+          <p>{{ ::"Payment Mode" | translate:"appointmentpro" }}
+          <span class="pull-right"><b>{{payout.booking.payment_type}}</b></span></p>
+        </div>
+      </div>
+       <div class="item item-custom text-center remove-border">
+          <button class="button button-full button-positive-custom" ng-click="goToBookingDetails()">
+            {{ ::"More Info" | translate:"appointmentpro" }}
+          </button>
+        </div>
+      </div>
+ 
+  </ion-content>
+
+</ion-view>

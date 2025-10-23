@@ -1,0 +1,261 @@
+<?php $bookingStatus = $this->getBookingStatus();
+	$booking = $this->getBooking(); 
+	
+$timezone = null;
+if(class_exists("EaziSettings_Model_Settings")) {
+    $modelTimezone = (new EaziSettings_Model_Settings())->find(['app_id' => $this->getApplication()->getId() ]);
+    if($modelTimezone->getId()) {
+        $timezone = $modelTimezone->getTimezone();
+    }
+
+    $date = new Zend_Date($booking['created_at'], 'y-MM-dd HH:mm:ss');
+    if(!empty($timezone)){
+        $date = $date->setTimezone($timezone);
+        $booking['created_at'] = $date->toString('y-MM-dd HH:mm:ss');
+     }                       
+}
+
+
+
+?>
+<div class="container-fluid appointmentpro">
+	<div class="container-fluid">
+		<div id="wrapper" class="left-toggled">
+          <div class="right-toggled">
+            <div class="sidebars has-sidebar">
+            <?php include(dirname(__DIR__)."/partials/menu.phtml"); ?>
+            <div class="subcontent third-main-panel">
+				<div class="row app-features">
+					<div class="responsive-part col-md-12">
+			         <div class="page-content-wrapper form-horizontal">
+			            <div class="content solo-page">
+			                <h3 class="title-editor border-blue text-center">
+			                  <?php echo p__("appointmentpro","Appointments %s", '#'.$booking['appointment_id']); 
+			                  ?>
+			                  <a onclick="history.go(-1)" id="back" class="color-blue btn sb-tour pull-right">
+                                <?php echo  p__("appointmentpro", "Back"); ?>   </a>
+                             </h3>
+			                <div class="subcontent content-color container-fluid">
+
+			                	<div class="row">
+			                		<div class="col-md-4">
+			                			<h3 class="title-editor border-blue">
+						                  <?php echo p__("appointmentpro","Booking Details"); ?>
+						                </h3>
+			                			<table class="table content-white-bkg sb-pager">
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "ID"); ?></td>
+			                					<th style="width: 50%"><?php echo '#'.$booking['appointment_id']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Appointment Date"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['booking_date']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Time Slot"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['start_time'].' - '.$booking['end_time']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Duration"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['duration']; ?> (<?php echo  p__("appointmentpro", "Min"); ?>)</th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Booking Status"); ?></td>
+			                					<th style="width: 50%" class="<?php echo $booking['text_color']; ?>"><?php echo $booking['status']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Location"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['location_name']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Booking Date"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['created_at']; ?></th>
+			                				</tr>
+			                			</table>
+			                		</div>
+			                		
+			                		<div class="col-md-4">
+			                			<h3 class="title-editor border-blue">
+						                  <?php echo p__("appointmentpro","Payment"); ?>
+						                </h3>
+			                			<table class="table content-white-bkg sb-pager">
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Amount"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['amount_with_currency']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Tax Amount"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['tax_with_currency']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Total Amount"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['total_amount_with_currency']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Payment Mode"); ?></td>
+			                					<th style="width: 50%"><?php echo  ucfirst($booking['payment_type']); ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Status"); ?></td>
+			                					<th style="width: 50%" class="<?php echo $booking['text_color']; ?>"><?php echo ucfirst($booking['payment_status']); ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "PLC Points"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['plc_points']; ?> (<?php echo  p__("appointmentpro", "Points"); ?>)</th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Credit Account"); ?></td>
+			                					<th style="width: 50%"><?php echo ucfirst($booking['payment_to']); ?></th>
+			                				</tr>
+			                				<tr>
+			                			     <td style="width: 50%"><?php echo  p__("appointmentpro", "Transaction Id"); ?></td>
+			                					<th style="width: 50%"><?php echo ucfirst($booking['transaction_id']); ?></th>
+			                				</tr>
+			                			 
+			                			</table>
+			                		</div>
+
+			                		<div class="col-md-4">
+			                			<h3 class="title-editor border-blue">
+						                  <?php echo p__("appointmentpro","Customer"); ?>
+						                </h3>
+			                			<table class="table content-white-bkg sb-pager">
+			                				<tr>
+			                					<td style="width: 50%"><?php echo   '#'.p__("appointmentpro", "ID"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['customer_id']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Name"); ?></td>
+			                					<th style="width: 50%"><?php echo  ucfirst($booking['buyer_name']); ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Email"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['buyer_email']; ?></th>
+			                				</tr>
+			                				<tr>
+			                					<td style="width: 50%"><?php echo  p__("appointmentpro", "Phone Number"); ?></td>
+			                					<th style="width: 50%"><?php echo $booking['buyer_mobile']; ?></th>
+			                				</tr>
+			                			</table>
+			                		</div>
+			                	</div>
+
+			                	<?php  if(!empty( $booking['notes'])): ?>
+				                	<div class="row">
+				                		<div class="col-md-12">
+				                			<h3 class="title-editor border-blue">
+						                  <?php echo p__("appointmentpro","Notes"); ?>
+						                </h3>
+				                			<p><?php echo $booking['notes']; ?>
+				                		</p>
+				                		</div>
+				                	</div>
+				                <?php endif; ?>
+
+								<div class="row">
+				                 	<div class="col-md-12">
+				                 		<h3 class="title-editor border-blue">
+											<?php if($booking['is_it_class'] == 1): ?>
+												<?php echo p__("appointmentpro","Class"); ?>
+										    <?php else: ?>
+												<?php echo p__("appointmentpro","Service's"); ?>
+											<?php endif; ?>
+						                </h3>
+				                 		<table class="table content-white-bkg sb-pager">
+				                 			<tr>
+												
+												<?php if($booking['is_it_class'] == 1): ?>
+													<th><?php echo  p__("appointmentpro", "Class ID"); ?></th>
+													<th><?php echo  p__("appointmentpro", "Class Name"); ?></th>
+												<?php else: ?>
+													<th><?php echo  p__("appointmentpro", "Service ID"); ?></th>
+													<th><?php echo  p__("appointmentpro", "Service Name"); ?></th>
+												<?php endif; ?>
+
+					                 			<th><?php echo  p__("appointmentpro", "Provider"); ?></th>
+					                 			<th><?php echo  p__("appointmentpro", "Duration"); ?></th>
+					                 			<th><?php echo  p__("appointmentpro", "Amount"); ?></th>
+					                 		</tr>
+					                 		<tr>
+					                 			<td><?php echo '#'.$booking['service_id']; ?></td>
+					                 			<td><?php echo  $booking['service_name']; ?></td>
+					                 			<td><?php echo  $booking['provider_name']; ?></td>
+					                 			<td><?php echo  $booking['service_time']; ?></td>
+					                 			<td><?php echo  $booking['price']; ?></td>
+					                 		</tr>
+				                 		</table>
+
+				                 	</div>
+				                 </div>
+
+				                 <?php $refund_info = json_decode($booking['refund_info']);
+
+				                 if(!empty($refund_info) && $booking['payment_type'] == 'paypal'): ?>
+					                 <div class="row">
+					                 	<div class="col-md-12">
+					                 		<h3 class="title-editor border-blue">
+							                  <?php echo p__("appointmentpro","Refund Info"); ?>
+							                </h3>
+					                 		<table class="table content-white-bkg sb-pager">
+					                 			<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "Status"); ?></th> 
+							                 		 <td><?php echo $refund_info->ACK; ?></td>
+							                 	</tr>
+							                 	<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "Gross Refund Amount"); ?></th> 
+							                 		 <td><?php echo $refund_info->GROSSREFUNDAMT; ?></td>
+							                 	</tr>
+							                 	<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "Net Refund Amount"); ?></th> 
+							                 		 <td><?php echo $refund_info->NETREFUNDAMT; ?></td>
+							                 	</tr>
+							                 	<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "Total Refund Amount"); ?></th> 
+							                 		 <td><?php echo $refund_info->TOTALREFUNDEDAMOUNT; ?></td>
+							                 	</tr>
+					                 			<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "Message"); ?></th> 
+							                 		 <td><?php echo $refund_info->L_LONGMESSAGE0; ?></td>
+							                 	</tr>
+							                 </table>
+					                 	</div>
+					                 </div>
+					             <?php endif; ?>
+
+
+									<?php if(!empty($refund_info) && $booking['payment_type'] == 'stripe'): ?>
+					                 <div class="row">
+					                 	<div class="col-md-12">
+					                 		<h3 class="title-editor border-blue">
+							                  <?php echo p__("appointmentpro","Refund Info"); ?>
+							                </h3>
+					                 		<table class="table content-white-bkg sb-pager">
+					                 			<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "Status"); ?></th> 
+							                 		 <td><?php echo $refund_info->status; ?></td>
+							                 	</tr>
+							                 	<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "Gross Refund Amount"); ?></th> 
+							                 		 <td><?php echo $refund_info->amount/100; ?></td>
+							                 	</tr>
+							                 	<tr>
+							                 		 <th><?php echo  p__("appointmentpro", "ID"); ?></th> 
+							                 		 <td><?php echo $refund_info->id; ?></td>
+							                 	</tr>
+							                  
+							                 </table>
+					                 	</div>
+					                 </div>
+					             <?php endif; ?>
+
+                            </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+	      </div>
+	   </div>
+     </div>
+   </div>
+ </div>
+</div>

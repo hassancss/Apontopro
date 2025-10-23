@@ -1,0 +1,282 @@
+<?php $paymentStatus = $this->getPaymentStatus(); 
+$locations = $this->getLocations(); ?>
+
+<div class="container-fluid appointmentpro">
+    <div class="container-fluid">
+        <div id="wrapper" class="left-toggled">
+            <div class="right-toggled">
+                <div class="sidebars has-sidebar">
+                    <?php include(dirname(__DIR__)."/partials/menu.phtml"); ?>
+                    <div class="subcontent third-main-panel">
+                        <div class="row app-features">
+                            <div class="responsive-part col-md-12">
+                                <div class="page-content-wrapper form-horizontal">
+                                    <div class="content solo-page">
+                                        <h3 class="title-editor border-blue text-center">
+                                            <?php echo p__("appointmentpro","Reports"); ?>
+                                        </h3>
+                                        <div class="subcontent content-color container-fluid">
+                                            <div class="form-group">
+
+                                                <div id="row">
+                                                    <div class="col-md-2">
+                                                        <select class="input-flat dt-search color-blue"
+                                                            name="location_id" id="location_id"
+                                                            data-dynatable-query="location_id">
+                                                            <option value="all">
+                                                                <?php echo p__("appointmentpro", 'Select Location'); ?>
+                                                            </option>
+                                                            <option value="all" selected>
+                                                                <?php echo p__("appointmentpro", 'All'); ?></option>
+                                                            <?php foreach ($locations as $lkey => $location) { ?>
+                                                            <option value="<?php echo $location->getLocationId(); ?>">
+                                                                <?php echo $location->getName(); ?></option>
+                                                            <?php }?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <select class="input-flat dt-search color-blue" name="status"
+                                                            id="status" data-dynatable-query="status">
+                                                            <option value="all">
+                                                                <?php echo p__("appointmentpro", 'Select Status'); ?>
+                                                            </option>
+                                                            <option value="all" selected>
+                                                                <?php echo p__("appointmentpro", 'All'); ?></option>
+                                                            <?php foreach ($paymentStatus as $key => $value) { ?>
+                                                            <option value="<?php echo $key; ?>"><?php echo $value; ?>
+                                                            </option>
+                                                            <?php }?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-1">
+                                                        <label
+                                                            for="from"><?php echo  p__("appointmentpro", "From"); ?></label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" id="from" name="from"
+                                                            class="input-flat dt-search" autocomplete="off"
+                                                            data-dynatable-query="from">
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <label
+                                                            for="to"><?php echo  p__("appointmentpro", "To"); ?></label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" id="to" name="to"
+                                                            class="input-flat dt-search" autocomplete="off"
+                                                            data-dynatable-query="to">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-12">
+                                                    <table id="dynamic-report" class="table content-white-bkg sb-pager">
+                                                        <thead>
+                                                            <tr class="border-grey">
+                                                                <th style="width: 5%">
+                                                                    <?php echo  p__("appointmentpro", "ID"); ?></th>
+                                                                <th style="width: 35%">
+                                                                    <?php echo  p__("appointmentpro", "Customer"); ?> /
+                                                                    <?php echo  p__("appointmentpro", "Location"); ?>;
+                                                                </th>
+                                                                <th style="width: 15%">
+                                                                    <?php echo  p__("appointmentpro", "Amount"); ?></th>
+                                                                <th style="width: 15%">
+                                                                    <?php echo  p__("appointmentpro", "Method/Account"); ?>
+                                                                </th>
+                                                                <th style="width: 10%">
+                                                                    <?php echo  p__("appointmentpro", "Status"); ?></th>
+                                                                <th style="width: 15%">
+                                                                    <?php echo  p__("appointmentpro", "Date"); ?></th>
+                                                                <th style="width: 5%">
+                                                                    <?php echo  p__("appointmentpro", "Action"); ?></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="connectedSortable"></tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="/app/sae/design/desktop/flat/js/dynatable/jquery.dynatable.css" media="screen" rel="stylesheet"
+    type="text/css">
+<script type="text/javascript" src="/app/sae/design/desktop/flat/js/dynatable/jquery.dynatable.js"></script>
+
+
+<script type="text/javascript">
+var uriParams = {};
+let rowTemplate = `
+    <tr class="dynarow booking_row" id="element_(ID)">
+        <td>#(TID)</td>
+        <td>
+            <p><b>(CUSTOMER) ((MOBILE))</b></p>
+            <p>(LOCATIONNAME)</p>
+        </td>
+        <td>(AMOUNT)</td>
+        <td>(PAYMENTTYPE) / (PAYMENTTO)</td>     
+        <td><span class="(PAYMENTTEXTCOLOR)">(PAYMENTSTATUS)<span></td>
+        <td>(CRAETEDATE)</td>
+        <td><a class="edit-location" href="/appointmentpro/booking/view/type/all/id/(ID)">
+             <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+         </td>
+       
+    </tr>`;
+
+function rowWriter(rowIndex, record, columns, cellWriter) {
+    return rowTemplate
+        .replace(/\(ID\)/g, record.appointment_id)
+        .replace(/\(TID\)/g, record.transactionId)
+        .replace(/\(CUSTOMER\)/g, record.customer)
+        .replace(/\(BOOKINGDATE\)/g, record.booking_date)
+        .replace(/\(STARTTIME\)/g, record.start_time)
+        .replace(/\(ENDTIME\)/g, record.end_time)
+        .replace(/\(AMOUNT\)/g, record.amount_with_currency)
+        .replace(/\(BOOKINGSTATUS\)/g, record.status)
+        .replace(/\(PAYMENTSTATUS\)/g, record.payment_status)
+        .replace(/\(TEXTCOLOR\)/g, record.text_color)
+        .replace(/\(PAYMENTTEXTCOLOR\)/g, record.payment_text_color)
+        .replace(/\(SERVICENAME\)/g, record.service_name)
+        .replace(/\(CRAETEDATE\)/g, record.created_at)
+        .replace(/\(LOCATIONNAME\)/g, record.location_name)
+        .replace(/\(PAYMENTTYPE\)/g, record.payment_type)
+        .replace(/\(PAYMENTTO\)/g, record.payment_to)
+        .replace(/\(MOBILE\)/g, record.mobile_number);
+}
+$.dynatableSetup({
+    table: {
+        defaultColumnIdStyle: 'noStyle'
+    },
+    features: {
+        paginate: true,
+        sort: false,
+        pushState: true,
+        search: false,
+        recordCount: false,
+        perPageSelect: false,
+    },
+});
+
+let tableCustomers = $('#dynamic-report');
+
+tableCustomers.bind('dynatable:preinit', function(e, dynatable) {
+    dynatable.utility.textTransform.noStyle = function(text) {
+        return text;
+    };
+
+});
+
+tableCustomers.bind('dynatable:afterProcess', function(e, data) {
+    console.log("dynatable", data);
+    uriParams = data.queries;
+
+});
+
+tableCustomers.bind('dynatable:init', function(e, dynatable) {
+    dynatable.queries.functions['to'] = function(r, queryValue) {
+        return queryValue;
+    };
+    dynatable.queries.functions['from'] = function(r, queryValue) {
+        return queryValue;
+    };
+
+});
+
+tableCustomers.bind('dynatable:push', function(e, dynatable) {
+    uriParams = dynatable.queries;
+});
+
+// And on the table
+tableCustomers.dynatable({
+    dataset: {
+        ajax: true,
+        ajaxUrl: '/appointmentpro/report/find-all',
+        ajaxOnLoad: true,
+        records: [],
+        perPageDefault: 25
+    },
+    inputs: {
+        processingText: '<?php echo __jss("Loading ...") ?>',
+        searchPlaceholder: '<?php echo __jss("Search order ...") ?>',
+        recordCountText: '<?php echo __jss("Showing") ?> ',
+        filteredFrom: ' (<?php echo __jss("filtered from #TOTAL# total records") ?>)',
+        recordText: '<?php echo __jss("record") ?>',
+        recordTextPlural: '<?php echo __jss("records") ?>',
+        textOf: '<?php echo __jss("of") ?>',
+        textTo: '<?php echo __jss("to") ?>',
+        queries: $('.dt-search')
+    },
+    writers: {
+        _rowWriter: rowWriter
+    }
+});
+
+$(document).ready(function() {
+    if ($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']) {
+        $.datepicker.setDefaults($.datepicker.regional[
+            '<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']);
+    } else {
+        $.datepicker.setDefaults($.datepicker.regional['en']);
+    }
+    $("#from").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        numberOfMonths: 1,
+        onClose: function(selectedDate) {
+            $("#to").datepicker("option", "minDate", selectedDate);
+        }
+    });
+
+    $("#to").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        numberOfMonths: 1,
+        onClose: function(selectedDate) {
+            $("#from").datepicker("option", "maxDate", selectedDate);
+        }
+    });
+
+    var type = "<?php echo $type; ?>";
+    if (type == "upcoming") {
+        setTimeout(function() {
+            $("#from").datepicker("option", "minDate", new Date());
+        }, 1500)
+    }
+});
+</script>
+<style type="text/css">
+.booking_row>td {
+    vertical-align: middle !important;
+}
+
+.booking_row p {
+    margin: 0 0 0px;
+}
+
+#dynamic-location {
+    margin-top: 10px;
+}
+</style>
+<style>
+.table {
+    width: 100%;
+    overflow: auto;
+}
+
+.dropdown-menu {
+    min-width: auto;
+}
+</style>

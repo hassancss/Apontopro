@@ -1,0 +1,38 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-provider">
+
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+ 
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+        <div class="loader"
+             ng-show="is_loading">
+            <ion-spinner icon="android"
+                         class="spinner-custom"></ion-spinner>
+        </div>
+      
+       <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading"  ng-repeat="provider in payout.providers">
+        <a ui-sref="appointmentpro-calendar({value_id: value_id, provider_id: provider.provider_id})" class="item item-custom item-avatar remove-border item-icon-right">
+          <img class="provider-image-grid" ng-src="{{ appointmentproImage(provider.image) }}">
+          <h2>{{provider.name}}</h2>
+          <p>{{provider.designation}}</p>
+          <i class="icon ion-chevron-right" ng-if="settings.enable_booking" ></i>
+        </a>
+       </div>
+   
+      <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading"  ng-if="payout.providers.length == 0">
+       <a class="item item-custom remove-border">
+          <div class="row text-center">
+              <div class="col text-center ">
+                <p> {{ "No provider available" | translate:"appointmentpro" }}!</p>
+              </div>
+            </div>
+        </a>
+       </div>
+
+  </ion-content>
+</ion-view>

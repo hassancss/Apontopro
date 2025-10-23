@@ -1,0 +1,2880 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-03-02T11:00:10+02:00\n"
+"PO-Revision-Date: 2021-03-02T11:00:10+02:00\n"
+"Language: \n"
+
+# GMT 1614757039.101
+msgctxt "appointmentpro"
+msgid "Appointmentpro"
+msgstr "Appointmentpro"
+
+# GMT 1614757039.102
+#, mobile
+msgctxt "appointmentpro"
+msgid "Appointmentpro"
+msgstr "Appointmentpro"
+
+# GMT 1614757039.102
+#, mobile
+msgctxt "appointmentpro"
+msgid "Mark as Paid"
+msgstr "Mark as Paid"
+
+# GMT 1614757039.103
+msgctxt "appointmentpro"
+msgid "Upload successfully"
+msgstr "Upload successfully"
+
+# GMT 1614757039.104
+msgctxt "appointmentpro"
+msgid "Cash"
+msgstr "Cash"
+
+# GMT 1614757039.105
+msgctxt "appointmentpro"
+msgid "This Appointment does not exist."
+msgstr "This Appointment does not exist."
+
+# GMT 1614757039.106
+msgctxt "appointmentpro"
+msgid "Booking status updated successfully"
+msgstr "Booking status updated successfully"
+
+# GMT 1614757039.106
+msgctxt "appointmentpro"
+msgid "Mark as Completed"
+msgstr "Mark as Completed"
+
+# GMT 1614757039.106
+msgctxt "appointmentpro"
+msgid "Mark as Paid"
+msgstr "Mark as Paid"
+
+# GMT 1614757039.107
+msgctxt "appointmentpro"
+msgid "Booking has been successfully cancelled and Refund amount will be credited to the user account"
+msgstr "Booking has been successfully cancelled and Refund amount will be credited to the user account"
+
+# GMT 1614757039.108
+msgctxt "appointmentpro"
+msgid "Booking has been successfully cancelled and Refund amount will be credited to the user account"
+msgstr "Booking has been successfully cancelled and Refund amount will be credited to the user account"
+
+# GMT 1614757039.109
+msgctxt "appointmentpro"
+msgid "Booking Confirmation - %s"
+msgstr "Booking Confirmation - %s"
+
+# GMT 1614757039.110
+msgctxt "appointmentpro"
+msgid "Thank you for booking with %s, Please see the important details below regarding your information"
+msgstr "Thank you for booking with %s, Please see the important details below regarding your information"
+
+# GMT 1614757039.111
+msgctxt "appointmentpro"
+msgid "Booking %s - %s"
+msgstr "Booking %s - %s"
+
+# GMT 1614757039.112
+msgctxt "appointmentpro"
+msgid "Your booking has been %s, Please see the important details below regarding your information"
+msgstr "Your booking has been %s, Please see the important details below regarding your information"
+
+# GMT 1614757039.113
+msgctxt "appointmentpro"
+msgid "This category does not exist."
+msgstr "This category does not exist."
+
+# GMT 1614757039.114
+msgctxt "appointmentpro"
+msgid "Successfully deleted"
+msgstr "Successfully deleted"
+
+# GMT 1614757039.115
+msgctxt "appointmentpro"
+msgid "Successfully save"
+msgstr "Successfully save"
+
+# GMT 1614757039.116
+msgctxt "appointmentpro"
+msgid "An error occurred while saving your picture. Please try againg later."
+msgstr "An error occurred while saving your picture. Please try againg later."
+
+# GMT 1614757039.117
+msgctxt "appointmentpro"
+msgid "Active"
+msgstr "Active"
+
+# GMT 1614757039.118
+msgctxt "appointmentpro"
+msgid "In Active"
+msgstr "In Active"
+
+# GMT 1614757039.119
+msgctxt "appointmentpro"
+msgid "This class does not exist."
+msgstr "This class does not exist."
+
+# GMT 1614757039.120
+msgctxt "appointmentpro"
+msgid "Live Username, Password, and Signature must be required."
+msgstr "Live Username, Password, and Signature must be required."
+
+# GMT 1614757039.121
+msgctxt "appointmentpro"
+msgid "Sandbox Username, Password, and Signature must be required."
+msgstr "Sandbox Username, Password, and Signature must be required."
+
+# GMT 1614757039.122
+msgctxt "appointmentpro"
+msgid "Information successfully saved"
+msgstr "Information successfully saved"
+
+# GMT 1614757039.123
+msgctxt "appointmentpro"
+msgid "Please check setting in (Menu -> Payment Gateways -> Stripe) is must be active."
+msgstr "Please check setting in (Menu -> Payment Gateways -> Stripe) is must be active."
+
+# GMT 1614757039.124
+msgctxt "appointmentpro"
+msgid "If you need to connect wallet, please contact your administrator!"
+msgstr "If you need to connect wallet, please contact your administrator!"
+
+# GMT 1614757039.125
+msgctxt "appointmentpro"
+msgid "Your system doesn't meet the requirements for this module, Ewallet version >=%s is required."
+msgstr "Your system doesn't meet the requirements for this module, Ewallet version >=%s is required."
+
+# GMT 1614757039.126
+msgctxt "appointmentpro"
+msgid "For online payment Ewallet module is not activated, Please add a feature in app!"
+msgstr "For online payment Ewallet module is not activated, Please add a feature in app!"
+
+# GMT 1614757039.127
+msgctxt "appointmentpro"
+msgid "Success."
+msgstr "Success."
+
+# GMT 1614757039.128
+msgctxt "appointmentpro"
+msgid "This location does not exist."
+msgstr "This location does not exist."
+
+# GMT 1614757039.129
+msgctxt "appointmentpro"
+msgid "This provider does not exist."
+msgstr "This provider does not exist."
+
+# GMT 1614757039.130
+msgctxt "appointmentpro"
+msgid "If you need to enable point system, please contact your administrator!"
+msgstr "If you need to enable point system, please contact your administrator!"
+
+# GMT 1614757039.131
+msgctxt "appointmentpro"
+msgid "Your system doesn't meet the requirements for enable points(PLC) system , Progressive Loyalty Cards version >=%s is required."
+msgstr "Your system doesn't meet the requirements for enable points(PLC) system , Progressive Loyalty Cards version >=%s is required."
+
+# GMT 1614757039.132
+msgctxt "appointmentpro"
+msgid "For Point System Progressive Loyalty Cards module is not activated, Please add a feature in app!"
+msgstr "For Point System Progressive Loyalty Cards module is not activated, Please add a feature in app!"
+
+# GMT 1614757039.133
+msgctxt "appointmentpro"
+msgid "Booking Settings"
+msgstr "Booking Settings"
+
+# GMT 1614757039.134
+msgctxt "appointmentpro"
+msgid "Admin E-mail"
+msgstr "Admin E-mail"
+
+# GMT 1614757039.135
+msgctxt "appointmentpro"
+msgid "List Design"
+msgstr "List Design"
+
+# GMT 1614757039.136
+msgctxt "appointmentpro"
+msgid "List View"
+msgstr "List View"
+
+# GMT 1614757039.137
+msgctxt "appointmentpro"
+msgid "Card View"
+msgstr "Card View"
+
+# GMT 1614757039.138
+msgctxt "appointmentpro"
+msgid "Enable Home Slider"
+msgstr "Enable Home Slider"
+
+# GMT 1614757039.139
+msgctxt "appointmentpro"
+msgid "Booking Type"
+msgstr "Booking Type"
+
+# GMT 1614757039.140
+msgctxt "appointmentpro"
+msgid "Service Booking"
+msgstr "Service Booking"
+
+# GMT 1614757039.141
+msgctxt "appointmentpro"
+msgid "Class Booking"
+msgstr "Class Booking"
+
+# GMT 1614757039.142
+msgctxt "appointmentpro"
+msgid "Both Booking"
+msgstr "Both Booking"
+
+# GMT 1614757039.143
+msgctxt "appointmentpro"
+msgid "Default Location Sorting"
+msgstr "Default Location Sorting"
+
+# GMT 1614757039.144
+msgctxt "appointmentpro"
+msgid "Distance"
+msgstr "Distance"
+
+# GMT 1614757039.145
+msgctxt "appointmentpro"
+msgid "Alpha"
+msgstr "Alpha"
+
+# GMT 1614757039.146
+msgctxt "appointmentpro"
+msgid "Created"
+msgstr "Created"
+
+# GMT 1614757039.147
+msgctxt "appointmentpro"
+msgid "Enable Booking"
+msgstr "Enable Booking"
+
+# GMT 1614757039.148
+msgctxt "appointmentpro"
+msgid "Auto Accepted Bookings"
+msgstr "Auto Accepted Bookings"
+
+# GMT 1614757039.149
+msgctxt "appointmentpro"
+msgid "Payment Setting"
+msgstr "Payment Setting"
+
+# GMT 1614757039.150
+msgctxt "appointmentpro"
+msgid "Price Hide"
+msgstr "Price Hide"
+
+# GMT 1614757039.151
+msgctxt "appointmentpro"
+msgid "Enable Online Paymen"
+msgstr "Enable Online Paymen"
+
+# GMT 1614757039.152
+msgctxt "appointmentpro"
+msgid "Enable Offline Payment"
+msgstr "Enable Offline Payment"
+
+# GMT 1614757039.153
+msgctxt "appointmentpro"
+msgid "Display Tax"
+msgstr "Display Tax"
+
+# GMT 1614757039.154
+msgctxt "appointmentpro"
+msgid "Tax Percentage"
+msgstr "Tax Percentage"
+
+# GMT 1614757039.155
+msgctxt "appointmentpro"
+msgid "Enable PLC points system"
+msgstr "Enable PLC points system"
+
+# GMT 1614757039.156
+msgctxt "appointmentpro"
+msgid "Date and Time Format Setting"
+msgstr "Date and Time Format Setting"
+
+# GMT 1614757039.157
+msgctxt "appointmentpro"
+msgid "Time Format"
+msgstr "Time Format"
+
+# GMT 1614757039.158
+msgctxt "appointmentpro"
+msgid "12 Hour"
+msgstr "12 Hour"
+
+# GMT 1614757039.159
+msgctxt "appointmentpro"
+msgid "24 Hour"
+msgstr "24 Hour"
+
+# GMT 1614757039.160
+msgctxt "appointmentpro"
+msgid "Date Format"
+msgstr "Date Format"
+
+# GMT 1614757039.161
+msgctxt "appointmentpro"
+msgid "Cancellation Setting"
+msgstr "Cancellation Setting"
+
+# GMT 1614757039.162
+msgctxt "appointmentpro"
+msgid "Cancellation Criteria"
+msgstr "Cancellation Criteria"
+
+# GMT 1614757039.163
+msgctxt "appointmentpro"
+msgid "Never"
+msgstr "Never"
+
+# GMT 1614757039.164
+msgctxt "appointmentpro"
+msgid "1 Hour Before Appointment"
+msgstr "1 Hour Before Appointment"
+
+# GMT 1614757039.165
+msgctxt "appointmentpro"
+msgid "2 Hours Before Appointment"
+msgstr "2 Hours Before Appointment"
+
+# GMT 1614757039.166
+msgctxt "appointmentpro"
+msgid "6 Hours Before Appointment"
+msgstr "6 Hours Before Appointment"
+
+# GMT 1614757039.167
+msgctxt "appointmentpro"
+msgid "12 Hours Before Appointment"
+msgstr "12 Hours Before Appointment"
+
+# GMT 1614757039.168
+msgctxt "appointmentpro"
+msgid "1 Day Before Appointment"
+msgstr "1 Day Before Appointment"
+
+# GMT 1614757039.169
+msgctxt "appointmentpro"
+msgid "1 Week Before Appointment"
+msgstr "1 Week Before Appointment"
+
+# GMT 1614757039.170
+msgctxt "appointmentpro"
+msgid "Cancellation Charges"
+msgstr "Cancellation Charges"
+
+# GMT 1614757039.171
+msgctxt "appointmentpro"
+msgid "Cancellation Policy"
+msgstr "Cancellation Policy"
+
+# GMT 1614757039.172
+msgctxt "appointmentpro"
+msgid "Currency position"
+msgstr "Currency position"
+
+# GMT 1614757039.173
+msgctxt "appointmentpro"
+msgid "Left with space"
+msgstr "Left with space"
+
+# GMT 1614757039.174
+msgctxt "appointmentpro"
+msgid "Right with space"
+msgstr "Right with space"
+
+# GMT 1614757039.175
+msgctxt "appointmentpro"
+msgid "Decimal separator"
+msgstr "Decimal separator"
+
+# GMT 1614757039.176
+msgctxt "appointmentpro"
+msgid "Thousand separator"
+msgstr "Thousand separator"
+
+# GMT 1614757039.177
+msgctxt "appointmentpro"
+msgid "Number of decimals"
+msgstr "Number of decimals"
+
+# GMT 1614757039.178
+msgctxt "appointmentpro"
+msgid "Name"
+msgstr "Name"
+
+# GMT 1614757039.179
+msgctxt "appointmentpro"
+msgid "Valid From"
+msgstr "Valid From"
+
+# GMT 1614757039.180
+msgctxt "appointmentpro"
+msgid "Valid Until"
+msgstr "Valid Until"
+
+# GMT 1614757039.181
+msgctxt "appointmentpro"
+msgid "Image"
+msgstr "Image"
+
+# GMT 1614757039.182
+msgctxt "appointmentpro"
+msgid "Import an image"
+msgstr "Import an image"
+
+# GMT 1614757039.183
+msgctxt "appointmentpro"
+msgid "You are about to remove this slider ! Are you sure ?"
+msgstr "You are about to remove this slider ! Are you sure ?"
+
+# GMT 1614757039.184
+msgctxt "appointmentpro"
+msgid "Slider"
+msgstr "Slider"
+
+# GMT 1614757039.185
+msgctxt "appointmentpro"
+msgid "label Name"
+msgstr "label Name"
+
+# GMT 1614757039.186
+msgctxt "appointmentpro"
+msgid "Small Description"
+msgstr "Small Description"
+
+# GMT 1614757039.187
+msgctxt "appointmentpro"
+msgid "Payment Mode"
+msgstr "Payment Mode"
+
+# GMT 1614757039.188
+msgctxt "appointmentpro"
+msgid "Username"
+msgstr "Username"
+
+# GMT 1614757039.189
+msgctxt "appointmentpro"
+msgid "Signature"
+msgstr "Signature"
+
+# GMT 1614757039.190
+msgctxt "appointmentpro"
+msgid "Password"
+msgstr "Password"
+
+# GMT 1614757039.191
+msgctxt "appointmentpro"
+msgid "Sandbox Username"
+msgstr "Sandbox Username"
+
+# GMT 1614757039.192
+msgctxt "appointmentpro"
+msgid "Sandbox Signature"
+msgstr "Sandbox Signature"
+
+# GMT 1614757039.193
+msgctxt "appointmentpro"
+msgid "Sandbox Password"
+msgstr "Sandbox Password"
+
+# GMT 1614757039.194
+msgctxt "appointmentpro"
+msgid "Publishable key"
+msgstr "Publishable key"
+
+# GMT 1614757039.195
+msgctxt "appointmentpro"
+msgid "Secret key"
+msgstr "Secret key"
+
+# GMT 1614757039.196
+msgctxt "appointmentpro"
+msgid "Settings"
+msgstr "Settings"
+
+# GMT 1614757039.197
+msgctxt "appointmentpro"
+msgid "Payment Method"
+msgstr "Payment Method"
+
+# GMT 1614757039.198
+msgctxt "appointmentpro"
+msgid "Sliders"
+msgstr "Sliders"
+
+# GMT 1614757039.199
+msgctxt "appointmentpro"
+msgid "Integrations"
+msgstr "Integrations"
+
+# GMT 1614757039.200
+msgctxt "appointmentpro"
+msgid "Appointment Web URL"
+msgstr "Appointment Web URL"
+
+# GMT 1614757039.201
+msgctxt "appointmentpro"
+msgid "Dashboard"
+msgstr "Dashboard"
+
+# GMT 1614757039.202
+msgctxt "appointmentpro"
+msgid "Appointment Web URL"
+msgstr "Appointment Web URL"
+
+# GMT 1614757039.203
+msgctxt "appointmentpro"
+msgid "Integrations"
+msgstr "Integrations"
+
+# GMT 1614757039.204
+msgctxt "appointmentpro"
+msgid "S.NO"
+msgstr "S.NO"
+
+# GMT 1614757039.205
+msgctxt "appointmentpro"
+msgid "Gateway"
+msgstr "Gateway"
+
+# GMT 1614757039.206
+msgctxt "appointmentpro"
+msgid "Close"
+msgstr "Close"
+
+# GMT 1614757039.207
+msgctxt "appointmentpro"
+msgid "Create a New Slider"
+msgstr "Create a New Slider"
+
+# GMT 1614757039.208
+msgctxt "appointmentpro"
+msgid "Name"
+msgstr "Name"
+
+# GMT 1614757039.209
+msgctxt "appointmentpro"
+msgid "Status"
+msgstr "Status"
+
+# GMT 1614757039.210
+msgctxt "appointmentpro"
+msgid "%s Appointments"
+msgstr "%s Appointments"
+
+# GMT 1614757039.211
+msgctxt "appointmentpro"
+msgid "Select Location"
+msgstr "Select Location"
+
+# GMT 1614757039.212
+msgctxt "appointmentpro"
+msgid "All"
+msgstr "All"
+
+# GMT 1614757039.213
+msgctxt "appointmentpro"
+msgid "Select Provider"
+msgstr "Select Provider"
+
+# GMT 1614757039.214
+msgctxt "appointmentpro"
+msgid "Select Class"
+msgstr "Select Class"
+
+# GMT 1614757039.215
+msgctxt "appointmentpro"
+msgid "Select Status"
+msgstr "Select Status"
+
+# GMT 1614757039.216
+msgctxt "appointmentpro"
+msgid "To"
+msgstr "To"
+
+# GMT 1614757039.217
+msgctxt "appointmentpro"
+msgid "From"
+msgstr "From"
+
+# GMT 1614757039.218
+msgctxt "appointmentpro"
+msgid "Customer"
+msgstr "Customer"
+
+# GMT 1614757039.219
+msgctxt "appointmentpro"
+msgid "ID"
+msgstr "ID"
+
+# GMT 1614757039.220
+msgctxt "appointmentpro"
+msgid "Location"
+msgstr "Location"
+
+# GMT 1614757039.221
+msgctxt "appointmentpro"
+msgid "Service"
+msgstr "Service"
+
+# GMT 1614757039.1223
+msgctxt "appointmentpro"
+msgid "Date"
+msgstr "Date"
+
+# GMT 1614757039.224
+msgctxt "appointmentpro"
+msgid "Class"
+msgstr "Class"
+
+# GMT 1614757039.225
+msgctxt "appointmentpro"
+msgid "Amount"
+msgstr "Amount"
+
+# GMT 1614757039.226
+msgctxt "appointmentpro"
+msgid "Action"
+msgstr "Action"
+
+# GMT 1614757039.227
+msgctxt "appointmentpro"
+msgid "View"
+msgstr "View"
+
+# GMT 1614757039.228
+msgctxt "appointmentpro"
+msgid "Accept"
+msgstr "Accept"
+
+# GMT 1614757039.229
+msgctxt "appointmentpro"
+msgid "Reject"
+msgstr "Reject"
+
+# GMT 1614757039.230
+msgctxt "appointmentpro"
+msgid "Cancel"
+msgstr "Cancel"
+
+# GMT 1614757039.231
+msgctxt "appointmentpro"
+msgid "Delete"
+msgstr "Delete"
+
+# GMT 1614757039.232
+msgctxt "appointmentpro"
+msgid "Back"
+msgstr "Back"
+
+# GMT 1614757039.233
+msgctxt "appointmentpro"
+msgid "Appointments %s"
+msgstr "Appointments %s"
+
+# GMT 1614757039.234
+msgctxt "appointmentpro"
+msgid "Appointment Date"
+msgstr "Appointment Date"
+
+# GMT 1614757039.235
+msgctxt "appointmentpro"
+msgid "Time Slot"
+msgstr "Time Slot"
+
+# GMT 1614757039.236
+msgctxt "appointmentpro"
+msgid "Duration"
+msgstr "Duration"
+
+# GMT 1614757039.237
+msgctxt "appointmentpro"
+msgid "Booking Status"
+msgstr "Booking Status"
+
+# GMT 1614757039.238
+msgctxt "appointmentpro"
+msgid "Location"
+msgstr "Location"
+
+# GMT 1614757039.239
+msgctxt "appointmentpro"
+msgid "Booking Date"
+msgstr "Booking Date"
+
+# GMT 1614757039.240
+msgctxt "appointmentpro"
+msgid "PLC Points"
+msgstr "PLC Points"
+
+# GMT 1614757039.241
+msgctxt "appointmentpro"
+msgid "Credit Account"
+msgstr "Credit Account"
+
+# GMT 1614757039.242
+msgctxt "appointmentpro"
+msgid "Transaction Id"
+msgstr "Transaction Id"
+
+# GMT 1614757039.243
+msgctxt "appointmentpro"
+msgid "Phone Number"
+msgstr "Phone Number"
+
+# GMT 1614757039.244
+msgctxt "appointmentpro"
+msgid "Email"
+msgstr "Email"
+
+# GMT 1614757039.245
+msgctxt "appointmentpro"
+msgid "Note"
+msgstr "Note"
+
+# GMT 1614757039.246
+msgctxt "appointmentpro"
+msgid "Service ID"
+msgstr "Service ID"
+
+# GMT 1614757039.247
+msgctxt "appointmentpro"
+msgid "Service Name"
+msgstr "Service Name"
+
+# GMT 1614757039.248
+msgctxt "appointmentpro"
+msgid "Provider"
+msgstr "Provider"
+
+# GMT 1614757039.249
+msgctxt "appointmentpro"
+msgid "Duration"
+msgstr "Duration"
+
+# GMT 1614757039.250
+msgctxt "appointmentpro"
+msgid "Amount"
+msgstr "Amount"
+
+# GMT 1614757039.251
+msgctxt "appointmentpro"
+msgid "Refund Info"
+msgstr "Refund Info"
+
+# GMT 1614757039.252
+msgctxt "appointmentpro"
+msgid "Gross Refund Amount"
+msgstr "Gross Refund Amount"
+
+# GMT 1614757039.253
+msgctxt "appointmentpro"
+msgid "Net Refund Amount"
+msgstr "Net Refund Amount"
+
+# GMT 1614757039.254
+msgctxt "appointmentpro"
+msgid "Total Refund Amount"
+msgstr "Total Refund Amount"
+
+# GMT 1614757039.255
+msgctxt "appointmentpro"
+msgid "Message"
+msgstr "Message"
+
+# GMT 1614757039.256
+msgctxt "appointmentpro"
+msgid "Please select a location for view bookings"
+msgstr "Please select a location for view bookings"
+
+# GMT 1614757039.257
+msgctxt "appointmentpro"
+msgid "Category Add"
+msgstr "Category Add"
+
+# GMT 1614757039.258
+msgctxt "appointmentpro"
+msgid "Featured Image"
+msgstr "Featured Image"
+
+# GMT 1614757039.259
+msgctxt "appointmentpro"
+msgid "Type"
+msgstr "Type"
+
+# GMT 1614757039.260
+msgctxt "appointmentpro"
+msgid "Category Edit"
+msgstr "Category Edit"
+
+# GMT 1614757039.261
+msgctxt "appointmentpro"
+msgid "Add Category"
+msgstr "Add Category"
+
+# GMT 1614757039.262
+msgctxt "appointmentpro"
+msgid "Image"
+msgstr "Image"
+
+# GMT 1614757039.263
+msgctxt "appointmentpro"
+msgid "Class Add"
+msgstr "Class Add"
+
+# GMT 1614757039.264
+msgctxt "appointmentpro"
+msgid "Special Price"
+msgstr "Special Price"
+
+# GMT 1614757039.265
+msgctxt "appointmentpro"
+msgid "Price"
+msgstr "Price"
+
+# GMT 1614757039.266
+msgctxt "appointmentpro"
+msgid "Special Start"
+msgstr "Special Start"
+
+# GMT 1614757039.267
+msgctxt "appointmentpro"
+msgid "Special End"
+msgstr "Special End"
+
+# GMT 1614757039.268
+msgctxt "appointmentpro"
+msgid "Seats"
+msgstr "Seats"
+
+# GMT 1614757039.269
+msgctxt "appointmentpro"
+msgid "Seats per user"
+msgstr "Seats per user"
+
+# GMT 1614757039.270
+msgctxt "appointmentpro"
+msgid "Duration (mins)"
+msgstr "Duration (mins)"
+
+# GMT 1614757039.271
+msgctxt "appointmentpro"
+msgid "Progressive Loyalty Points"
+msgstr "Progressive Loyalty Points"
+
+# GMT 1614757039.272
+msgctxt "appointmentpro"
+msgid "Category"
+msgstr "Category"
+
+# GMT 1614757039.273
+msgctxt "appointmentpro"
+msgid "Class Start Date"
+msgstr "Class Start Date"
+
+# GMT 1614757039.274
+msgctxt "appointmentpro"
+msgid "Class End Date"
+msgstr "Class End Date"
+
+# GMT 1614757039.275
+msgctxt "appointmentpro"
+msgid "Class Time"
+msgstr "Class Time"
+
+# GMT 1614757039.276
+msgctxt "appointmentpro"
+msgid "Description"
+msgstr "Description"
+
+# GMT 1614757039.277
+msgctxt "appointmentpro"
+msgid "Class Edit"
+msgstr "Class Edit"
+
+# GMT 1614757039.278
+msgctxt "appointmentpro"
+msgid "Add Class"
+msgstr "Add Class"
+
+# GMT 1614757039.279
+msgctxt "appointmentpro"
+msgid "Classes"
+msgstr "Classes"
+
+# GMT 1614757039.280
+msgctxt "appointmentpro"
+msgid "All Locations"
+msgstr "All Locations"
+
+# GMT 1614757039.281
+msgctxt "appointmentpro"
+msgid "Address"
+msgstr "Address"
+
+# GMT 1614757039.282
+msgctxt "appointmentpro"
+msgid "About Us"
+msgstr "About Us"
+
+# GMT 1614757039.283
+msgctxt "appointmentpro"
+msgid "Allow accept payment in own account"
+msgstr "Allow accept payment in own account"
+
+# GMT 1614757039.284
+msgctxt "appointmentpro"
+msgid "Save"
+msgstr "Save"
+
+# GMT 1614757039.285
+msgctxt "appointmentpro"
+msgid "Set %s Bussiness Hours"
+msgstr "Set %s Bussiness Hours"
+
+# GMT 1614757039.286
+msgctxt "appointmentpro"
+msgid "Days"
+msgstr "Days"
+
+# GMT 1614757039.287
+msgctxt "appointmentpro"
+msgid "Working"
+msgstr "Working"
+
+# GMT 1614757039.288
+msgctxt "appointmentpro"
+msgid "Start time"
+msgstr "Start time"
+
+# GMT 1614757039.289
+msgctxt "appointmentpro"
+msgid "End time"
+msgstr "End time"
+
+# GMT 1614757039.290
+msgctxt "appointmentpro"
+msgid "Locations Edit"
+msgstr "Locations Edit"
+
+# GMT 1614757039.291
+msgctxt "appointmentpro"
+msgid "%s Gallery"
+msgstr "%s Gallery"
+
+# GMT 1614757039.292
+msgctxt "appointmentpro"
+msgid "%s - Payment Settings"
+msgstr "%s - Payment Settings"
+
+# GMT 1614757039.293
+msgctxt "appointmentpro"
+msgid "Accept payment in own account"
+msgstr "Accept payment in own account"
+
+# GMT 1614757039.294
+msgctxt "appointmentpro"
+msgid "Disable"
+msgstr "Disable"
+
+# GMT 1614757039.295
+msgctxt "appointmentpro"
+msgid "Enable"
+msgstr "Enable"
+
+# GMT 1614757039.296
+msgctxt "appointmentpro"
+msgid "change"
+msgstr "change"
+
+# GMT 1614757039.297
+msgctxt "appointmentpro"
+msgid "Bussiness Days"
+msgstr "Bussiness Days"
+
+# GMT 1614757039.298
+msgctxt "appointmentpro"
+msgid "Edit"
+msgstr "Edit"
+
+# GMT 1614757039.299
+msgctxt "appointmentpro"
+msgid "Gallery"
+msgstr "Gallery"
+
+# GMT 1614757039.300
+msgctxt "appointmentpro"
+msgid "Payment Settings"
+msgstr "Payment Settings"
+
+# GMT 1614757039.301
+msgctxt "appointmentpro"
+msgid "Dashboard"
+msgstr "Dashboard"
+
+# GMT 1614757039.302
+msgctxt "appointmentpro"
+msgid "Manage"
+msgstr "Manage"
+
+# GMT 1614757039.303
+msgctxt "appointmentpro"
+msgid "Add"
+msgstr "Add"
+
+# GMT 1614757039.304
+msgctxt "appointmentpro"
+msgid "Providers"
+msgstr "Providers"
+
+# GMT 1614757039.305
+msgctxt "appointmentpro"
+msgid "Bookings"
+msgstr "Bookings"
+
+# GMT 1614757039.306
+msgctxt "appointmentpro"
+msgid "Upcoming"
+msgstr "Upcoming"
+
+# GMT 1614757039.307
+msgctxt "appointmentpro"
+msgid "Today"
+msgstr "Today"
+
+# GMT 1614757039.308
+msgctxt "appointmentpro"
+msgid "Classes Bookings"
+msgstr "Classes Bookings"
+
+# GMT 1614757039.309
+msgctxt "appointmentpro"
+msgid "Reports"
+msgstr "Reports"
+
+# GMT 1614757039.310
+msgctxt "appointmentpro"
+msgid "Calendar"
+msgstr "Calendar"
+
+# GMT 1614757039.311
+msgctxt "appointmentpro"
+msgid "Provider Add"
+msgstr "Provider Add"
+
+# GMT 1614757039.312
+msgctxt "appointmentpro"
+msgid "Mobile Number"
+msgstr "Mobile Number"
+
+# GMT 1614757039.313
+msgctxt "appointmentpro"
+msgid "Mobile number must be add with country code"
+msgstr "Mobile number must be add with country code"
+
+# GMT 1614757039.314
+msgctxt "appointmentpro"
+msgid "Designation"
+msgstr "Designation"
+
+# GMT 1614757039.315
+msgctxt "appointmentpro"
+msgid "Manage %s Service"
+msgstr "Manage %s Service"
+
+# GMT 1614757039.316
+msgctxt "appointmentpro"
+msgid "Method/Account"
+msgstr "Method/Account"
+
+# GMT 1614757039.317
+msgctxt "appointmentpro"
+msgid "Service Time"
+msgstr "Service Time"
+
+# GMT 1614757039.318
+msgctxt "appointmentpro"
+msgid "Thank You"
+msgstr "Thank You"
+
+# GMT 1614757039.319
+msgctxt "appointmentpro"
+msgid "Net Amount"
+msgstr "Net Amount"
+
+# GMT 1614757039.320
+msgctxt "appointmentpro"
+msgid "Tax"
+msgstr "Tax"
+
+# GMT 1614757039.321
+msgctxt "appointmentpro"
+msgid "Subtotal"
+msgstr "Subtotal"
+
+# GMT 1614757039.322
+msgctxt "appointmentpro"
+msgid "Payment Status"
+msgstr "Payment Status"
+
+# GMT 1614757039.323
+msgctxt "appointmentpro"
+msgid "Payment Summary"
+msgstr "Payment Summary"
+
+# GMT 1614757039.324
+msgctxt "appointmentpro"
+msgid "Provider Name"
+msgstr "Provider Name"
+
+# GMT 1614757039.325
+msgctxt "appointmentpro"
+msgid "Time"
+msgstr "Time"
+
+# GMT 1614757039.326
+msgctxt "appointmentpro"
+msgid "Hello"
+msgstr "Hello"
+
+# GMT 1614757039.327
+msgctxt "appointmentpro"
+msgid "Pending"
+msgstr "Pending"
+
+# GMT 1614757039.328
+msgctxt "appointmentpro"
+msgid "Pending Payment"
+msgstr "Pending Payment"
+
+# GMT 1614757039.329
+msgctxt "appointmentpro"
+msgid "Processing"
+msgstr "Processing"
+
+# GMT 1614757039.330
+msgctxt "appointmentpro"
+msgid "Accepted"
+msgstr "Accepted"
+
+# GMT 1614757039.331
+msgctxt "appointmentpro"
+msgid "Completed"
+msgstr "Completed"
+
+# GMT 1614757039.332
+msgctxt "appointmentpro"
+msgid "Failed"
+msgstr "Failed"
+
+# GMT 1614757039.333
+msgctxt "appointmentpro"
+msgid "Canceled"
+msgstr "Canceled"
+
+# GMT 1614757039.334
+msgctxt "appointmentpro"
+msgid "On Hold"
+msgstr "On Hold"
+
+# GMT 1614757039.335
+msgctxt "appointmentpro"
+msgid "Rejected"
+msgstr "Rejected"
+
+# GMT 1614757039.336
+msgctxt "appointmentpro"
+msgid "Pending approval"
+msgstr "Pending approval"
+
+# GMT 1614757039.337
+msgctxt "appointmentpro"
+msgid "Refunded Failed"
+msgstr "Refunded Failed"
+
+# GMT 1614757039.338
+msgctxt "appointmentpro"
+msgid "Refunded"
+msgstr "Refunded"
+
+# GMT 1614757039.339
+msgctxt "appointmentpro"
+msgid "Appointmentpro"
+msgstr "Appointmentpross"
+
+# GMT 1614757039.400
+#, mobile
+msgctxt "appointmentpro"
+msgid "left"
+msgstr "left"
+
+# GMT 1614757039.401
+#, mobile
+msgctxt "appointmentpro"
+msgid "Hurry, Only few left!"
+msgstr "Hurry, Only few left!"
+
+# GMT 1614757039.402
+#, mobile
+msgctxt "appointmentpro"
+msgid "Sold Out"
+msgstr "Sold Out"
+
+# GMT 1614757039.403
+#, mobile
+msgctxt "appointmentpro"
+msgid "Opening Hours"
+msgstr "Opening Hours"
+
+# GMT 1614757039.404
+#, mobile
+msgctxt "appointmentpro"
+msgid "Closed"
+msgstr "Closed"
+
+# GMT 1614757039.405
+#, mobile
+msgctxt "appointmentpro"
+msgid "Open"
+msgstr "Open"
+
+# GMT 1614757039.406
+#, mobile
+msgctxt "appointmentpro"
+msgid "Book Now"
+msgstr "Book Now"
+
+# GMT 1614757039.407
+#, mobile
+msgctxt "appointmentpro"
+msgid "No photos available"
+msgstr "No photos available"
+
+# GMT 1614757039.408
+#, mobile
+msgctxt "appointmentpro"
+msgid "About"
+msgstr "About"
+
+# GMT 1614757039.409
+#, mobile
+msgctxt "appointmentpro"
+msgid "Services"
+msgstr "Services"
+
+# GMT 1614757039.410
+#, mobile
+msgctxt "appointmentpro"
+msgid "Providers"
+msgstr "Providers"
+
+# GMT 1614757039.411
+#, mobile
+msgctxt "appointmentpro"
+msgid "Gallery"
+msgstr "Gallery"
+
+# GMT 1614757039.412
+#, mobile
+msgctxt "appointmentpro"
+msgid "No provider available"
+msgstr "No provider available"
+
+# GMT 1614757039.413
+#, mobile
+msgctxt "appointmentpro"
+msgid "No category available"
+msgstr "No category available"
+
+# GMT 1614757039.414
+#, mobile
+msgctxt "appointmentpro"
+msgid "Appointments"
+msgstr "Appointments"
+
+# GMT 1614757039.415
+#, mobile
+msgctxt "appointmentpro"
+msgid "Member"
+msgstr "Member"
+
+# GMT 1614757039.416
+#, mobile
+msgctxt "appointmentpro"
+msgid "Date of request"
+msgstr "Date of request"
+
+# GMT 1614757039.417
+#, mobile
+msgctxt "appointmentpro"
+msgid "Date of Appointment"
+msgstr "Date of Appointment"
+
+# GMT 1614757039.418
+#, mobile
+msgctxt "appointmentpro"
+msgid "You do not have any class scheduled"
+msgstr "You do not have any class scheduled"
+
+# GMT 1614757039.419
+#, mobile
+msgctxt "appointmentpro"
+msgid "Favorite"
+msgstr "Favorite"
+
+# GMT 1614757039.420
+#, mobile
+msgctxt "appointmentpro"
+msgid "Account"
+msgstr "Account"
+
+# GMT 1614757039.421
+#, mobile
+msgctxt "appointmentpro"
+msgid "Welcome"
+msgstr "Welcome"
+
+# GMT 1614757039.422
+#, mobile
+msgctxt "appointmentpro"
+msgid "Sign in to continue"
+msgstr "Sign in to continue"
+
+# GMT 1614757039.423
+#, mobile
+msgctxt "appointmentpro"
+msgid "Upcoming"
+msgstr "Upcoming"
+
+# GMT 1614757039.424
+#, mobile
+msgctxt "appointmentpro"
+msgid "All"
+msgstr "All"
+
+# GMT 1614757039.425
+#, mobile
+msgctxt "appointmentpro"
+msgid "Classes"
+msgstr "Classes"
+
+# GMT 1614757039.426
+#, mobile
+msgctxt "appointmentpro"
+msgid "Notification"
+msgstr "Notification"
+
+# GMT 1614757039.427
+#, mobile
+msgctxt "appointmentpro"
+msgid "Settings"
+msgstr "Settings"
+
+# GMT 1614757039.428
+#, mobile
+msgctxt "appointmentpro"
+msgid "Checkout"
+msgstr "Checkout"
+
+# GMT 1614757039.429
+#, mobile
+msgctxt "appointmentpro"
+msgid "First name"
+msgstr "First name"
+
+# GMT 1614757039.430
+#, mobile
+msgctxt "appointmentpro"
+msgid "Last name"
+msgstr "Last name"
+
+# GMT 1614757039.431
+#, mobile
+msgctxt "appointmentpro"
+msgid "Phone"
+msgstr "Phone"
+
+# GMT 1614757039.432
+#, mobile
+msgctxt "appointmentpro"
+msgid "Email"
+msgstr "Email"
+
+# GMT 1614757039.433
+#, mobile
+msgctxt "appointmentpro"
+msgid "Leave a message (Optional)"
+msgstr "Leave a message (Optional)"
+
+# GMT 1614757039.434
+#, mobile
+msgctxt "appointmentpro"
+msgid "Continue"
+msgstr "Continue"
+
+# GMT 1614757039.435
+#, mobile
+msgctxt "appointmentpro"
+msgid "Login"
+msgstr "Login"
+
+# GMT 1614757039.436
+#, mobile
+msgctxt "appointmentpro"
+msgid "Payment"
+msgstr "Payment"
+
+# GMT 1614757039.437
+#, mobile
+msgctxt "appointmentpro"
+msgid "Summary"
+msgstr "Summary"
+
+# GMT 1614757039.438
+#, mobile
+msgctxt "appointmentpro"
+msgid "Choose a payment option"
+msgstr "Choose a payment option"
+
+# GMT 1614757039.439
+#, mobile
+msgctxt "appointmentpro"
+msgid "Continue with"
+msgstr "Continue with"
+
+# GMT 1614757039.440
+#, mobile
+msgctxt "appointmentpro"
+msgid "No payment method available"
+msgstr "No payment method available"
+
+# GMT 1614757039.441
+#, mobile
+msgctxt "appointmentpro"
+msgid "Confirmation"
+msgstr "Confirmation"
+
+# GMT 1614757039.442
+#, mobile
+msgctxt "appointmentpro"
+msgid "Location"
+msgstr "Location"
+
+# GMT 1614757039.443
+#, mobile
+msgctxt "appointmentpro"
+msgid "Status"
+msgstr "Status"
+
+# GMT 1614757039.444
+#, mobile
+msgctxt "appointmentpro"
+msgid "Date"
+msgstr "Date"
+
+# GMT 1614757039.445
+#, mobile
+msgctxt "appointmentpro"
+msgid "Amount"
+msgstr "Amount"
+
+# GMT 1614757039.446
+#, mobile
+msgctxt "appointmentpro"
+msgid "Payment Status"
+msgstr "Payment Status"
+
+# GMT 1614757039.447
+#, mobile
+msgctxt "appointmentpro"
+msgid "Payment Mode"
+msgstr "Payment Mode"
+
+# GMT 1614757039.448
+#, mobile
+msgctxt "appointmentpro"
+msgid "More Info"
+msgstr "More Info"
+
+# GMT 1614757039.449
+#, mobile
+msgctxt "appointmentpro"
+msgid "Please wait"
+msgstr "Please wait"
+
+# GMT 1614757039.450
+#, mobile
+msgctxt "appointmentpro"
+msgid "Choose a Date and Time"
+msgstr "Choose a Date and Time"
+
+# GMT 1614757039.451
+#, mobile
+msgctxt "appointmentpro"
+msgid "Available Slots"
+msgstr "Available Slots"
+
+# GMT 1614757039.452
+#, mobile
+msgctxt "appointmentpro"
+msgid "Morning"
+msgstr "Morning"
+
+# GMT 1614757039.453
+#, mobile
+msgctxt "appointmentpro"
+msgid "Afternoon"
+msgstr "Afternoon"
+
+# GMT 1614757039.454
+#, mobile
+msgctxt "appointmentpro"
+msgid "Evening"
+msgstr "Evening"
+
+# GMT 1614757039.455
+#, mobile
+msgctxt "appointmentpro"
+msgid "Select Category"
+msgstr "Select Category"
+
+# GMT 1614757039.456
+#, mobile
+msgctxt "appointmentpro"
+msgid "Types"
+msgstr "Types"
+
+# GMT 1614757039.457
+#, mobile
+msgctxt "appointmentpro"
+msgid "No category available"
+msgstr "No category available"
+
+# GMT 1614757039.458
+#, mobile
+msgctxt "appointmentpro"
+msgid "Select Tickets"
+msgstr "Select Tickets"
+
+# GMT 1614757039.459
+#, mobile
+msgctxt "appointmentpro"
+msgid "Tickets"
+msgstr "Tickets"
+
+# GMT 1614757039.460
+#, mobile
+msgctxt "appointmentpro"
+msgid "Select Quantity"
+msgstr "Select Quantity"
+
+# GMT 1614757039.461
+#, mobile
+msgctxt "appointmentpro"
+msgid "Per ticket Price"
+msgstr "Per ticket Price"
+
+# GMT 1614757039.462
+#, mobile
+msgctxt "appointmentpro"
+msgid "Total Amount"
+msgstr "Total Amount"
+
+# GMT 1614757039.663
+#, mobile
+msgctxt "appointmentpro"
+msgid "Continue"
+msgstr "Continue"
+
+# GMT 1614757039.464
+#, mobile
+msgctxt "appointmentpro"
+msgid "Classes"
+msgstr "Classes"
+
+# GMT 1614757039.465
+#, mobile
+msgctxt "appointmentpro"
+msgid "Select Provider"
+msgstr "Select Provider"
+
+# GMT 1614757039.466
+#, mobile
+msgctxt "appointmentpro"
+msgid "No provider available"
+msgstr "No provider available"
+
+# GMT 1614757039.467
+#, mobile
+msgctxt "appointmentpro"
+msgid "Select Service"
+msgstr "Select Service"
+
+# GMT 1614757039.468
+#, mobile
+msgctxt "appointmentpro"
+msgid "No service available"
+msgstr "No service available"
+
+# GMT 1614757039.469
+#, mobile
+msgctxt "appointmentpro"
+msgid "More Locations"
+msgstr "More Locations"
+
+# GMT 1614757039.470
+#, mobile
+msgctxt "appointmentpro"
+msgid "Classes"
+msgstr "Classes"
+
+# GMT 1614757039.471
+#, mobile
+msgctxt "appointmentpro"
+msgid "More Classes"
+msgstr "More Classes"
+
+# GMT 1614757039.472
+#, mobile
+msgctxt "appointmentpro"
+msgid "Confirm"
+msgstr "Confirm"
+
+# GMT 1614757039.473
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your Info"
+msgstr "Your Info"
+
+# GMT 1614757039.474
+#, mobile
+msgctxt "appointmentpro"
+msgid "Date And Time"
+msgstr "Date And Time"
+
+# GMT 1614757039.475
+#, mobile
+msgctxt "appointmentpro"
+msgid "Total Tickets"
+msgstr "Total Tickets"
+
+# GMT 1614757039.476
+#, mobile
+msgctxt "appointmentpro"
+msgid "Amount"
+msgstr "Amount"
+
+# GMT 1614757039.477
+#, mobile
+msgctxt "appointmentpro"
+msgid "Tax"
+msgstr "Tax"
+
+# GMT 1614757039.478
+#, mobile
+msgctxt "appointmentpro"
+msgid "Total Amount"
+msgstr "Total Amount"
+
+# GMT 1614757039.479
+#, mobile
+msgctxt "appointmentpro"
+msgid "Booking Details"
+msgstr "Booking Details"
+
+# GMT 1614757039.480
+#, mobile
+msgctxt "appointmentpro"
+msgid "Basic details"
+msgstr "Basic details"
+
+# GMT 1614757039.481
+#, mobile
+msgctxt "appointmentpro"
+msgid "Credit Points"
+msgstr "Credit Points"
+
+# GMT 1614757039.482
+#, mobile
+msgctxt "appointmentpro"
+msgid "Booked On"
+msgstr "Booked On"
+
+# GMT 1614757039.483
+#, mobile
+msgctxt "appointmentpro"
+msgid "Class Info"
+msgstr "Class Info"
+
+# GMT 1614757039.484
+#, mobile
+msgctxt "appointmentpro"
+msgid "Notify on"
+msgstr "Notify on"
+
+# GMT 1614757039.485
+#, mobile
+msgctxt "appointmentpro"
+msgid "Notification Settings"
+msgstr "Notification Settings"
+
+# GMT 1614757039.486
+#, mobile
+msgctxt "appointmentpro"
+msgid "Push"
+msgstr "Push"
+
+# GMT 1614757039.487
+#, mobile
+msgctxt "appointmentpro"
+msgid "Reminder Notification"
+msgstr "Reminder Notification"
+
+# GMT 1614757039.488
+#, mobile
+msgctxt "appointmentpro"
+msgid "15 Minutes before"
+msgstr "15 Minutes before"
+
+# GMT 1614757039.489
+#, mobile
+msgctxt "appointmentpro"
+msgid "30 Minutes before"
+msgstr "30 Minutes before"
+
+# GMT 1614757039.490
+#, mobile
+msgctxt "appointmentpro"
+msgid "1 Hours before"
+msgstr "1 Hours before"
+
+# GMT 1614757039.491
+#, mobile
+msgctxt "appointmentpro"
+msgid "2 Hours before"
+msgstr "2 Hours before"
+
+# GMT 1614757039.4922
+#, mobile
+msgctxt "appointmentpro"
+msgid "6 Hours before"
+msgstr "6 Hours before"
+
+# GMT 1614757039.493
+#, mobile
+msgctxt "appointmentpro"
+msgid "1 day before"
+msgstr "1 day before"
+
+# GMT 1614757039.494
+#, mobile
+msgctxt "appointmentpro"
+msgid "1 Week before"
+msgstr "1 Week before"
+
+# GMT 1614757039.495
+#, mobile
+msgctxt "appointmentpro"
+msgid "Error"
+msgstr "Error"
+
+# GMT 1614757039.496
+#, mobile
+msgctxt "appointmentpro"
+msgid "Ok"
+msgstr "Ok"
+
+# GMT 1614757039.497
+#, mobile
+msgctxt "appointmentpro"
+msgid "Are you sure want to Cancel Booking?, You will get $1 in your account."
+msgstr "Are you sure want to Cancel Booking?, You will get $1 in your account."
+
+# GMT 1614757039.498
+#, mobile
+msgctxt "appointmentpro"
+msgid "Are you sure want to Cancel Booking?"
+msgstr "Are you sure want to Cancel Booking?"
+
+# GMT 1614757039.499
+#, mobile
+msgctxt "appointmentpro"
+msgid "No"
+msgstr "No"
+
+# GMT 1614757039.500
+#, mobile
+msgctxt "appointmentpro"
+msgid "Yes"
+msgstr "Yes"
+
+# GMT 1614757039.501
+#, mobile
+msgctxt "appointmentpro"
+msgid "Success"
+msgstr "Success"
+
+# GMT 1614757039.502
+#, mobile
+msgctxt "appointmentpro"
+msgid "January"
+msgstr "January"
+
+# GMT 1614757039.503
+#, mobile
+msgctxt "appointmentpro"
+msgid "February"
+msgstr "February"
+
+# GMT 1614757039.504
+#, mobile
+msgctxt "appointmentpro"
+msgid "March"
+msgstr "March"
+
+# GMT 1614757039.505
+#, mobile
+msgctxt "appointmentpro"
+msgid "April"
+msgstr "April"
+
+# GMT 1614757039.506
+#, mobile
+msgctxt "appointmentpro"
+msgid "May"
+msgstr "May"
+
+# GMT 1614757039.507
+#, mobile
+msgctxt "appointmentpro"
+msgid "June"
+msgstr "June"
+
+# GMT 1614757039.508
+#, mobile
+msgctxt "appointmentpro"
+msgid "July"
+msgstr "July"
+
+# GMT 1614757039.509
+#, mobile
+msgctxt "appointmentpro"
+msgid "August"
+msgstr "August"
+
+# GMT 1614757039.510
+#, mobile
+msgctxt "appointmentpro"
+msgid "September"
+msgstr "September"
+
+# GMT 1614757039.511
+#, mobile
+msgctxt "appointmentpro"
+msgid "October"
+msgstr "October"
+
+# GMT 1614757039.512
+#, mobile
+msgctxt "appointmentpro"
+msgid "November"
+msgstr "November"
+
+# GMT 1614757039.513
+#, mobile
+msgctxt "appointmentpro"
+msgid "December"
+msgstr "December"
+
+# GMT 1614757039.514
+#, mobile
+msgctxt "appointmentpro"
+msgid "Sunday"
+msgstr "Sunday"
+
+# GMT 1614757039.515
+#, mobile
+msgctxt "appointmentpro"
+msgid "Monday"
+msgstr "Monday"
+
+# GMT 1614757039.516
+#, mobile
+msgctxt "appointmentpro"
+msgid "Tuesday"
+msgstr "Tuesday"
+
+# GMT 1614757039.517
+#, mobile
+msgctxt "appointmentpro"
+msgid "Wednesday"
+msgstr "Wednesday"
+
+# GMT 1614757039.518
+#, mobile
+msgctxt "appointmentpro"
+msgid "Thursday"
+msgstr "Thursday"
+
+# GMT 1614757039.519
+#, mobile
+msgctxt "appointmentpro"
+msgid "Friday"
+msgstr "Friday"
+
+# GMT 1614757039.520
+#, mobile
+msgctxt "appointmentpro"
+msgid "Saturday"
+msgstr "Saturday"
+
+# GMT 1614757039.400
+#, mobile
+msgctxt "appointmentpro"
+msgid "Sun"
+msgstr "Sun"
+
+# GMT 1614757039.521
+#, mobile
+msgctxt "appointmentpro"
+msgid "Mon"
+msgstr "Mon"
+
+# GMT 1614757039.522
+#, mobile
+msgctxt "appointmentpro"
+msgid "Tue"
+msgstr "Tue"
+
+# GMT 1614757039.524
+#, mobile
+msgctxt "appointmentpro"
+msgid "Wed"
+msgstr "Wed"
+
+# GMT 1614757039.525
+#, mobile
+msgctxt "appointmentpro"
+msgid "Thu"
+msgstr "Thu"
+
+# GMT 1614757039.526
+#, mobile
+msgctxt "appointmentpro"
+msgid "Fri"
+msgstr "Fri"
+
+# GMT 1614757039.527
+#, mobile
+msgctxt "appointmentpro"
+msgid "Sat"
+msgstr "Sat"
+
+# GMT 1614757039.528
+#, mobile
+msgctxt "appointmentpro"
+msgid "Payment has been successfully"
+msgstr "Payment has been successfully"
+
+# GMT 1614757039.529
+#, mobile
+msgctxt "appointmentpro"
+msgid "Payment has been failed"
+msgstr "Payment has been failed"
+
+# GMT 1614757039.530
+#, mobile
+msgctxt "appointmentpro"
+msgid "Please select a payment method!"
+msgstr "Please select a payment method!"
+
+# GMT 1614757039.531
+msgctxt "appointmentpro"
+msgid "Manage Slider"
+msgstr "Manage Slider"
+
+# GMT 1614757039.532
+msgctxt "appointmentpro"
+msgid "inactive"
+msgstr "inactive"
+
+# GMT 1614757039.533
+msgctxt "appointmentpro"
+msgid "1 Day"
+msgstr "1 Day"
+
+# GMT 1614757039.534
+msgctxt "appointmentpro"
+msgid "3 Next Days"
+msgstr "3 Next Days"
+
+# GMT 1614757039.534
+msgctxt "appointmentpro"
+msgid "Slot"
+msgstr "Slot"
+
+# GMT 1614757039.535
+msgctxt "appointmentpro"
+msgid "Full Week"
+msgstr "Full Week"
+
+# GMT 1614757039.536
+#, mobile
+msgctxt "appointmentpro"
+msgid "Sessions"
+msgstr "Sessions"
+
+# GMT 1614757039.536
+#, mobile
+msgctxt "appointmentpro"
+msgid "Sessions"
+msgstr "Sessions"
+
+# GMT 1614757039.537
+msgctxt "appointmentpro"
+msgid "Price And Service Time"
+msgstr "Price And Service Time"
+
+# GMT 1614757039.538
+#, mobile
+msgctxt "appointmentpro"
+msgid "Once"
+msgstr "Once"
+
+# GMT 1614757039.539
+#, mobile
+msgctxt "appointmentpro"
+msgid "Daily"
+msgstr "Daily"
+
+# GMT 1614757039.540
+#, mobile
+msgctxt "appointmentpro"
+msgid "Weekly"
+msgstr "Weekly"
+
+# GMT 1614757039.541
+#, mobile
+msgctxt "appointmentpro"
+msgid "Monthly"
+msgstr "Monthly"
+
+# GMT 1614757039.542
+msgctxt "appointmentpro"
+msgid "Once"
+msgstr "Once"
+
+# GMT 1614757039.543
+msgctxt "appointmentpro"
+msgid "Daily"
+msgstr "Daily"
+
+# GMT 1614757039.544
+msgctxt "appointmentpro"
+msgid "Weekly"
+msgstr "Weekly"
+
+# GMT 1614757039.545
+msgctxt "appointmentpro"
+msgid "Monthly"
+msgstr "Monthly"
+
+# GMT 1614757039.546
+msgctxt "appointmentpro"
+msgid "Occurs"
+msgstr "Occurs"
+
+# GMT 1614757039.547
+msgctxt "appointmentpro"
+msgid "On these days"
+msgstr "On these days"
+
+# GMT 1614757039.548
+msgctxt "appointmentpro"
+msgid "On the"
+msgstr "On the"
+
+# GMT 1614757039.549
+msgctxt "appointmentpro"
+msgid "Schedule"
+msgstr "Schedule"
+
+# GMT 1614757039.550
+msgctxt "appointmentpro"
+msgid "Payment Gateways"
+msgstr "Payment Gateways"
+
+# GMT 1614757039.551
+msgctxt "appointmentpro"
+msgid "Booking Reminder - %s"
+msgstr "Booking Reminder - %s"
+
+# GMT 1614757039.552
+msgctxt "appointmentpro"
+msgid "This is reminder that you have a %s booking at %s on %s at %s."
+msgstr "This is reminder that you have a %s booking at %s on %s at %s."
+
+# GMT 1614757039.553
+msgctxt "appointmentpro"
+msgid "Action Reminder: Approval Pending #%s - %s"
+msgstr "Action Reminder: Approval Pending #%s - %s"
+
+# GMT 1614757039.554
+msgctxt "appointmentpro"
+msgid "This email is a reminder that booking #%s approval has been in pending, Please action immediately."
+msgstr "This email is a reminder that booking #%s approval has been in pending, Please action immediately."
+
+# GMT 1614757039.545
+msgctxt "appointmentpro"
+msgid "Enable Popular Provider"
+msgstr "Enable Popular Provider"
+
+# GMT 1614757039.546
+msgctxt "appointmentpro"
+msgid "Original Label Name"
+msgstr "Original Label Name"
+
+# GMT 1614757039.547
+msgctxt "appointmentpro"
+msgid "Label Name"
+msgstr "Label Name"
+
+# GMT 1614757039.548
+msgctxt "appointmentpro"
+msgid "Manage Labels"
+msgstr "Manage Labels"
+
+# GMT 1614757039.549
+msgctxt "appointmentpro"
+msgid "Display at Home"
+msgstr "Display at Home"
+
+# GMT 1614757039.550
+msgctxt "appointmentpro"
+msgid "Number Of Booking Per Time Slot"
+msgstr "Number Of Booking Per Time Slot"
+
+# GMT 1614757039.551
+msgctxt "appointmentpro"
+msgid "The number of bookings per time slot must be required or greater and equal to 1"
+msgstr "The number of bookings per time slot must be required or greater and equal to 1"
+
+# GMT 1614757039.549
+msgctxt "appointmentpro"
+msgid "Enable Top Category"
+msgstr "Enable Top Category"
+
+# GMT 1614757039.550
+msgctxt "appointmentpro"
+msgid "Enable Online Payment"
+msgstr "Enable Online Payment"
+
+# GMT 1614757039.551
+msgctxt "appointmentpro"
+msgid "Date, Time Format and Distance Setting"
+msgstr "Date, Time Format and Distance Setting"
+
+# GMT 1614757039.552
+msgctxt "appointmentpro"
+msgid "Distance Unit"
+msgstr "Distance Unit"
+
+# GMT 1614757039.553
+msgctxt "appointmentpro"
+msgid "Kilometers"
+msgstr "Kilometers"
+
+# GMT 1614757039.554
+msgctxt "appointmentpro"
+msgid "Meters"
+msgstr "Meters"
+
+# GMT 1614757039.555
+msgctxt "appointmentpro"
+msgid "Miles"
+msgstr "Miles"
+
+# GMT 1614757039.556
+msgctxt "appointmentpro"
+msgid "Always"
+msgstr "Always"
+
+# GMT 1614757039.557
+msgctxt "appointmentpro"
+msgid "Currency options"
+msgstr "Currency options"
+
+# GMT 1614757039.558
+msgctxt "appointmentpro"
+msgid "Left"
+msgstr "Left"
+
+# GMT 1614757039.559
+msgctxt "appointmentpro"
+msgid "Right"
+msgstr "Right"
+
+# GMT 1614757039.560
+msgctxt "appointmentpro"
+msgid "Locations"
+msgstr "Locations"
+
+# GMT 1614757039.561
+msgctxt "appointmentpro"
+msgid "Seminars"
+msgstr "Seminars"
+
+# GMT 1614757039.562
+msgctxt "appointmentpro"
+msgid "Categories"
+msgstr "Categories"
+
+# GMT 1614757039.563
+msgctxt "appointmentpro"
+msgid "Popular Providers"
+msgstr "Popular Providers"
+
+# GMT 1614757039.564
+msgctxt "appointmentpro"
+msgid "Top Categories"
+msgstr "Top Categories"
+
+# GMT 1614757039.565
+msgctxt "appointmentpro"
+msgid "Confirmed Bookings"
+msgstr "Confirmed Bookings"
+
+# GMT 1614757039.566
+msgctxt "appointmentpro"
+msgid "Confirmed Revenue"
+msgstr "Confirmed Revenue"
+
+# GMT 1614757039.567
+msgctxt "appointmentpro"
+msgid "Confirmed Revenue"
+msgstr "Confirmed Revenue"
+
+# GMT 1614757039.568
+msgctxt "appointmentpro"
+msgid "Total Estimated"
+msgstr "Total Estimated"
+
+# GMT 1614757039.569
+msgctxt "appointmentpro"
+msgid "This Week"
+msgstr "This Week"
+
+# GMT 1614757039.570
+msgctxt "appointmentpro"
+msgid "Select Date"
+msgstr "Select Date"
+
+# GMT 1614757039.571
+msgctxt "appointmentpro"
+msgid "Add Service"
+msgstr "Add Service"
+
+# GMT 1614757039.572
+msgctxt "appointmentpro"
+msgid "Buffer Time"
+msgstr "Buffer Time"
+
+# GMT 1614757039.573
+msgctxt "appointmentpro"
+msgid "Service Edit"
+msgstr "Service Edit"
+
+# GMT 1614757039.574
+msgctxt "appointmentpro"
+msgid "Add Provider"
+msgstr "Add Provider"
+
+# GMT 1614757039.575
+msgctxt "appointmentpro"
+msgid "Booking"
+msgstr "Booking"
+
+# GMT 1614757039.576
+msgctxt "appointmentpro"
+msgid "Select service"
+msgstr "Select service"
+
+# GMT 1614757039.577
+msgctxt "appointmentpro"
+msgid "Select provider"
+msgstr "Select provider"
+
+# GMT 1614757039.578
+msgctxt "appointmentpro"
+msgid "Enable Slider"
+msgstr "Enable Slider"
+
+# GMT 1614757039.579
+msgctxt "appointmentpro"
+msgid "Home Screen"
+msgstr "Home Screen"
+
+# GMT 1614757039.580
+msgctxt "appointmentpro"
+msgid "The requested date has no availability!"
+msgstr "The requested date has no availability!"
+
+# GMT 1614757039.581
+#, mobile
+msgctxt "appointmentpro"
+msgid "Conitnue"
+msgstr "Conitnue"
+
+# GMT 1614757039.582
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking has been confirmed"
+msgstr "Your booking has been confirmed"
+
+# GMT 1614757039.583
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking has been submitted successfully, We will send you an email confirming that your request has been approve"
+msgstr "Your booking has been submitted successfully, We will send you an email confirming that your request has been approve"
+
+# GMT 1614757039.584
+#, mobile
+msgctxt "appointmentpro"
+msgid "Payment is failed, Please try again later"
+msgstr "Payment is failed, Please try again later"
+
+# GMT 1614757039.585
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking is confirmed with payment due"
+msgstr "Your booking is confirmed with payment due"
+
+# GMT 1614757039.586
+#, mobile
+msgctxt "appointmentpro"
+msgid "Thank you for booking with %s, Please see the important details below regarding your information"
+msgstr "Thank you for booking with %s, Please see the important details below regarding your information"
+
+# GMT 1614757039.587
+#, mobile
+msgctxt "appointmentpro"
+msgid "Booking Confirmation - %s"
+msgstr "Booking Confirmation - %s"
+
+# GMT 1614757039.588
+#, mobile
+msgctxt "appointmentpro"
+msgid "Booking %s - %s"
+msgstr "Booking %s - %s"
+
+# GMT 1614757039.589
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking has been %s, Please see the important details below regarding your information"
+msgstr "Your booking has been %s, Please see the important details below regarding your information"
+
+# GMT 1614757039.590
+#, mobile
+msgctxt "appointmentpro"
+msgid "Request for Appointment  - %s"
+msgstr "Request for Appointment  - %s"
+
+# GMT 1614757039.591
+#, mobile
+msgctxt "appointmentpro"
+msgid "User %s %s just booking on - %s"
+msgstr "User %s %s just booking on - %s"
+
+# GMT 1614757039.592
+#, mobile
+msgctxt "appointmentpro"
+msgid "A user booking on - %s"
+msgstr "A user booking on - %s"
+
+# GMT 1614757039.593
+#, mobile
+msgctxt "appointmentpro"
+msgid "User %s %s just booking on - %s"
+msgstr "User %s %s just booking on - %s"
+
+# GMT 1614757039.594
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking has been successfully cancelled"
+msgstr "Your booking has been successfully cancelled"
+
+# GMT 1614757039.595
+#, mobile
+msgctxt "appointmentpro"
+msgid "This Appointment does not exist."
+msgstr "This Appointment does not exist."
+
+# GMT 1614757039.596
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking has been successfully cancelled and Refund amount will be credited to the your account"
+msgstr "Your booking has been successfully cancelled and Refund amount will be credited to the your account"
+
+# GMT 1614757039.597
+msgctxt "appointmentpro"
+msgid "Min"
+msgstr "Min"
+
+# GMT 1614757039.598
+msgctxt "appointmentpro"
+msgid "Sorry, Not allow to complete a booking before %s"
+msgstr "Sorry, Not allow to complete a booking before %s"
+
+# GMT 1614757039.599
+msgctxt "appointmentpro"
+msgid "Booking status updated successfully"
+msgstr "Booking status updated successfully"
+
+# GMT 1614757039.600
+msgctxt "appointmentpro"
+msgid "Projected Revenue"
+msgstr "Projected Revenue"
+
+# GMT 1614757039.601
+msgctxt "appointmentpro"
+msgid "Total Bookings"
+msgstr "Total Bookings"
+
+# GMT 1614757039.602
+msgctxt "appointmentpro"
+msgid "Completed Bookings"
+msgstr "Completed Bookings"
+
+# GMT 1614757039.603
+msgctxt "appointmentpro"
+msgid "Set %s Date breaks/Holidays"
+msgstr "Set %s Date breaks/Holidays" 
+
+# GMT 1614757039.606
+msgctxt "appointmentpro"
+msgid "Date And Time"
+msgstr "Date And Time"
+
+# GMT 1614757039.607
+#, mobile
+msgctxt "appointmentpro"
+msgid "Schedule On"
+msgstr "Schedule On"
+
+# GMT 1614757039.608
+#, mobile
+msgctxt "appointmentpro"
+msgid "Min"
+msgstr "Min"
+
+# GMT 1614757039.609
+msgctxt "appointmentpro"
+msgid "Congratulations,"
+msgstr "Congratulations,"
+
+# GMT 1614757039.610
+msgctxt "appointmentpro"
+msgid "Your account has been credited With this account."
+msgstr "Your account has been credited With this account."
+
+# GMT 1614757039.611
+msgctxt "appointmentpro"
+msgid "Here are your credentials:"
+msgstr "Here are your credentials:"
+
+# GMT 1614757039.612
+msgctxt "appointmentpro"
+msgid "Login:"
+msgstr "Login:"
+
+# GMT 1614757039.613
+msgctxt "appointmentpro"
+msgid "Password:"
+msgstr "Password:"
+
+# GMT 1614757039.614
+msgctxt "appointmentpro"
+msgid "See you soon,"
+msgstr "See you soon,"
+
+# GMT 1614757039.615
+msgctxt "appointmentpro"
+msgid "%s - Account creation"
+msgstr "%s - Account creation"
+
+# GMT 1614757039.616
+msgctxt "appointmentpro"
+msgid "Thanks for working with us!"
+msgstr "Thanks for working with us!"
+
+# GMT 1614757039.617
+msgctxt "appointmentpro"
+msgid "Enable Mobile Control"
+msgstr "Enable Mobile Control"
+
+# GMT 1614757039.618
+msgctxt "appointmentpro"
+msgid "Role"
+msgstr "Role"
+
+# GMT 1614757039.619
+msgctxt "appointmentpro"
+msgid "Manager"
+msgstr "Manager"
+
+# GMT 1614757039.620
+#, mobile
+msgctxt "appointmentpro"
+msgid "New"
+msgstr "New"
+
+# GMT 1614757039.621
+#, mobile
+msgctxt "appointmentpro"
+msgid "Switch to vendor account"
+msgstr "Switch to vendor account"
+
+# GMT 1614757039.622
+#, mobile
+msgctxt "appointmentpro"
+msgid "Switch to user account"
+msgstr "Switch to user account"
+
+# GMT 1614757039.623
+#, mobile
+msgctxt "appointmentpro"
+msgid "My Profile"
+msgstr "My Profile"
+
+# GMT 1614757039.624
+#, mobile
+msgctxt "appointmentpro"
+msgid "Classes Booking"
+msgstr "Classes Booking"
+
+# GMT 1614757039.625
+#, mobile
+msgctxt "appointmentpro"
+msgid "My Location"
+msgstr "My Location"
+
+# GMT 1614757039.626
+#, mobile
+msgctxt "appointmentpro"
+msgid "Today Appointments"
+msgstr "Today Appointments"
+
+# GMT 1614757039.627
+#, mobile
+msgctxt "appointmentpro"
+msgid "Upcoming Appointments"
+msgstr "Upcoming Appointments"
+
+# GMT 1614757039.628
+#, mobile
+msgctxt "appointmentpro"
+msgid "Pending Approval Appointments"
+msgstr "Pending Approval Appointments"
+
+# GMT 1614757039.629
+#, mobile
+msgctxt "appointmentpro"
+msgid "View"
+msgstr "View"
+
+# GMT 1614757039.630
+#, mobile
+msgctxt "appointmentpro"
+msgid "Accept"
+msgstr "Accept"
+
+# GMT 1614757039.631
+#, mobile
+msgctxt "appointmentpro"
+msgid "Reject"
+msgstr "Reject"
+
+# GMT 1614757039.632
+#, mobile
+msgctxt "appointmentpro"
+msgid "Mark As Complete"
+msgstr "Mark As Complete"
+
+# GMT 1614757039.633
+#, mobile
+msgctxt "appointmentpro"
+msgid "Reject"
+msgstr "Reject"
+
+# GMT 1614757039.634
+#, mobile
+msgctxt "appointmentpro"
+msgid "Booking Actions"
+msgstr "Booking Actions"
+
+# GMT 1614757039.635
+#, mobile
+msgctxt "appointmentpro"
+msgid "Search booking"
+msgstr "Search booking"
+
+# GMT 1614757039.636
+#, mobile
+msgctxt "appointmentpro"
+msgid "Paid"
+msgstr "Paid"
+
+# GMT 1614757039.637
+#, mobile
+msgctxt "appointmentpro"
+msgid "Merchant Id"
+msgstr "Merchant Id"
+
+# GMT 1614757039.638
+#, mobile
+msgctxt "appointmentpro"
+msgid "Merchant Key"
+msgstr "Merchant Key"
+
+# GMT 1614757039.639
+#, mobile
+msgctxt "appointmentpro"
+msgid "Is Live"
+msgstr "Is Live"
+
+# GMT 1614757039.640
+#, mobile
+msgctxt "appointmentpro"
+msgid "Description"
+msgstr "Description"
+
+# GMT 1614757039.641
+#, mobile
+msgctxt "appointmentpro"
+msgid "Enable Location Permission"
+msgstr "Enable Location Permission"
+
+# GMT 1614757039.642
+#, mobile
+msgctxt "appointmentpro"
+msgid "Integrate with your Google Calendar."
+msgstr "Integrate with your Google Calendar."
+
+# GMT 1614757039.643
+#, mobile
+msgctxt "appointmentpro"
+msgid "Enable google calendar successfully!"
+msgstr "Enable google calendar successfully!"
+
+# GMT 1614757039.644
+#, mobile
+msgctxt "appointmentpro"
+msgid "Redirect to an absolute URL outside of the App"
+msgstr "Redirect to an absolute URL outside of the App"
+
+# GMT 1614757039.645
+#, mobile
+msgctxt "appointmentpro"
+msgid "Activate Calendar syncing?"
+msgstr "Activate Calendar syncing?"
+
+# GMT 1614757039.646
+#, mobile
+msgctxt "appointmentpro"
+msgid "Reactivate Calendar syncing?"
+msgstr "Reactivate Calendar syncing?"
+
+# GMT 1614757039.647
+msgctxt "appointmentpro"
+msgid "Booking Without Payment"
+msgstr "Booking Without Payment"
+
+# GMT 1614757039.648
+#, mobile
+msgctxt "appointmentpro"
+msgid "On Every"
+msgstr "On Every"
+
+# GMT 1614757039.649
+msgctxt "appointmentpro"
+msgid "New Booking"
+msgstr "New Booking"
+
+# GMT 1614757039.650
+msgctxt "appointmentpro"
+msgid "Select Booking Status"
+msgstr "Select Booking Status"
+
+# GMT 1614757039.651
+msgctxt "appointmentpro"
+msgid "Select payment status"
+msgstr "Select payment status"
+
+# GMT 1614757039.652
+msgctxt "appointmentpro"
+msgid "Select payment mode"
+msgstr "Select payment mode"
+
+# GMT 1614757039.652
+msgctxt "appointmentpro"
+msgid "Enter a Note"
+msgstr "Enter a Note"
+
+# GMT 1614757039.652
+msgctxt "appointmentpro"
+msgid "Select a Booking Date"
+msgstr "Select a Booking Date"
+
+# GMT 1614757039.653
+msgctxt "appointmentpro"
+msgid "New Appointment"
+msgstr "New Appointment"
+
+# GMT 1614757039.654
+msgctxt "appointmentpro"
+msgid "Select Time"
+msgstr "Select Time"
+
+# GMT 1614757039.655
+msgctxt "appointmentpro"
+msgid "Select a customer"
+msgstr "Select a customer"
+
+# GMT 1614757039.656
+msgctxt "appointmentpro"
+msgid "No customers found."
+msgstr "No customers found."
+
+# GMT 1614757039.657
+msgctxt "appointmentpro"
+msgid "Add new customer"
+msgstr "Add new customer"
+
+# GMT 1614757039.658
+msgctxt "appointmentpro"
+msgid "Mr"
+msgstr "Mr"
+
+# GMT 1614757039.659
+msgctxt "appointmentpro"
+msgid "Ms"
+msgstr "Ms"
+
+# GMT 1614757039.660
+msgctxt "appointmentpro"
+msgid "Mobile"
+msgstr "Mobile"
+
+# GMT 1614757039.661
+msgctxt "appointmentpro"
+msgid "This user is visible in ranking"
+msgstr "This user is visible in ranking"
+
+# GMT 1614757039.662
+msgctxt "appointmentpro"
+msgid "This user can access the pages locked by the \"Locker\" feature"
+msgstr "This user can access the pages locked by the \"Locker\" feature"
+
+# GMT 1614757039.663
+msgctxt "appointmentpro"
+msgid "Calendar Header Background"
+msgstr "Calendar Header Background"
+
+# GMT 1614757039.664
+msgctxt "appointmentpro"
+msgid "Calendar Header Color"
+msgstr "Calendar Header Color"
+
+# GMT 1614757039.665
+msgctxt "appointmentpro"
+msgid "Calendar Body Background"
+msgstr "Calendar Body Background"
+
+# GMT 1614757039.666
+msgctxt "appointmentpro"
+msgid "Calendar Body Color"
+msgstr "Calendar Body Color"
+
+# GMT 1614757039.667
+msgctxt "appointmentpro"
+msgid "History"
+msgstr "History"
+
+# GMT 1614757039.668
+msgctxt "appointmentpro"
+msgid "Select Service"
+msgstr "Select Service"
+
+# GMT 1614757039.669
+msgctxt "appointmentpro"
+msgid "Select Customer"
+msgstr "Select Customer"
+
+# GMT 1614757039.669
+msgctxt "appointmentpro"
+msgid "Customer History"
+msgstr "Customer History"
+
+# GMT 1614757039.670
+#, mobile
+msgctxt "appointmentpro"
+msgid "History"
+msgstr "History"
+
+# GMT 1614757039.671
+#, mobile
+msgctxt "appointmentpro"
+msgid "All Services"
+msgstr "All Services"
+
+# GMT 1614757039.672
+#, mobile
+msgctxt "appointmentpro"
+msgid "Filter By"
+msgstr "Filter By"
+
+# GMT 1614757039.673
+#, mobile
+msgctxt "appointmentpro"
+msgid "Search"
+msgstr "Search"
+
+# GMT 1614757039.674
+#, mobile
+msgctxt "appointmentpro"
+msgid "No results found"
+msgstr "No results found"
+
+# GMT 1614757039.675
+#, mobile
+msgctxt "appointmentpro"
+msgid "Reset"
+msgstr "Reset"
+
+# GMT 1614757039.676
+#, mobile
+msgctxt "appointmentpro"
+msgid "Test Mode"
+msgstr "Test Mode"
+
+# GMT 1614757039.677
+#, mobile
+msgctxt "appointmentpro"
+msgid ""
+msgstr ""

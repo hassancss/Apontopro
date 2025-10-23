@@ -1,0 +1,942 @@
+<?php $value_id = (new Appointmentpro_Model_Appointmentpro())->getCurrentValueId(); ?>
+<?php
+$locations = (new Appointmentpro_Model_Location())
+  ->findByValueId($value_id);
+
+$paymentStatus = Appointmentpro_Model_Appointment::getPaymentStatus();
+$bookingStatus = Appointmentpro_Model_Appointment::getBookingStatus();
+$gateways = (new Appointmentpro_Model_Gateways())->findAll(['value_id' => $value_id, 'status' => 1, 'location_id' => 0]);
+?>
+<div class="container-fluid appointmentpro">
+  <div class="container-fluid">
+    <div id="wrapper" class="left-toggled">
+      <div class="right-toggled">
+        <div class="sidebars has-sidebar">
+          <?php include(dirname(__DIR__) . "/partials/menu.phtml"); ?>
+          <div class="subcontent third-main-panel">
+            <div class="row app-features">
+              <div class="responsive-part col-md-12">
+                <div class="page-content-wrapper form-horizontal">
+                  <div class="content solo-page">
+                    <h3 class="title-editor border-blue text-center">
+                      <?php echo p__("appointmentpro", "New Appointment"); ?>
+                      <a href="/appointmentpro/booking/list" id="back" class="color-blue btn sb-tour pull-right">
+                        <?php echo  p__("appointmentpro", "Back"); ?> </a>
+                    </h3>
+                    <div class="subcontent content-color container-fluid">
+
+                      <div class="stepwizard">
+                        <div class="stepwizard-row setup-panel">
+                          <div class="stepwizard-step">
+                            <a href="#step-1" type="button" class="btn btn-primary btn-circle"> <i class="fa fa-home" aria-hidden="true"></i></a>
+                            <p> <?php echo p__("appointmentpro", "Booking"); ?></p>
+                          </div>
+                          <div class="stepwizard-step">
+                            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-user" aria-hidden="true"></i></a>
+                            <p> <?php echo p__("appointmentpro", "Customer"); ?></p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <form role="form" id="appointmentform" class="setup-from" action="<?php echo $this->getUrl('appointmentpro/booking/save'); ?>" method="post">
+
+                        <input type="hidden" name="value_id" value="<?php echo $value_id; ?>">
+
+                        <div class="row setup-content" id="step-1">
+                          <div class="form-group">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="location_id" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Location'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <select required="required" class="required styled-select color-blue form-control" name="location_id" id="location_id">
+                                    <option value=""><?php echo p__("appointmentpro", 'Select Location'); ?></option>
+                                    <?php
+                                    foreach ($locations as $key => $value) { ?>
+                                      <option value="<?php echo $value->getLocationId(); ?>">
+                                        <?php echo $value->getName(); ?>
+                                      </option>
+                                    <?php } ?>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="provider_id" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Provider'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <select required="required" class="required styled-select color-blue form-control" name="provider_id" id="provider_id" disabled="disabled">
+                                    <option value=""><?php echo p__("appointmentpro", 'Select provider'); ?></option>
+                                  </select>
+                                  <p class="small provider_messages"></p>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="service_id" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Service'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <select required="required" class="required styled-select color-blue form-control" name="service_id" id="service_id" disabled="disabled">
+                                    <option value=""><?php echo p__("appointmentpro", 'Select service'); ?></option>
+                                  </select>
+                                  <p class="small service_messages"></p>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="service_price" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Price And Service Time'); ?><span>*</span>
+                                  </label>
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="hidden" name="service_main_id" id="service_main_id">
+                                  <input type="text" value="" readonly class="required input-flat form-control-plaintext" placeholder="<?php echo p__("appointmentpro", 'Price'); ?>" name="service_price" id="service_price" />
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="text" value="" readonly class="required input-flat form-control-plaintext" placeholder="<?php echo p__("appointmentpro", 'Time'); ?>" name="service_time" id="service_time" />
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="appointment_date" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Date'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <input type="text" required="required" value="" class="required input-flat form-control" autocomplete="off" name="appointment_date" placeholder="<?php echo p__("appointmentpro", 'Select a Booking Date'); ?>" id="appointment_date" />
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="status" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Booking Status'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <select required="required" class="required styled-select color-blue form-control" name="status" id="status">
+                                    <option value=""><?php echo p__("appointmentpro", 'Select Booking Status'); ?></option>
+                                    <?php
+                                    foreach ($bookingStatus as $key => $value) { ?>
+                                      <option value="<?php echo $key; ?>">
+                                        <?php echo p__("appointmentpro", $value); ?>
+                                      </option>
+                                    <?php } ?>
+
+                                  </select>
+                                  <p class="small status_messages"></p>
+                                </div>
+                              </div>
+
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="payment_status" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Payment Status'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <select required="required" class="required styled-select color-blue form-control" name="payment_status" id="payment_status">
+                                    <option value=""><?php echo p__("appointmentpro", 'Select payment status'); ?></option>
+                                    <?php
+                                    foreach ($paymentStatus as $key => $value) { ?>
+                                      <option value="<?php echo $key; ?>">
+                                        <?php echo p__("appointmentpro", $value); ?>
+                                      </option>
+                                    <?php } ?>
+                                  </select>
+                                  <p class="small paymentstatus_messages"></p>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="payment_method" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Payment Mode'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <select required="required" class="required styled-select color-blue form-control" name="payment_method" id="payment_method">
+                                    <option value=""><?php echo p__("appointmentpro", 'Select payment mode'); ?></option>
+                                    <?php
+                                    foreach ($gateways as $key => $value) { ?>
+                                      <option value="<?php echo $value->getId(); ?>">
+                                        <?php echo p__("appointmentpro",  $value->getLableName()); ?>
+                                      </option>
+                                    <?php } ?>
+                                  </select>
+                                  <p class="small paymentstatus_messages"></p>
+                                </div>
+                              </div>
+
+
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="order_note" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Note'); ?></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <input type="text" value="" class="input-flat form-control" autocomplete="off" name="order_note" placeholder="<?php echo p__("appointmentpro", 'Enter a Note'); ?>" id="order_note" />
+                                </div>
+                              </div>
+
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button class="color-blue btn pull-right sb-tour nextBtn" type="button"><?php echo p__("appointmentpro", "Next"); ?></button>
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4 available_time_slot_div" style="display: none;">
+                              <div class="form-group">
+                                <div class="col-sm-12">
+                                  <h4>
+                                    <?php echo p__("appointmentpro", 'Select Time'); ?>:
+                                  </h4>
+                                  <p class="required_time_slot text-danger" style="display: none;">
+                                    <?php echo p__("appointmentpro", 'Please select a Time Slot'); ?>
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="form-group">
+
+                                <div id="appointment_loader" class="loader_metrics text-center">
+                                  <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                                </div>
+                                <div class="available_time_slot" id="available_time_slot">
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row setup-content" id="step-2">
+                          <div class="form-group">
+                            <div class="col-md-6">
+
+                              <div class="form-group" style="display: none;">
+                                <div class="col-sm-4">
+                                  <label for="location_id" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Search Customer'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <input type="text" required="required" value="" class="required input-flat form-control" name="customer_email" placeholder="Enter a email address" id="customer_email" />
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label class="control-label">
+                                    <?php echo p__("appointmentpro", 'Previous Notes'); ?></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <div id="customer_previous_notes" class="customer-notes-container">
+                                    <div class="alert alert-info mb-0" role="alert">
+                                      <?php echo p__("appointmentpro", 'Select a customer to view previous notes.'); ?>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                  <label for="customer_id" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Search Customer'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <select required="required" style="width: 100%;" class="required styled-select color-blue form-control" name="customer_id" id="customer_id">
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group customer_inputs" style="display: none;">
+                                <div class="col-sm-4">
+                                  <label for="customer_firstname" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Firstname'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <input type="text" required="required" value="" class="required input-flat form-control" name="customer_firstname" placeholder="Enter a Firstname" id="customer_firstname" />
+                                  <!-- <input type="hidden" name="customer_id" id="customer_id"> -->
+                                </div>
+                              </div>
+
+                              <div class="form-group customer_inputs" style="display: none;">
+                                <div class="col-sm-4">
+                                  <label for="customer_lastname" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Lastname'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <input type="text" required="required" value="" class="required input-flat form-control" name="customer_lastname" placeholder="Enter a Lastname" id="customer_lastname" />
+                                </div>
+                              </div>
+
+                              <div class="form-group customer_inputs" style="display: none;">
+                                <div class="col-sm-4">
+                                  <label for="customer_phone" class="control-label">
+                                    <?php echo p__("appointmentpro", 'Mobile Number'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                  <input type="text" required="required" value="" class="required input-flat form-control" name="customer_phone" placeholder="Enter a Mobile Number" id="customer_phone" />
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button class="color-blue btn pull-right" type="submit"><?php echo p__("appointmentpro", "Submit"); ?></button>
+
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- customer form modal -->
+<div id="add_customer" class="custom_modal add_customer" style="display:none;">
+  <div id="modal_mask_add_customer" class="modal_mask close_modal close_modal_add_customer">
+  </div>
+  <div>
+    <div id="new_customer_form" class="modal_content inner_content">
+      <span class="pull-right" style="margin-right: 8px;">
+        <button class="bt_close_modal_icons close_modal_add_customer btn btn-danger" type="button">
+          <i class="fa fa-times"></i>
+        </button>
+      </span>
+      <h3 class="title-editor border-blue no-border-radius text-center">
+        <?php echo p__("appointmentpro", 'Add new customer'); ?>
+      </h3>
+      <div class="new_customer_form_details">
+        <div class="container-fluid content-color" style="padding-top: 20px;" id="customer_form_data">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /customer form modal -->
+<script type="text/javascript">
+  if ($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']) {
+    $.datepicker.setDefaults($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']);
+  } else {
+    $.datepicker.setDefaults($.datepicker.regional['en']);
+  }
+
+  $("#appointment_date").datepicker({
+    changeMonth: false,
+    setDate: new Date(),
+    changeYear: false,
+    numberOfMonths: 1,
+    dateFormat: "mm/dd/yy",
+  });
+
+
+
+  $(document).ready(function() {
+
+    $('#appointmentform').submit(function(e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+
+      if ($(this).valid()) {
+        console.log(formData);
+
+        reload(this, this.action, formData, function(data) {
+          if (data.success) {
+            window.location = "<?php echo $this->getUrl("appointmentpro/booking/list"); ?>";
+          }
+        });
+      }
+      return false;
+    });
+
+    function ValidateEmail(emailAddr) {
+      if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailAddr)) {
+        return (true)
+      }
+      return (false)
+    }
+
+    setTimeout(function() {
+      $("#appointment_date").datepicker("option", {
+        "minDate": new Date()
+      });
+    }, 300)
+
+
+
+    $(document).on('input', "#customer_email", function() {
+      if ($(this).val() && ValidateEmail($(this).val())) {
+        $.ajax({
+          type: "POST",
+          url: '/appointmentpro/booking/find-customer-by-email',
+          data: {
+            email: $(this).val()
+          },
+          dataType: "json",
+          success: function(data) {
+            $('.customer_inputs').show();
+            if (data.customer) {
+              console.log(data.customer);
+              $('#customer_lastname').val(data.customer.lastname);
+              $('#customer_firstname').val(data.customer.firstname);
+              $('#customer_phone').val(data.customer.phone);
+              $('#customer_id').val(data.customer.id);
+
+            } else {
+              $('#customer_lastname').val('');
+              $('#customer_firstname').val('');
+              $('#customer_phone').val('');
+              $('#customer_id').val(0);
+            }
+          },
+          error: function() {
+            $('.customer_inputs').hide();
+            feature_form_error("Something went wrong!");
+          }
+        });
+      }
+
+    });
+
+
+    $("#location_id").change(function() {
+      resetFrom('location');
+      if (!isNaN($(this).val())) {
+        $.ajax({
+          type: "GET",
+          url: '/appointmentpro/booking/get-providers/location_id/' + $(this).val(),
+          dataType: "json",
+          success: function(data) {
+            if (data.providers.length) {
+              $('#provider_id').removeAttr("disabled");
+              for (x in data.providers) {
+                $('#provider_id').append('<option value="' + data.providers[x].provider_id + '">' + data.providers[x].name + '</option>');
+              }
+            } else {
+              $('#provider_id').attr("disabled", true);
+              $('#provider_id').empty();
+              $('.provider_messages').html('<?php echo p__("appointmentpro", 'No service provider found for this location'); ?>');
+            }
+
+          },
+          error: function() {
+            feature_form_error("Something went wrong!");
+            $('#provider_id').attr("disabled", true);
+            $('#provider_id').empty();
+          }
+        });
+      }
+
+    });
+
+
+    $("#appointment_date").change(function() {
+      $('.available_time_slot_div').show();
+      $('#appointment_loader').show();
+      resetFrom('date');
+      if ($(this).val()) {
+        $.ajax({
+          type: "POST",
+          url: '/appointmentpro/booking/find-service-provider-slot',
+          data: {
+            location_id: $('#location_id').val(),
+            service_id: $('#service_main_id').val(),
+            provider_id: $('#provider_id').val(),
+            date: $('#appointment_date').val()
+          },
+          dataType: "json",
+          success: function(data) {
+            $('#appointment_loader').hide();
+            if (data.data.status == 'success') {
+              var displayTime = data.data.data.displayTime;
+              for (x in displayTime) {
+                var timeSlotHtml = '<div class="col-sm-4"><label class="radio-inline">';
+
+                // Check if this is a break time slot (object) or regular slot (string)
+                if (typeof displayTime[x] === 'object' && displayTime[x].has_break) {
+                  var breakInfo = displayTime[x];
+                  timeSlotHtml += '<input type="radio" id="slot_time" value="' + x + '" name="slot_time" class="required color-blue radio" /> ';
+                  timeSlotHtml += breakInfo.time + ' ';
+                  timeSlotHtml += '<small class="text-info break-info">';
+                  timeSlotHtml += '<br/>(' + breakInfo.work_before + 'min work → ' + breakInfo.break_duration + 'min break → ' + breakInfo.work_after + 'min work)';
+                  timeSlotHtml += '</small>';
+                } else {
+                  // Regular time slot without breaks
+                  timeSlotHtml += '<input type="radio" id="slot_time" value="' + x + '" name="slot_time" class="required color-blue radio" /> ' + displayTime[x] + ' ';
+                }
+
+                timeSlotHtml += '</label></div>';
+                $('#available_time_slot').append(timeSlotHtml);
+              }
+            } else {
+              $('#available_time_slot').html('<h5>' + data.data.message + '</h5>')
+            }
+          },
+          error: function() {
+            $('#appointment_loader').hide();
+            feature_form_error("Something went wrong!");
+          }
+        });
+      }
+
+    });
+
+    $("#provider_id").change(function() {
+      resetFrom('provider');
+      if (!isNaN($(this).val())) {
+        $.ajax({
+          type: "GET",
+          url: '/appointmentpro/booking/get-provider-services/provider_id/' + $(this).val(),
+          dataType: "json",
+          success: function(data) {
+            if (data.services.length) {
+              $('#service_id').removeAttr("disabled");
+              for (x in data.services) {
+                $('#service_id').append('<option value="' + data.services[x].json + '">' + data.services[x].service_name + '</option>');
+              }
+            } else {
+              $('#service_id').attr("disabled", true);
+              $('#service_id').empty();
+              $('.service_messages').html('<?php echo p__("appointmentpro", 'No service found for this provider'); ?>');
+            }
+
+          },
+          error: function() {
+            feature_form_error("Something went wrong!");
+            $('#service_id').attr("disabled", true);
+            $('#service_id').empty();
+          }
+        });
+      }
+
+    });
+
+
+    $("#service_id").change(function() {
+      resetFrom('service');
+      var service = $(this).val();
+      var serviceArray = service.split("~");
+      $('#service_time').val(serviceArray[1]);
+      $('#service_price').val(serviceArray[0]);
+      $('#service_main_id').val(serviceArray[2]);
+    });
+
+
+    function resetFrom(key) {
+
+      if (key == 'location') {
+        $('.provider_messages').html('');
+        $('#provider_id').attr("disabled", true);
+        $('#provider_id').empty();
+        $('#provider_id').append('<option value="" selected="selected"><?php echo p__("appointmentpro", 'Select provider'); ?></option>');
+      }
+
+      if (key == 'provider' || key == 'location') {
+        $('.service_messages').html('');
+        $('#service_id').attr("disabled", true);
+        $('#service_id').empty();
+        $('#service_id').append('<option value="" selected="selected"><?php echo p__("appointmentpro", 'Select service'); ?></option>');
+        $('#service_time').val('');
+        $('#service_price').val('');
+        $('#service_main_id').val('');
+        $('#available_time_slot').html('');
+        $('#appointment_date').val('');
+      }
+
+      if (key == 'service') {
+        $('#appointment_date').val('');
+        $('#available_time_slot').html('');
+      }
+
+      if (key == 'date') {
+        $('#available_time_slot').html('');
+      }
+
+    }
+
+
+  });
+
+
+  var navListItems = $('div.setup-panel div a'),
+    allWells = $('.setup-content'),
+    allNextBtn = $('.nextBtn');
+
+  allWells.hide();
+
+  navListItems.click(function(e) {
+    e.preventDefault();
+    var $target = $($(this).attr('href')),
+      $item = $(this);
+
+    if (!$item.hasClass('disabled')) {
+      navListItems.removeClass('btn-primary').addClass('btn-default');
+      $item.addClass('btn-primary');
+      allWells.hide();
+      $target.show();
+      $target.find('input:eq(0)').focus();
+    }
+  });
+
+  allNextBtn.click(function() {
+    var curStep = $(this).closest(".setup-content"),
+      curStepBtn = curStep.attr("id"),
+      nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+      curInputs = curStep.find("input[type='text'],input[type='date'],input[type='url'],select,input[type='number'],textarea"),
+      isValid = true;
+
+    $(".form-group").removeClass("has-error");
+    for (var i = 0; i < curInputs.length; i++) {
+      if (!curInputs[i].validity.valid) {
+        isValid = false;
+        $(curInputs[i]).closest(".form-group").addClass("has-error");
+      }
+    }
+
+
+    if (isValid) {
+      if (!$("input[name='slot_time']:checked").val()) {
+        isValid = false;
+        $('.required_time_slot').show();
+      }
+    }
+
+    if (isValid) {
+      $('.required_time_slot').hide();
+      nextStepWizard.removeAttr('disabled').trigger('click');
+    }
+
+  });
+
+  $('div.setup-panel div a.btn-primary').trigger('click');
+</script>
+
+<style type="text/css">
+  .stepwizard-step p {
+    margin-top: 10px;
+  }
+
+  .stepwizard-row {
+    display: table-row;
+  }
+
+  .stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+    margin-top: 5%;
+  }
+
+  .stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+  }
+
+  .stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+
+  }
+
+  .stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+  }
+
+  .btn-circle {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 50px;
+  }
+
+  form.setup-from {
+    margin-top: 3%;
+  }
+
+  .stepwizard-step i {
+    font-size: 30px;
+  }
+
+  img.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  .customer-notes-container .card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .customer-notes-container .list-group-item {
+    border-color: #eee;
+  }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var notesContainer = $('#customer_previous_notes');
+    var notesMessages = {
+      selectCustomer: "<?php echo addslashes(p__('appointmentpro', 'Select a customer to view previous notes.')); ?>",
+      loading: "<?php echo addslashes(p__('appointmentpro', 'Loading previous notes...')); ?>",
+      none: "<?php echo addslashes(p__('appointmentpro', 'No previous notes for this customer.')); ?>",
+      error: "<?php echo addslashes(p__('appointmentpro', 'Unable to load previous notes.')); ?>"
+    };
+
+    function showCustomerNotesMessage(message, type) {
+      var alertType = type || 'info';
+      var alertElement = $('<div></div>')
+        .addClass('alert mb-0 alert-' + alertType)
+        .attr('role', 'alert')
+        .text(message);
+
+      notesContainer.empty().append(alertElement);
+    }
+
+    function renderCustomerNotes(notes) {
+      notesContainer.empty();
+
+      var listWrapper = $('<div></div>').addClass('card shadow-sm');
+      var listGroup = $('<ul></ul>').addClass('list-group list-group-flush');
+
+      $.each(notes, function(index, note) {
+        var listItem = $('<li></li>').addClass('list-group-item');
+        listItem.append($('<div></div>').addClass('note-text').text(note.note));
+
+        if (note.date_label) {
+          listItem.append($('<div></div>').addClass('small text-muted mt-1').text(note.date_label));
+        }
+
+        listGroup.append(listItem);
+      });
+
+      listWrapper.append(listGroup);
+      notesContainer.append(listWrapper);
+    }
+
+    function resetCustomerNotes() {
+      showCustomerNotesMessage(notesMessages.selectCustomer, 'info');
+    }
+
+    function fetchCustomerNotes(customerId) {
+      if (!customerId) {
+        resetCustomerNotes();
+        return;
+      }
+
+      showCustomerNotesMessage(notesMessages.loading, 'info');
+
+      $.ajax({
+        url: '<?php echo $this->getUrl('appointmentpro/booking/get-customer-notes'); ?>',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          customer_id: customerId
+        },
+        success: function(response) {
+          if (response && response.success) {
+            if (response.notes && response.notes.length > 0) {
+              renderCustomerNotes(response.notes);
+            } else {
+              showCustomerNotesMessage(notesMessages.none, 'secondary');
+            }
+          } else {
+            console.error('Unexpected response when loading customer notes:', response);
+            showCustomerNotesMessage(notesMessages.error, 'danger');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error fetching customer notes:', status, error);
+          console.error('Response:', xhr.responseText);
+          showCustomerNotesMessage(notesMessages.error, 'danger');
+        }
+      });
+    }
+
+    resetCustomerNotes();
+
+    $('#customer_id').select2({
+      ajax: {
+        url: '<?php echo $this->getUrl('appointmentpro/booking/get-customers') ?>', // Replace with your endpoint URL
+        dataType: 'json',
+        delay: 250,
+        data: function(params) {
+          return {
+            q: params.term || '' // search term, empty string for initial load
+          };
+        },
+        processResults: function(data) {
+          return {
+            results: data.items // Adjust based on your API response structure
+          };
+        },
+        cache: true
+      },
+      minimumInputLength: 0, // Allow empty search term to fetch all customers
+      placeholder: '<?php echo p__("appointmentpro", 'Select a customer'); ?>',
+      allowClear: true,
+      width: '100%', // Set the width to 100%
+      language: {
+        noResults: function() {
+          return $('<div><?php echo p__("appointmentpro", 'No customers found.'); ?> <a class="btn btn-success btn-sm" rel="" href="#" id="add-new-customer"><?php echo p__("appointmentpro", 'Add new customer'); ?></a></div>');
+        }
+      }
+    });
+
+    // Trigger an initial load to fetch all customers
+    $('#customer_id').select2('open').select2('close');
+
+    $('#customer_id').on('change', function() {
+      var selectedId = $(this).val();
+      var customerData = $('#customer_id').select2('data');
+      var selectedCustomer = customerData && customerData.length ? customerData[0] : null;
+
+      if (selectedCustomer && selectedCustomer.email) {
+        $('#customer_email').val(selectedCustomer.email).trigger('input');
+      } else {
+        $('#customer_email').val('').trigger('input');
+      }
+
+      if (selectedId) {
+        fetchCustomerNotes(selectedId);
+      } else {
+        resetCustomerNotes();
+      }
+
+      // You can add additional logic here to handle the selected customer object
+    });
+  });
+
+  let add_customer = {
+    tolerance: 180,
+    mask: null,
+    processEvents: function() {
+      // $('#add-new-customer').unbind('click');
+      // $('#add-new-customer').click(function(e) {
+      //   e.preventDefault();
+      //   // Add your logic to handle adding a new customer here
+      //   alert('Add new customer clicked');
+      //   add_customer.open($(this).attr('rel'));
+      // });
+
+      $('.close_modal_add_customer').unbind('click');
+      $('.close_modal_add_customer').click(function() {
+        add_customer.close(true);
+      });
+    },
+    open: function() {
+      var ref = this;
+      $('#mask').show();
+      $.ajax({
+          url: '<?php echo $this->getUrl('appointmentpro/booking/get-customer-form'); ?>',
+          type: 'POST',
+          dataType: 'html',
+          data: {
+
+            value_id: <?php echo $value_id; ?>,
+          }
+        })
+        .done(function(data) {
+          $('#mask').hide("fast", function() {
+            $(document).keyup(function(e) {
+              if (e.which == 27) add_customer.close(true);
+            });
+
+            $(window).unbind('resize');
+            $(window).resize(ref.resize.bind(ref));
+
+            ref.resize();
+
+            $('#customer_form_data').html(data);
+
+            $('#add_customer').fadeIn();
+          });
+        })
+        .fail(function(data) {
+          $('#mask').hide();
+        })
+        .always(function() {
+          $('#mask').hide();
+        });
+      /* $(document).keyup(function (e) {
+      	if (e.which == 27) add_customer.close(true);
+      });
+
+      $(window).unbind('resize');
+      $(window).resize(this.resize.bind(this));
+
+      this.resize();
+
+      $('#add_customer').fadeIn(); */
+
+    },
+    close: function(animated) {
+      if (animated) {
+        $('#add_customer').fadeOut(300, function() {});
+      } else {
+        $('#add_customer').hide();
+      }
+      $(document).unbind('keyup');
+    },
+    resize: function(all) {
+      let selector = ".new_customer_form_details";
+      if (!all) {
+        selector += ":visible";
+      }
+      $('#new_customer_form').css('height', $(window).outerHeight() - 75);
+      $('#add_customer').find(selector).css('height', $(window).outerHeight() - this.tolerance);
+    }
+  };
+  // add_customer.processEvents();
+  $(document).on('click', '#add-new-customer', function(e) {
+    // alert('ok');
+    e.preventDefault();
+    // Close the Select2 dropdown
+    $('#customer_id').select2('close');
+    add_customer.open($(this).attr('rel'));
+  });
+</script>
+<style>
+  #back {
+    margin-top: -4.1px;
+    margin-right: 0.5px;
+  }
+</style>

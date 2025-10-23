@@ -1,0 +1,18 @@
+<div class="list" ng-class="{'card' : settings.list_design}" ng-repeat="category in location_info.categories">
+    <a ng-click="locationServiceModal(category.main_category_id)" class="item item-custom item-avatar remove-border item-icon-right">
+		<img class="category-image-grid" ng-src="{{ appointmentproImage(category.category_image) }}">
+		<h2>{{category.category_name}}</h2>
+		<p>{{category.total_service}} {{ "Types" | translate:"appointmentpro" }} </p>
+		<i class="icon ion-chevron-right"></i>	
+	</a>
+</div>
+
+<div class="list" ng-class="{'card' : settings.list_design}" ng-if="location_info.categories.length == 0">
+   <a class="item item-custom remove-border">
+		<div class="row text-center" >
+	      <div class="col text-center">
+	        <p> {{ "No category available" | translate:"appointmentpro" }}!</p>
+	      </div>
+	    </div>
+	</a>
+</div>

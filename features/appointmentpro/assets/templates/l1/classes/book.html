@@ -1,0 +1,62 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-tickets">
+
+    <ion-nav-title>{{ ::"Select Tickets" | translate:"appointmentpro" }}</ion-nav-title>
+   
+ 
+    <ion-content class="has-header"
+                id="item-content"
+                scrollbar-y="false"
+                overflow-scroll="false"
+                delegate-handle="mainScroll">
+
+        <div class="loader"
+             ng-show="is_loading">
+            <ion-spinner icon="android"
+                         class="spinner-custom"></ion-spinner>
+        </div>
+
+      <div class="list" ng-class="{'card' : settings.list_design}" ng-show="!is_loading">
+        <div class="item item-custom item-thumbnail-left remove-border">
+            <img class="location-image-grid" ng-src="{{ appointmentproImage(cart.class.featured_image) }}">
+            <h2>{{cart.class.name}}</h2>
+            <p>{{cart.class.address}}</p>
+        </div>
+      </div>
+
+      <div class="list" ng-class="{'card' : settings.list_design}" ng-show="!is_loading">
+               
+         <div class="item item-divider item-divider-custom remove-border">
+            {{ ::'Tickets' | translate:'appointmentpro' }}
+        </div>
+
+        <label class="item item-custom item-input item-select remove-border">
+          <div class="input-label">
+            {{ :: "Select Quantity" | translate:"appointmentpro" }}<span>*</span>
+          </div>
+            <select ng-required="true" ng-value="{{cart.tickets_qty}}"  ng-model="cart.tickets_qty">
+            <option value="{{n}}" ng-value="{{n}}" ng-repeat="n in range(1, cart.class.total_tickets_per_user)">{{n}}</option>
+           </select>
+        </label>
+
+        <div class="item item-custom remove-border">
+           {{ ::'Per ticket Price' | translate:'appointmentpro' }}
+           <span class="pull-right">{{cart.class.price_with_currency}}</span> 
+        </div>
+
+         <div class="item item-custom remove-border">
+           <h2>{{ ::'Total Amount' | translate:'appointmentpro' }}
+           <span class="pull-right">{{cart.class.currency}} {{cart.tickets_qty * cart.class.price}}</span></h2>
+        </div>
+
+        <div class="item item-custom remove-border">
+          <button ui-sref="appointmentpro-checkout({value_id: value_id})" class="button button-block button-positive button-positive-custom">
+            {{ ::"Continue" | translate:"appointmentpro" }}
+          </button>
+        </div>
+
+
+      </div>
+ 
+  </ion-content>
+</ion-view>

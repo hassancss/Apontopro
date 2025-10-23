@@ -1,0 +1,70 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-booking">
+
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+
+    <ion-nav-buttons side="secondary">      
+      <button class="button button-clear header-item"
+              ui-sref="appointmentpro-account({value_id: value_id})">
+            <i class="icon ion-android-contact"></i>
+      </button>
+    </ion-nav-buttons>
+
+      <ion-header-bar class="bar-subheader bar-custom bar bar-header">
+      <div class="list list-inset home-serach-list">
+            <a class="item item-input item-button-right home-serach-item">
+                <i class="icon ion-search placeholder-icon"></i>
+                 <input type="search"
+                     ng-modal="payout.search_text"
+                     ng-init="payout.search_text = ''"
+                     ng-value=""
+                     id="bookingSearch"
+                     class="search-input"
+                     placeholder="{{ forTranslate('Search booking') }}"  
+                     ng-keyup="loadSearchBooking()" />
+            </a>
+        </div>
+    </ion-header-bar>
+
+ 
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+      <div class="loader"
+           ng-show="is_loading">
+          <ion-spinner icon="android"
+                       class="spinner-custom"></ion-spinner>
+      </div>
+
+      <div class="item item-custom" ng-repeat="value in managerBoking" ng-if="managerBoking.length && !is_loading" >
+        <h2 ng-click="bookingDetailsById(value.appointment_id)">{{value.customer}}<span class="pull-right">{{value.status}}</span></h2>
+        <p ng-click="bookingDetailsById(value.appointment_id)">
+          {{value.booking_date}} <span ng-if="!value.is_it_class">@ {{value.start_time}}</span>
+          <span class="pull-right">{{value.amount_with_currency}} ({{value.payment_status}})</span>
+        </p>
+        <p>
+          {{value.service_name}} {{ ::"by" | translate:"appointmentpro" }} {{value.provider_name}}
+          <span class="pull-right action-manager-sheet" ng-click="actionManagerBooking(value, $index)">
+            <i class="icon ion-android-more-vertical"></i>
+          </span>
+        </p>  
+      </div>
+
+      <div class="item item-custom" ng-if="!managerBoking.length && !is_loading">
+         <p class="text-center">{{ ::"No Booking found" | translate:"appointmentpro" }}</p>
+      </div>
+
+    </ion-content>
+
+    <ion-infinite-scroll ng-if="can_load_older_manager_booking"
+                 on-infinite="loadMoreManagerBooking()"
+                 immediate-check="false"
+                 distance="50%"
+                 class="spinner-custom">
+    </ion-infinite-scroll>
+
+
+</ion-view>

@@ -1,0 +1,92 @@
+<!-- Slider Image -->
+  <div class="list" ng-if="!is_loading && payout.sliders.length > 0 && settings.home_slider">
+      <div class="item item-custom appointmentpro-slider remove-border">
+        <ion-slide-box id="appointmentpro_slider"
+                       ng-if="payout.sliders.length > 0"
+                       auto-play="true"
+                       slide-interval="3000"
+                       show-pager="true" ,
+                       does-continue="true"
+                       style="height: 150px;">
+            <ion-slide ng-repeat="slider in payout.sliders">
+                <img class="appointmentpro-feature-img" 
+                      ng-src="{{ appointmentproSliderImage(slider.image) }}"
+                      style="width:100%;"/>
+            </ion-slide>
+        </ion-slide-box> 
+      </div>
+    </div>
+  <!-- End Slider Image -->
+
+
+   <!-- Start provider Start -->
+  <div class="list" ng-class="{'card' : settings.list_design}" ng-if="!is_loading && payout.providers.length > 0 && !payout.is_single_location" > 
+    <div class="item item-divider item-divider-custom appointmentpro-divider-item" ui-sref="appointmentpro-provider-locations({value_id: value_id})">
+      <h2>{{ getLabelName('popular_providers') }} 
+      </h2>
+    </div>
+  </div>
+  
+  <ng-include ng-if="!is_loading && payout.providers.length > 0 && !payout.is_single_location" src="'./features/appointmentpro/assets/templates/include/home/provider.html'"></ng-include>
+
+  <!-- Start classes Start -->
+  <div class="list" ng-class="{'card' : settings.list_design}" ng-if="!is_loading && payout.categories.length > 0 && !payout.is_single_location" > 
+    <div class="item item-divider item-divider-custom appointmentpro-divider-item" ui-sref="appointmentpro-category-locations({value_id: value_id})">
+      <h2>{{ getLabelName('top_categories') }} 
+      </h2>
+    </div>
+  </div>
+  
+  <ng-include ng-if="!is_loading && payout.categories.length > 0 && !payout.is_single_location" src="'./features/appointmentpro/assets/templates/include/home/categories.html'"></ng-include>    
+
+  <!-- Start Location Start -->
+  <div class="list" ng-class="{'card' : settings.list_design}" ng-if="!is_loading && payout.locations.length > 0 && settings.is_service_booking && !payout.is_single_location" > 
+    <div class="item item-divider item-divider-custom appointmentpro-divider-item" ui-sref="appointmentpro-locations({value_id: value_id})">
+      <h2>{{ getLabelName('locations') }}
+         <span class="pull-right">
+          <i class="icon ion-chevron-right"></i>
+        </span>
+      </h2>
+    </div>
+  </div>
+  
+  <ng-include ng-if="!is_loading && payout.locations.length > 0 && settings.is_service_booking && !payout.is_single_location" src="'./features/appointmentpro/assets/templates/include/location/location.html'"></ng-include>
+
+  
+  <ng-include ng-if="!is_loading && payout.locations.length == 1 && settings.is_service_booking && payout.is_single_location" src="'./features/appointmentpro/assets/templates/include/location/location_detail.html'"></ng-include>
+
+
+  <div class="card" ng-if="!is_loading && payout.locations.length > 10 && settings.is_service_booking"> 
+    <div class="item item-divider item-divider-custom appointmentpro-divider-item" ui-sref="appointmentpro-locations({value_id: value_id})">
+      <h2 class="text-center">{{ ::"More" | translate:"appointmentpro" }} {{ getLabelName('locations') }}
+         <span class="pull-right">
+          <i class="icon ion-chevron-right"></i>
+        </span>
+      </h2>
+    </div>
+  </div>
+
+<!-- End locations -->
+
+<!-- Start calsses Start -->
+  <div class="list" ng-class="{'card' : settings.list_design}" ng-if="!is_loading && payout.classes.length > 0 && settings.is_class_booking" > 
+    <div class="item item-divider item-divider-custom appointmentpro-divider-item" ui-sref="appointmentpro-classes({value_id: value_id})">
+      <h2>{{ getLabelName('classes') }}
+         <span class="pull-right">
+          <i class="icon ion-chevron-right"></i>
+        </span>
+      </h2>
+    </div>
+  </div>
+  
+  <ng-include ng-if="!is_loading && payout.classes.length > 0 && settings.is_class_booking" src="'./features/appointmentpro/assets/templates/include/classes/list.html'"></ng-include>
+
+  <div class="card" ng-if="!is_loading && payout.classes.length > 10 && settings.is_class_booking"> 
+    <div class="item item-divider item-divider-custom appointmentpro-divider-item" ui-sref="appointmentpro-classes({value_id: value_id})">
+      <h2 class="text-center">{{ ::"More" | translate:"appointmentpro" }} {{ getLabelName('classes') }}
+         <span class="pull-right">
+          <i class="icon ion-chevron-right"></i>
+        </span>
+      </h2>
+    </div>
+  </div>

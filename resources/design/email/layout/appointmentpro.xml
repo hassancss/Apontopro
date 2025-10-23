@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+
+    <appointmentpro_booking>
+        <addLayout name="base_email" />
+        <views>
+            <content_email class="core_view_email_default" template="appointmentpro/booking.phtml" />
+        </views>
+    </appointmentpro_booking>
+
+    <appointmentpro_reminder>
+        <addLayout name="base_email" />
+        <views>
+            <content_email class="core_view_email_default" template="appointmentpro/reminder.phtml" />
+        </views>
+    </appointmentpro_reminder>
+    
+    <create_provider_account>
+        <addLayout name="base_email" />
+        <views>
+            <content_email class="core_view_email_default" template="appointmentpro/create_provider_account.phtml" />
+        </views>
+    </create_provider_account>
+
+</layout>

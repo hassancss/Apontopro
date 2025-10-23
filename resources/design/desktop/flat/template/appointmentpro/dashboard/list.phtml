@@ -1,0 +1,276 @@
+<?php $data = $this->getWeekDates(); ?>
+<div class="container-fluid appointmentpro">
+    <div class="container-fluid">
+        <div id="wrapper" class="left-toggled">
+            <div class="right-toggled">
+                <div class="sidebars has-sidebar">
+                    <?php include(dirname(__DIR__)."/partials/menu.phtml"); ?>
+                    <div class="subcontent third-main-panel">
+                        <div class="row app-features">
+                            <div class="responsive-part col-md-12">
+                                <div class="page-content-wrapper form-horizontal">
+                                    <div class="content solo-page">
+                                        <h3 class="title-editor border-blue text-center">
+                                            <?php echo p__("appointmentpro","Dashboard"); ?>
+                                        </h3>
+                                        <div class="subcontent content-color container-fluid">
+                                            <div class="row content-white-bkg sb-pager">
+                                                <div class="col-md-3 color-blue">
+                                                    <div class="col-md-12">
+                                                        <div class="card border-right">
+                                                            <div class="card-body text-center">
+                                                                <h2 class="card-title">
+                                                                    <?php echo p__("appointmentpro","This Week"); ?>
+                                                                </h2>
+                                                                <p class="card-text text-center">
+                                                                    <?php echo date("M d", strtotime($data['week_start_date'])); ?>
+                                                                    -
+                                                                    <?php echo date("M d", strtotime($data['week_end_date'])); ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-9">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="card border-right">
+                                                                <div class="card-body text-center">
+                                                                    <h2 class="card-title">
+                                                                        <?php echo $data['total_confirm_booking'] ?>
+                                                                    </h2>
+                                                                    <p class="card-text text-center">
+                                                                        <?php echo p__("appointmentpro","Confirmed Bookings"); ?>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <div class="card border-right">
+                                                                <div class="card-body text-center">
+                                                                    <h2 class="card-title">
+                                                                        <?php echo  $data['total_confirm_revenue'] ?>
+                                                                    </h2>
+                                                                    <p class="card-text text-center">
+                                                                        <?php echo p__("appointmentpro","Confirmed Revenue"); ?>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <div class="card border-right">
+                                                                <div class="card-body text-center">
+                                                                    <h2 class="card-title">
+                                                                        <?php echo  $data['total_projected_revenue'] ?>
+                                                                    </h2>
+                                                                    <p class="card-text text-center">
+                                                                        <?php echo p__("appointmentpro","Projected Revenue"); ?>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <div class="card border-right">
+                                                                <div class="card-body text-center">
+                                                                    <h2 class="card-title">
+                                                                        <?php echo $data['total_projected_estimated'] ?>
+                                                                    </h2>
+                                                                    <p class="card-text text-center">
+                                                                        <?php echo p__("appointmentpro","Total Estimated"); ?>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row first-row-feature">
+                                                <div class="col-md-12 chart-container"
+                                                    style="position: relative; height:100vh; width:80vw">
+                                                    <div id="appointment_loader" class="loader_metrics text-center">
+                                                        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                                                        <br />
+                                                        <?php echo p__("appointmentpro","Loading..."); ?>
+                                                    </div>
+                                                    <canvas id="analytics_appointments"
+                                                        class="content-white-bkg sb-tour"></canvas>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var appointmentChart;
+
+var graph_data_labels_appointments = [];
+var graph_data_values_appointments = [];
+
+//----VISITS
+var ctx = $("#analytics_appointments");
+var data = {
+    labels: graph_data_labels_appointments,
+    datasets: [{
+            label: "<?php echo p__("appointmentpro","Completed Bookings"); ?>",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(0,165,135,0.4)",
+            borderColor: "rgba(0,165,135,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "rgba(75,192,192,1)",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(75,192,192,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: graph_data_values_appointments
+        },
+        {
+            label: "<?php echo p__("appointmentpro","Total Bookings"); ?>",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgb(169, 68, 66, 0.4)",
+            borderColor: "rgb(169, 68, 66, 1)",
+            borderCapStyle: 'square',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(169, 68, 66, 1)",
+            pointBackgroundColor: "rgba(169, 68, 66, 0.4)",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(255, 58, 46,1)",
+            pointHoverBorderColor: "rgba(255, 58, 46,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: graph_data_values_appointments
+        },
+        {
+            label: "<?php echo p__("appointmentpro","Confirmed Bookings"); ?>",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgb(0, 153, 199, 0.4)",
+            borderColor: "rgb(0, 153, 199, 1)",
+            borderCapStyle: 'round',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(0 ,153, 199, 1)",
+            pointBackgroundColor: "rgba(0, 153, 199, 0.4)",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(0, 153, 199,1)",
+            pointHoverBorderColor: "rgba(0, 153, 199,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: graph_data_values_appointments
+        }
+    ]
+};
+appointmentChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        title: {
+            display: true,
+            text: '<?php echo  p__("appointmentpro", Date('F')); ?> <?php echo p__("appointmentpro","Bookings"); ?>'
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '<?php echo p__("appointmentpro","Days"); ?>'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '<?php echo p__("appointmentpro","Booking"); ?>'
+                },
+                ticks: {
+                    min: 0,
+                    stepSize: 1
+                }
+            }]
+        }
+    }
+});
+
+
+for ($i = 1; $i <= 31; $i++) {
+    graph_data_labels_appointments.push($i);
+}
+
+appointmentChart.data.datasets[0].data = graph_data_values_appointments;
+appointmentChart.data.datasets[1].data = graph_data_values_appointments;
+appointmentChart.data.datasets[2].data = graph_data_values_appointments;
+appointmentChart.data.labels = graph_data_labels_appointments;
+appointmentChart.update();
+
+
+
+function updateAppointments() {
+    $("#analytics_appointments").hide();
+    $.ajax({
+        method: "POST",
+        dataType: 'json',
+        url: "/appointmentpro/dashboard/getappointmentmetric",
+    }).done(function(data) {
+        console.log(data.countMonthsJson);
+        if (data.success) {
+            appointmentChart.data.labels = data.lableName;
+            appointmentChart.data.datasets[1].data = data.countTotalMonthsJson;
+            appointmentChart.data.datasets[0].data = data.countTotalCompleteMonthsJson;
+            appointmentChart.data.datasets[2].data = data.countTotalConfirmMonthsJson;
+            appointmentChart.update();
+            $("#appointment_loader").hide();
+            $("#analytics_appointments").show();
+        }
+    }).error(function() {
+        $("#appointment_loader").hide();
+        $("#analytics_appointments").show();
+    });
+}
+
+
+
+updateAppointments(); //Load data
+</script>
+<style>
+.table {
+    width: 100%;
+    overflow: auto;
+}
+
+.dropdown-menu {
+    min-width: auto;
+}
+</style>

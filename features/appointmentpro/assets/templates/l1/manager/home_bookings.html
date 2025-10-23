@@ -1,0 +1,27 @@
+<div class="item item-divider item-divider-custom remove-border">
+      {{sub_title}}
+</div>
+ <div class="item item-custom" ng-repeat="value in managerBoking" ng-if="managerBoking.length" >
+  <h2 ng-click="bookingDetailsById(value.appointment_id)">{{value.customer}}<span class="pull-right">{{value.status}}</span></h2>
+    <p ng-click="bookingDetailsById(value.appointment_id)">
+      {{value.booking_date}} <span ng-if="!value.is_it_class">@ {{value.start_time}}</span>
+      <span class="pull-right">{{value.amount_with_currency}} ({{value.payment_status}})</span>
+    </p>
+    <p>
+      {{value.service_name}} {{ ::"by" | translate:"appointmentpro" }} {{value.provider_name}}
+      <span class="pull-right action-manager-sheet" ng-click="actionManagerBooking(value, $index)">
+        <i class="icon ion-android-more-vertical"></i>
+      </span>
+    </p> 
+</div>
+
+<div class="item item-custom" ng-if="!managerBoking.length && !is_loading">
+   <p class="text-center">{{ ::"No Booking found" | translate:"appointmentpro" }}</p>
+</div>
+
+<ion-infinite-scroll ng-if="can_load_older_manager_booking"
+             on-infinite="loadMoreManagerBooking()"
+             immediate-check="false"
+             distance="50%"
+             class="spinner-custom">
+</ion-infinite-scroll>

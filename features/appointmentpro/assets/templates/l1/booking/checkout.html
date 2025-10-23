@@ -1,0 +1,120 @@
+<ion-view sb-page-background class="appointmentpro appointmentpro-checkout">
+  <ion-nav-title>{{ ::"Checkout" | translate:"appointmentpro" }}</ion-nav-title>
+
+  <ion-content
+    class="has-header"
+    id="item-content"
+    scrollbar-y="false"
+    overflow-scroll="false"
+    delegate-handle="mainScroll"
+  >
+    <div class="loader" ng-show="is_loading">
+      <ion-spinner icon="android" class="spinner-custom"></ion-spinner>
+    </div>
+
+    <div
+      class="list"
+      ng-class="{'card' : settings.list_design}"
+      ng-show="!is_loading && is_logged_in"
+    >
+      <label
+        class="item item-input item-custom item-floating-label remove-border"
+      >
+        <span class="input-label">
+          {{ ::"First name" | translate:"appointmentpro" }}
+          <span>*</span>
+        </span>
+        <input
+          type="text"
+          ng-model="cart.customer.firstname"
+          placeholder="{{ forTranslate('Enter a First Name') }}"
+        />
+      </label>
+
+      <label
+        class="item item-input item-custom item-floating-label remove-border"
+      >
+        <span class="input-label">
+          {{ ::"Last name" | translate:"appointmentpro" }}
+          <span>*</span>
+        </span>
+        <input
+          type="text"
+          ng-model="cart.customer.lastname"
+          placeholder="{{ forTranslate('Enter a Last Name') }}"
+        />
+      </label>
+
+      <label
+        class="item item-input item-custom item-floating-label remove-border"
+      >
+        <span class="input-label">
+          {{ ::"Phone" | translate:"appointmentpro" }}
+          <span>*</span>
+        </span>
+        <input
+          type="text"
+          ng-model="cart.customer.mobile"
+          placeholder="{{ forTranslate('Enter a Phone') }}"
+          ng-init="cart.customer.mobile == '' "
+        />
+      </label>
+
+      <label
+        class="item item-input item-custom item-floating-label remove-border"
+      >
+        <span class="input-label">
+          {{ ::"Email" | translate:"appointmentpro" }}
+          <span>*</span>
+        </span>
+        <input
+          type="text"
+          ng-model="cart.customer.email"
+          placeholder="{{ forTranslate('Enter a Email') }}"
+        />
+      </label>
+
+      <div
+        class="item item-divider item-divider-custom remove-border"
+        style="padding: 15px"
+      >
+        {{ ::"Leave a message (Optional)" | translate:"appointmentpro" }}
+      </div>
+      <label class="item item-input item-custom remove-border">
+        <textarea
+          ng-model="cart.order_note"
+          ng-init="cart.order_note === ''"
+          ng-value=""
+          placeholder="{{ forTranslate('Leave a message') }}"
+        ></textarea>
+      </label>
+
+      <label class="item item-custom remove-border">
+        <button
+          class="button button-full button-positive-custom remove-border"
+          ng-click="confirmModal()"
+          ng-show="!is_loading"
+          ng-disabled="((cart.customer.email === '' || cart.customer.phone_number === '' || cart.customer.firstname === '' || cart.customer.lastname === '' ) ? true : false)"
+        >
+          {{ ::"Continue" | translate:"appointmentpro" }}
+        </button>
+      </label>
+    </div>
+
+    <div
+      class="list"
+      ng-class="{'card' : settings.list_design}"
+      ng-show="!is_loading && !is_logged_in"
+    >
+      <label class="item item-custom remove-border">
+        <button
+          class="button button-full button-positive-custom remove-border"
+          ng-click="login()"
+          ng-show="!is_loading"
+        >
+          {{ ::"Login" | translate:"appointmentpro" }}
+        </button>
+      </label>
+    </div>
+  </ion-content>
+</ion-view>

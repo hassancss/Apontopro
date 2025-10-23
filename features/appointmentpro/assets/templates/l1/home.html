@@ -1,0 +1,66 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-home">
+
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+
+    <ion-nav-buttons side="secondary">
+      
+      <button class="button button-clear header-item"
+              ui-sref="appointmentpro-account({value_id: value_id})">
+            <i class="icon ion-android-contact"></i>
+      </button>
+    </ion-nav-buttons>
+
+    <ion-header-bar class="bar-subheader bar-custom bar bar-header" ng-if="!is_loading && settings.enable_search && !settings.providerInfo.is_provider_layout && !payout.is_single_location">
+      <div class="list list-inset home-serach-list">
+            <a class="item item-input item-button-right home-serach-item" ng-click="searchServiceModal()">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="{{ forTranslate('Search location, service..') }}" />
+            </a>
+        </div>
+    </ion-header-bar>
+
+    <ion-header-bar class="bar-subheader bar-custom bar bar-header" ng-if="settings.isProvider && settings.providerInfo.is_provider_layout">
+      <div class="button-bar text-center">
+          <div class="button button-custom button-tab" ng-class="{ 'active' : action.tab == 'today'}" ng-click="action.tab = 'today'; loadManagerBooking()">
+             {{ ::"Today" | translate:"appointmentpro" }}
+          </div>
+          <div class="button button-custom button-tab"  ng-class="{ 'active' : action.tab == 'all'}" ng-click="action.tab = 'upcoming'; loadManagerBooking()">
+              {{ ::"Upcoming" | translate:"appointmentpro" }}
+          </div>
+          <div class="button button-custom button-tab" ng-if="!settings.enable_acceptance_rejection"  ng-class="{ 'active' : action.tab == 'new'}" ng-click="action.tab = 'new'; loadManagerBooking()">
+              {{ ::"New" | translate:"appointmentpro" }} 
+              <span class="badge badge-positive-custom home-badge">{{payout.countNew}}<span>
+          </div>
+      </div>
+    </ion-header-bar>
+
+    <ion-content class="has-header"
+                 ng-class="{'has-subheader' : settings.enable_search, 'has-subheader' : settings.providerInfo.is_provider_layout}"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+      <div class="loader"
+           ng-show="is_loading">
+          <ion-spinner icon="android"
+                       class="spinner-custom"></ion-spinner>
+      </div>
+
+      <!-- Customer data -->
+      <ng-include ng-if="!is_loading && !settings.providerInfo.is_provider_layout" src="'./features/appointmentpro/assets/templates/l1/customer_home.html'"></ng-include>
+
+     <!-- Provider and manager data -->
+      <ng-include ng-if="!is_loading && settings.isProvider && settings.providerInfo.is_provider_layout" src="'./features/appointmentpro/assets/templates/l1/manager/home_bookings.html'"></ng-include>
+
+    </ion-content>
+
+
+    <style type="text/css">
+      .list {
+         margin-bottom: 0px;
+     }
+    </style>
+
+</ion-view>

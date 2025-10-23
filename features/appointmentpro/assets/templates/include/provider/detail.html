@@ -1,0 +1,31 @@
+<div
+  class="list"
+  ng-class="{'card' : settings.list_design}"
+  ng-show="!is_loading"
+>
+  <div class="item item-custom item-body remove-border text-center">
+    <p>
+      <img
+        class="provider-image-circle"
+        ng-src="{{ appointmentproImage(payout.provider.image) }}"
+        zoom-view
+        zoom-src="{{ appointmentproImage(payout.provider.image) }}"
+      />
+    </p>
+    <h2>{{payout.provider.name}}</h2>
+    <p>{{payout.provider.designation}}</p>
+  </div>
+
+  <div
+    class="item item-divider item-divider-custom appointmentpro-divider-item"
+    ng-if="payout.provider.description!=''"
+  >
+    <h2 style="padding: 8px 0px">{{ "About" | translate:"appointmentpro" }}</h2>
+  </div>
+  <div
+    class="item item-custom item-body remove-border"
+    ng-if="payout.provider.description!=''"
+  >
+    <p ng-bind-html="payout.provider.description | trusted_html" sb-a-click></p>
+  </div>
+</div>

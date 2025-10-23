@@ -1,0 +1,17 @@
+<div class="list" ng-class="{'card' : settings.list_design}">
+     <a ui-sref="appointmentpro-location-details({value_id: value_id, location_id: location.location_id})" class="item item-custom item-thumbnail-left remove-border" ng-repeat="location in payout.locations">
+		<img class="location-image-grid" ng-src="{{ appointmentproImage(location.featured_image) }}">
+		<h2 class="location-name">{{location.name}}</h2>
+		<p>{{location.address}}</p>
+		<p>
+			<span class="icon-active-custom location-time" ng-if="location.is_business_timing">
+			{{location.fromTime}} - {{location.toTime}}
+			</span>
+			<span class="pull-right" ng-if="location.distance > 0">
+				{{location.distance}} {{location.distanceUnit}}
+			</span>
+		</p>
+	 
+	</a>
+
+</div>

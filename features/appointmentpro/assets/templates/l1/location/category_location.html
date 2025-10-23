@@ -1,0 +1,57 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-locations">
+
+    <ion-nav-title>{{ getLabelName('locations') }}</ion-nav-title>
+   
+    <ion-header-bar class="bar-subheader bar-custom bar bar-header" ng-if="!is_loading && settings.enable_search">
+      <div class="list list-inset home-serach-list">
+            <a class="item item-input item-button-right home-serach-item" ng-click="searchServiceModal()">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="{{ forTranslate('Search location, service..') }}" />
+            </a>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="has-header"
+                ng-class="{'has-subheader' : settings.enable_search}"
+                id="item-content"
+                scrollbar-y="false"
+                overflow-scroll="false"
+                delegate-handle="mainScroll">
+
+        <div class="loader"
+             ng-show="is_loading">
+            <ion-spinner icon="android"
+                         class="spinner-custom"></ion-spinner>
+        </div>
+ 
+     <div class="list" ng-class="{'card' : settings.list_design}">
+        <a ng-click="goToLocationServices(location)" class="item item-custom item-thumbnail-left remove-border" ng-repeat="location in payout.locations">
+        <img class="location-image-grid" ng-src="{{ appointmentproImage(location.featured_image) }}">
+        <h2 class="location-name">{{location.location_name}}</h2>
+        <p>{{location.address}}</p>
+        <p>
+          <span class="icon-active-custom location-time" ng-if="location.is_business_timing">
+          {{location.fromTime}} - {{location.toTime}}
+          </span>
+          <span class="pull-right" ng-if="location.distance > 0">
+            {{location.distance}} {{location.distanceUnit}}
+          </span>
+        </p>
+       
+      </a>
+    </div>
+
+
+    <div class="list" ng-class="{'card' : settings.list_design}"  ng-if="payout.locations.length == 0">
+        <a class="item item-custom remove-border">
+        <div class="row text-center">
+            <div class="col text-center">
+              <p> {{ "No location available" | translate:"appointmentpro" }}!</p>
+            </div>
+          </div>
+      </a>
+    </div>
+
+  </ion-content>
+</ion-view>

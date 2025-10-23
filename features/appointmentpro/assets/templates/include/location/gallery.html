@@ -1,0 +1,25 @@
+<div class="list" ng-class="{'card' : settings.list_design}">
+	<div class="item item-custom gallery-item remove-border" id="photos-grid">
+	    
+	    <div class="row" ng-repeat="image in location_info.images" ng-if="$index % 3 === 0"> 
+	            <div class="col col-33"  ng-if="$index < location_info.images.length">
+	              <img class="gallery-grid-img" ng-src="{{ appointmentproImage(location_info.images[$index].image) }}" width="100%" zoom-view zoom-src="{{ appointmentproImage(location_info.images[$index].image) }}" />
+	            
+	            </div>
+	            <div class="col col-33" ng-if="$index + 1 < location_info.images.length">
+	              <img class="gallery-grid-img" ng-src="{{ appointmentproImage(location_info.images[$index + 1].image) }}" width="100%" zoom-view zoom-src="{{ appointmentproImage(location_info.images[$index + 1].image) }}" />
+	            </div>
+
+	            <div class="col col-33" ng-if="$index + 2 < location_info.images.length">
+	              <img class="gallery-grid-img" ng-src="{{ appointmentproImage(location_info.images[$index + 2].image) }}" width="100%" zoom-view zoom-src="{{ appointmentproImage(location_info.images[$index + 2].image) }}" />
+	            </div>		         
+	    </div>
+
+   		<div class="row text-center" ng-if="location_info.images.length == 0">
+	      <div class="col text-center ">
+	        <p> {{ "No photos available" | translate:"appointmentpro" }}!</p>
+	      </div>
+	    </div>
+
+	</div>
+</div>

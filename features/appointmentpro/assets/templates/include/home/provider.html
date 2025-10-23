@@ -1,0 +1,35 @@
+<div class="list" ng-class="{'card' : settings.list_design}">
+<div class="item item-custom provider_grid remove-border"  ng-if="payout.providers.length && !is_loading">
+    <!--  Box -->
+    <div class="row" ng-repeat="provider in payout.providers" ng-if="$index % 4 === 0">    
+
+         <div class="col col-25 text-center providers-border-bottom providers-border-right" ng-if="$index < payout.providers.length" ng-click="goToProviderService(payout.providers[$index])">
+            <div class="providers-image-box">
+               <img class="providers-grid-img" ng-src="{{ appointmentproImage(payout.providers[$index].image) }}" >
+            </div>
+            <p class="text-center name">{{ payout.providers[$index].name }}</p>
+         </div>
+
+          <div class="col col-25 text-center providers-border-bottom providers-border-right" ng-if="$index + 1 < payout.providers.length" ng-click="goToProviderService(payout.providers[$index + 1])">
+            <div class="providers-image-box">
+              <img class="providers-grid-img" ng-src="{{ appointmentproImage(payout.providers[$index + 1].image) }}">
+            </div>
+            <p class="text-center name">{{ payout.providers[$index+1 ].name }}</p>
+         </div>
+          <div class="col col-25 text-center providers-border-bottom providers-border-right" ng-if="$index+2 < payout.providers.length" ng-click="goToProviderService(payout.providers[$index + 2])">
+            <div class="providers-image-box">
+              <img class="providers-grid-img" ng-src="{{ appointmentproImage(payout.providers[$index+2].image) }}">
+            </div>
+            <p class="text-center name">{{ payout.providers[$index+2].name }}</p>
+         </div>
+
+          <div class="col col-25 text-center providers-border-bottom providers-border-right" ng-if="$index+3 < payout.providers.length" ng-click="goToProviderService(payout.providers[$index + 3])">
+            <div class="providers-image-box">
+              <img class="providers-grid-img" ng-src="{{ appointmentproImage(payout.providers[$index+3].image) }}">
+            </div>
+            <p class="text-center name">{{ payout.providers[$index+3].name }}</p>
+         </div>        
+
+    </div>
+ </div>
+</div>

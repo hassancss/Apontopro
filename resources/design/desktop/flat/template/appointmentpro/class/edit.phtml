@@ -1,0 +1,533 @@
+<?php $value_id = (new Appointmentpro_Model_Appointmentpro())->getCurrentValueId();
+$service = $this->getService(); 
+?>
+<?php $categories = (new Appointmentpro_Model_Category())
+                ->findByValueId($value_id, ['category_for' => 2]); 
+
+$range = range(5, 720, 5);
+$st_values = array_combine($range, $range);
+
+$range = range(0, 55, 5);
+$bt_values = array_combine($range, $range);
+
+$locations = (new Appointmentpro_Model_Location())
+          ->findByValueId($value_id);
+
+$modelServiceLocation = (new Appointmentpro_Model_ServiceLocation())
+                ->find(['service_id' => $service->getServiceId(), 'is_delete' => 0]);
+
+?>
+
+<div class="container-fluid appointmentpro">
+    <div class="container-fluid">
+        <div id="wrapper" class="left-toggled">
+          <div class="right-toggled">
+            <div class="sidebars has-sidebar">
+            <?php include(dirname(__DIR__)."/partials/menu.phtml"); ?>
+            <div class="subcontent third-main-panel">
+                <div class="row app-features">
+                    <div class="responsive-part col-md-12">
+                     <div class="page-content-wrapper form-horizontal">
+                        <div class="content solo-page">
+                            <h3 class="title-editor border-blue text-center">
+                              <?php echo p__("appointmentpro","Class Edit"); ?>
+                        <a href="/appointmentpro/class/list" id="back" class="color-blue btn sb-tour pull-right">
+                                <?php echo  p__("appointmentpro", "Back"); ?>   </a>
+                            </h3>
+                        <div class="subcontent content-color container-fluid">
+                        
+                        <form role="form" id="classform" class="setup-from" action="<?php echo $this->getUrl('appointmentpro/class/save'); ?>" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="value_id" value="<?php echo $value_id; ?>">
+                            <input type="hidden" name="service_id" value="<?php echo $service->getServiceId(); ?>">
+                            
+                           <div class="form-group">                     
+                              <div class="col-md-8">
+                                 
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="name">
+                                        <?php echo p__("appointmentpro", 'Name'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" value="<?php echo $service->getName(); ?>" class="required input-flat" name="name" id="name" />
+                                </div>
+                              </div> 
+
+                             <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="name">
+                                        <?php echo p__("appointmentpro", 'Location'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="required styled-select color-blue" name="location_id" id="location_id">
+                                      <option value=""><?php echo p__("appointmentpro", 'Select Location'); ?></option>
+                                          <?php 
+                                             foreach ($locations as $key => $value) { ?>
+                                                  <option <?php echo $modelServiceLocation->getLocationId() == $value->getLocationId() ? 'selected' : ''; ?> value="<?php echo $value->getLocationId(); ?>">
+                                                   <?php echo $value->getName(); ?>
+                                                  </option>
+                                          <?php } ?>
+                                   </select>
+                                 </div>
+                               </div>
+
+                               <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="name">
+                                        <?php echo p__("appointmentpro", 'Provider'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="required styled-select color-blue" name="provider_id" id="provider_id">
+                                      <option value=""><?php echo p__("appointmentpro", 'Select Provider'); ?></option>
+                                          
+                                   </select>
+                                 </div>
+                               </div>
+
+
+                                <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="price">
+                                        <?php echo p__("appointmentpro", 'Price'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" value="<?php echo $service->getPrice(); ?>" class="required input-flat" name="price" id="price" />
+                                </div>
+                              </div>
+
+                               <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="special_price">
+                                        <?php echo p__("appointmentpro", 'Special Price'); ?></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" value="<?php echo $service->getSpecialPrice(); ?>" class="input-flat" name="special_price" id="special_price" />
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="special_start">
+                                        <?php echo p__("appointmentpro", 'Special Start'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" autocomplete="off" value="<?php echo $service->getSpecialStart(); ?>" class="input-flat" name="special_start" id="special_start" />
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="special_end">
+                                        <?php echo p__("appointmentpro", 'Special End'); ?></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" autocomplete="off" value="<?php echo $service->getSpecialEnd(); ?>" class="input-flat" name="special_end" id="special_end" />
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="capacity">
+                                        <?php echo p__("appointmentpro", 'Seats'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" value="<?php echo $service->getCapacity(); ?>" class="required input-flat" name="capacity" id="capacity" />
+                                </div>
+                              </div>
+
+                                <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="capacity">
+                                        <?php echo p__("appointmentpro", 'Seats per user'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" value="<?php echo $service->getTotalTicketsPerUser(); ?>" class="required input-flat" name="total_tickets_per_user" id="total_tickets_per_user" />
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="service_time">
+                                        <?php echo p__("appointmentpro", 'Duration (mins)'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="required styled-select color-blue" name="service_time" id="service_time">
+                                            <?php 
+                                               foreach ($st_values as $key => $value) { ?>
+                                                    <option <?php echo $service->getServiceTime()== $key ? 'selected': ''; ?> value="<?php echo $key; ?>">
+                                                     <?php echo $value; ?>
+                                                    </option>
+                                            <?php } ?>
+                                     </select>
+                                </div>
+                              </div>
+ 
+                              <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="service_points">
+                                        <?php echo p__("appointmentpro", 'Progressive Loyalty Points'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" value="<?php echo $service->getServicePoints(); ?>" class="required input-flat" name="service_points" id="service_points" />
+                                </div>
+                              </div> 
+
+                               <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="category_id">
+                                        <?php echo p__("appointmentpro", 'Category'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="required styled-select color-blue" name="category_id" id="category_id">
+                                        <option value=""><?php echo p__("appointmentpro", 'Select Category'); ?></option>
+                                            <?php 
+                                               foreach ($categories as $key => $value) { ?>
+                                                    <option  value="<?php echo $value->getCategoryId(); ?>" <?php echo $value->getCategoryId() == $service->getCategoryId() ? 'selected': ''; ?>>
+                                                     <?php echo $value->getName(); ?>
+                                                    </option>
+                                            <?php } ?>
+                                     </select>
+                                </div>
+                              </div>
+
+                           <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="class_date">
+                                        <?php echo p__("appointmentpro", 'Class Start Date'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" autocomplete="off" value="<?php echo $service->getClassDate(); ?>" class="required input-flat" name="class_date" id="class_date" />
+                                </div>
+                              </div>
+
+
+                             <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="class_time">
+                                        <?php echo p__("appointmentpro", 'Class Time'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" value="<?php echo $service->getClassTime(); ?>" class="required input-flat" name="class_time" id="class_time" />
+                                </div>
+                              </div>                       
+
+
+                               <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="schedule_type"><?php echo p__("appointmentpro", 'Occurs'); ?><span>*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-8">
+                                   <select class="required styled-select color-blue" name="schedule_type" id="schedule_type">     
+                                     <option value="never" <?php if($service->getScheduleType() == 'never'): echo 'selected="selected"'; endif; ?>><?php echo p__("appointmentpro", 'Once'); ?></option>
+                                    <option value="daily" <?php if($service->getScheduleType() == 'daily'): echo 'selected="selected"'; endif; ?>><?php echo p__("appointmentpro", 'Daily'); ?></option>
+                                    <option value="weekly" <?php if($service->getScheduleType() == 'weekly'): echo 'selected="selected"'; endif; ?>><?php echo p__("appointmentpro", 'Weekly'); ?></option>
+                                    <option value="monthly" <?php if($service->getScheduleType() == 'monthly'): echo 'selected="selected"'; endif; ?>><?php echo p__("appointmentpro", 'Monthly'); ?></option>
+                                    </select>
+                                    <p class="on_monthly_messages"></p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group weekday-picker-box" <?php if($service->getScheduleType() != 'weekly'): echo 'style="display:none;"'; endif; ?>>
+                                <div class="col-sm-4">
+                                    <label><?php echo p__("appointmentpro", 'On these days'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="checkbox" name="weekday_picker[]" value="monday" <?php if(in_array('monday', explode(",", $service->getDayOfWeek()))): echo 'checked="checked"'; endif; ?>><?php echo p__("appointmentpro", 'Mon'); ?>
+                                    <input type="checkbox" name="weekday_picker[]" value="tuesday" <?php if(in_array('tuesday', explode(",", $service->getDayOfWeek()))): echo 'checked="checked"'; endif; ?>><?php echo p__("appointmentpro", 'Tue '); ?>
+                                    <input type="checkbox" name="weekday_picker[]" value="wednesday" <?php if(in_array('wednesday', explode(",", $service->getDayOfWeek()))): echo 'checked="checked"'; endif; ?>><?php echo p__("appointmentpro", 'Wed'); ?>
+                                    <input type="checkbox" name="weekday_picker[]" value="thursday" <?php if(in_array('thursday', explode(",", $service->getDayOfWeek()))): echo 'checked="checked"'; endif; ?>><?php echo p__("appointmentpro", 'Thu'); ?>
+                                    <input type="checkbox" name="weekday_picker[]" value="friday" <?php if(in_array('friday', explode(",", $service->getDayOfWeek()))): echo 'checked="checked"'; endif; ?>><?php echo p__("appointmentpro", 'fri'); ?>
+                                    <input type="checkbox" name="weekday_picker[]" value="saturday" <?php if(in_array('saturday', explode(",", $service->getDayOfWeek()))): echo 'checked="checked"'; endif; ?>><?php echo p__("appointmentpro", 'Sat'); ?>
+                                    <input type="checkbox" name="weekday_picker[]" value="sunday" <?php if(in_array('sunday', explode(",", $service->getDayOfWeek()))): echo 'checked="checked"'; endif; ?>><?php echo p__("appointmentpro", 'Sun'); ?>
+                                 </div>
+                            </div>
+
+                               <div class="form-group ending_date_box"  <?php if($service->getScheduleType() == 'never'): echo 'style="display:none;"'; endif; ?>>
+                                <div class="col-sm-4">
+                                    <label for="class_end_date">
+                                        <?php echo p__("appointmentpro", 'Class End Date'); ?><span>*</span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" autocomplete="off" value="<?php echo $service->getClassEndDate(); ?>" class="required input-flat" name="class_end_date" id="class_end_date" />
+                                </div>
+                              </div>                       
+ 
+                              <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label><?php echo p__("appointmentpro", 'Image'); ?></label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                             <div class="category-images-container uploadImage">
+                                              <?php if(empty($service->getFeaturedImage())): ?>
+                                                  <img src="/app/local/modules/Appointmentpro/resources/design/desktop/flat/images/placeholder.png" width="100px" height="100px">
+                                                <?php else: ?>
+                                                  <img src="/images/application/<?php echo $service->getFeaturedImage(); ?>" width="100px" height="100px">
+                                                  <?php endif; ?>
+                                             </div> 
+                                        </div>
+                               </div>  
+
+                                <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="about_us">
+                                        <?php echo p__("appointmentpro", 'Description'); ?></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <textarea cols="12" rows="6" class="required input-flat" name="description" id="description"><?php echo $service->getDescription(); ?></textarea>
+                                </div>
+                               </div> 
+
+                               <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <label for="status" class="checkbox-inline">
+                                            <input type="checkbox" id="status" name="status" value="1" class="color-blue checkbox sb-tour" <?php echo $service->getStatus() == 1 ? 'checked': ''; ?> />
+                                           <?php echo p__("appointmentpro", 'Active'); ?>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                     <button class="color-blue btn pull-right" type="submit"><?php echo p__("appointmentpro", "Save"); ?></button>
+                                    </div>
+                                </div>
+
+                                </div>
+ 
+                              </div>
+                             </form>
+                           </div>
+                        </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<input style="display: none;" id="select_image" class="select_image uploader" type="file" name="files[]" data-url="<?php echo $this->getUrl('template/crop/upload'); ?>">
+
+<script type="text/javascript">
+    if($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']) {
+        $.datepicker.setDefaults($.datepicker.regional['<?php echo Core_Model_Language::getCurrentLanguageDatepicker(); ?>']);
+    } else {
+        $.datepicker.setDefaults($.datepicker.regional['en']);
+    }
+          
+     $( "#special_start" ).datepicker({
+        changeMonth: true,
+        setDate: new Date(),
+        changeYear: true,
+        numberOfMonths: 1,
+        dateFormat: 'yy-mm-dd',
+        onClose: function( selectedDate ) {
+          $('#special_end').datepicker( "option",  {"minDate":  selectedDate });
+        }
+    });
+  
+    /*End date change*/
+      $( "#special_end" ).datepicker({
+          changeMonth: true,
+          changeYear: true,
+          numberOfMonths: 1,
+          dateFormat: 'yy-mm-dd',
+          onClose: function( selectedDate ) {
+             $('#special_start').datepicker( "option",  {"maxDate":  selectedDate });
+          }
+      });
+     /*End date Min*/
+
+
+     $( "#class_time" ).timepicker({
+          onClose: function( selectedTime ) {
+               
+          }
+      });
+
+    setTimeout(function () {
+       $( "#class_date" ).datepicker( "option",  {"minDate":  new Date()});
+    }, 300)
+    
+
+    $( "#class_date" ).datepicker({
+        changeMonth: true,
+        setDate: new Date(),
+        changeYear: true,
+        numberOfMonths: 1,
+        dateFormat: 'yy-mm-dd',
+        onClose: function( selectedDate ) {
+            var min = selectedDate || new Date(); 
+            // Selected date or today if none
+            var max = new Date(selectedDate);
+            max.setMonth(max.getMonth() + 12); // Add one month
+            $( "#class_end_date" ).datepicker( "option", "maxDate", max );
+            $( "#class_end_date" ).datepicker( "option", "minDate", min );
+           
+           if($('#schedule_type').val() == 'monthly'){
+                var  d = new Date($( "#class_date" ).val());
+                $('.on_monthly_messages').html('<?php echo p__("appointmentpro", "On the"); ?>'+' '+d.getDate());
+            }else{
+                $('.on_monthly_messages').html('');
+            }
+        }
+    });
+
+    
+    /*End date change*/
+      $( "#class_end_date" ).datepicker({
+          changeMonth: true,
+          changeYear: true,
+          numberOfMonths: 1,
+          dateFormat: 'yy-mm-dd',
+          onClose: function( selectedDate ) {
+             $('#class_date').datepicker( "option",  {"maxDate":  selectedDate });
+          }
+      });
+     /*End date Min*/
+
+    $(document).on('change', '#schedule_type', function() {
+       if($(this).val() == 'never'){
+           $('.ending_date_box').hide();                
+        }else{
+           $('.ending_date_box').show();   
+        }
+
+        if($(this).val() == 'weekly'){
+           $('.weekday-picker-box').show();                
+        }else{
+           $('.weekday-picker-box').hide();   
+        }
+
+        if($(this).val() == 'monthly'){
+            var  d = new Date($( "#class_date" ).val());
+            $('.on_monthly_messages').html('<?php echo p__("appointmentpro", "On the"); ?>'+' '+d.getDate());
+        }else{
+            $('.on_monthly_messages').html('');
+        }
+   });
+
+ 
+    setTimeout(function() {
+        $('#description').ckeditor(ckeditor_config.cms);
+    }, 100);     
+
+   $('#classform').submit(function(e) {
+          e.preventDefault();
+          var formData = new FormData(this);    
+        if($(this).valid()) {
+            reload(this, this.action, formData, function(data) {  
+                if(data.success) {
+                    window.location = "<?php  echo $this->getUrl("appointmentpro/class/list"); ?>"; 
+                }
+            });
+        }
+        return false;
+    }); 
+
+
+    var Uploader = new Uploader();
+    /*IOS screenshots */
+    var image_view_template = '<?php echo str_replace("\n", "", '<div class="cms-image" style="background-image: url(#THUMBNAIL_PATH#);"><div class="image-delete"></div><img src="" class="cms-image-unit uploadImage" /><input type="hidden" name="featured_image[]" value="%IMAGE_PATH%" /></div>' ); ?>';
+
+    $('#select_image').fileupload({
+            dataType: 'json',
+            add: function(e, data) {
+                data.submit();
+                Uploader.showProgressbar();
+            },
+            progressall: function(e, data) {
+                Uploader.moveProgressbar(data);
+            },
+            fail: function (el, data) {
+                Uploader.hide();
+                Uploader.showError(JSON.parse(data.jqXHR.responseText).message);
+            },
+            done: function(e, data) {
+                if (data.result.error) {
+                    Uploader.hide();
+                    Uploader.showError(data.result.message);
+                }
+                if (data.result.success) {
+                    Uploader.hide();
+                    var params = [];
+                    params["url"] = '<?php echo $this->getUrl('template/crop/crop'); ?>';
+                    params["file"] = data.result.files;
+                    params["output_w"] = 560;
+                    params["output_h"] = 292;
+                    params["output_url"] = '<?php echo str_replace('/', '$', $this->getUrl('appointmentpro/application/crop')) ?>';
+                    params["uploader"] = 'Uploader';
+                    Uploader.crop(params);
+
+                    Uploader.callback = function(file) {
+                           var cms_image = image_view_template;
+                           cms_image = cms_image.replace("%IMAGE_PATH%", file);
+                           cms_image = cms_image.replace("#THUMBNAIL_PATH#",  '<?php echo Core_Model_Directory::getTmpDirectory(); ?>/' + file);
+                           $(".category-images-container").html(cms_image);
+                    };
+                }
+            }
+        });
+
+        $(document).on("click", ".image-delete", function() {
+            var el = $(this);
+            el.parents(".cms-image").remove();
+        });
+
+        $(document).on("click", ".uploadImage", function() {
+            $("#select_image").click();
+        });
+
+   $(document).ready(function(){
+
+        var provider_id = <?php echo $service->getProviderId();  ?>
+        
+        function getProvider(location_id) {
+              console.log("location_id", location_id);
+
+              $('#provider_id').empty();
+              $('#provider_id').append('<option value="all" selected="selected">'+<?php echo p__("appointmentpro", "Select provider"); ?>+'</option>');
+              if(!isNaN(location_id)){
+                      $('#provider_id').attr("disabled", true);
+                      $.ajax({
+                      type: "GET",
+                      url: '/appointmentpro/booking/get-providers/location_id/'+location_id,
+                      dataType: "json",
+                      success: function(data) {
+                          for (x in data.providers) {
+                            $('#provider_id').append('<option '+data.providers[x].provider_id+' value="'+data.providers[x].provider_id+'">'+data.providers[x].name+'</option>');
+                          }
+                          $('#provider_id').attr("disabled", false);
+                          $('#provider_id').val(provider_id);
+
+                      },
+                      error: function() {
+                          feature_form_error("Something went wrong!");
+                          $('#provider_id').empty();
+                          $('#provider_id').attr("disabled", true);
+                      }
+                  });
+              }    
+        }
+
+       $("#location_id").change(function(){
+            getProvider($(this).val());
+       });
+
+
+        setTimeout(function(){ 
+              getProvider($("#location_id").val());
+         }, 300);  
+
+  });
+
+</script>
+<style type="text/css">
+  .third-main-panel {
+     float: left !important; 
+  }
+</style>

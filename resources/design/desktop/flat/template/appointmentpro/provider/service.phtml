@@ -1,0 +1,84 @@
+<?php 	$provider = $this->getProvider();
+		$locationService = $this->getLocationService();
+		$providerTimingId = $this->getProviderTimingId();
+		$modelServiceProvider = (new Appointmentpro_Model_ServiceProvider())
+                ->findAll(['provider_id' => $provider->getId(), 'is_delete' => 0]);
+
+        $providers = [];
+        foreach ($modelServiceProvider as $key => $value) {
+        	$providers[] = $value->getServiceLocationId();
+        }
+?>
+<div class="container-fluid appointmentpro">
+	<div class="container-fluid">
+		<div id="wrapper" class="left-toggled">
+          <div class="right-toggled">
+            <div class="sidebars has-sidebar">
+            <?php include(dirname(__DIR__)."/partials/menu.phtml"); ?>
+            <div class="subcontent third-main-panel">
+				<div class="row app-features">
+					<div class="responsive-part col-md-12">
+			         <div class="page-content-wrapper form-horizontal">
+			            <div class="content solo-page">
+			                <h3 class="title-editor border-blue text-center">
+			                  <?php echo p__("appointmentpro","Manage %s Service", $provider->getName() ); ?>
+
+			                  <a href="/appointmentpro/provider/list" id="back" class="color-blue btn sb-tour pull-right"><?php echo  p__("appointmentpro", "Back"); ?></a>
+			                </h3>
+			                <div class="subcontent content-color container-fluid">
+						
+						    <form role="form" id="providerform" class="setup-from" action="<?php echo $this->getUrl('appointmentpro/provider/save-service'); ?>" method="post" enctype="multipart/form-data">
+						     	<div class="form-group">
+			                  <div class="col-md-12">
+			                     	<input type="hidden" name="provider_timing_id"  value="<?php echo $providerTimingId; ?>">
+			                     	<input type="hidden" name="provider_id"  value="<?php echo $provider->getId(); ?>">
+			            			    <?php foreach ($locationService as $key => $value) { ?>	
+				            			  <div class="form-group">
+		                                    <div class="col-sm-12">
+		                                        <label class="checkbox-inline">
+		                                            <input type="checkbox" id="service[]" name="service[]" value="<?php echo $value->getServiceLocationId(); ?>" <?php echo in_array($value->getServiceLocationId(), $providers) ? 'checked': ''; ?>
+		                                            class="color-blue checkbox sb-tour" />
+		                                           <?php echo $value->getName(); ?> (<?php echo $value->getCategoryName(); ?>)
+		                                        </label>
+		                                    </div>
+		                                </div>  
+	                            		<?php } ?>
+				                    </div>
+
+			                      <div class="row">
+                                  <div class="col-md-12">
+                                   <button class="color-blue btn pull-right" type="submit"><?php echo p__("appointmentpro", "Save"); ?></button>
+                                  </div>
+                                </div>
+                            </div>
+
+                         	</form>	
+ 											  </div>
+			            		</div>
+		          		</div>
+				 			 </div>
+						</div>
+					</div>
+				</div>
+	  	</div>
+		</div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+   $('#providerform').submit(function(e) {
+          e.preventDefault();
+          var formData = new FormData(this);    
+        if($(this).valid()) {
+            reload(this, this.action, formData, function(data) {  
+                if(data.success) {
+                    window.location = "<?php  echo $this->getUrl("appointmentpro/provider/list"); ?>"; 
+                }
+            });
+        }
+        return false;
+    }); 
+
+</script>

@@ -1,0 +1,19 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-location-details">
+
+    <ion-nav-title></ion-nav-title>
+
+    <ion-content class="has-header"
+                 id="item-content">
+                 
+        <div class="loader"
+             ng-show="is_loading">
+            <ion-spinner icon="android"
+                         class="spinner-custom"></ion-spinner>
+        </div>
+
+
+      <ng-include ng-if="!is_loading" src="'./features/appointmentpro/assets/templates/include/location/location_detail.html'"></ng-include>
+
+    </ion-content>   
+</ion-view>

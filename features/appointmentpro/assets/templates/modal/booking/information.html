@@ -1,0 +1,23 @@
+<ion-modal-view cache-view="false"
+                class="appointmentpro appointmentpro-booking-details">
+
+    <ion-header-bar class="bar-custom">
+        <div class="buttons">
+            <button class="button button-clear"
+                    ng-click="closeModalInformation()">
+                    <i ng-class="backButtonIcon()"></i>
+            </button>
+        </div>
+   </ion-header-bar>
+
+    <ion-content id="appointmentpro-content"
+             class="has-header">
+
+             <div class="list" ng-class="{'card' : settings.list_design}">
+                 <div class="item item-custom item-body">
+                     <p sb-html="content_details"></p>
+                 </div>
+             </div>
+    
+    </ion-content>
+</ion-modal-view>

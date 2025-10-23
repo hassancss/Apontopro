@@ -1,0 +1,390 @@
+<?php $option_value = $this->getOptionValue();
+$value_id = $option_value->getId();
+$application = $this->getApplication();
+$settings = new Appointmentpro_Form_Settings();
+$settings->setValueId($value_id);
+$settings->addNav('design-save-nav', 'Submit', false);
+$settingModel = (new Appointmentpro_Model_Settings())->find(['value_id' => $option_value->getId()]);
+if ($settingModel->getId()) {
+    $data = $settingModel->getData();
+    isset($data['confirmation_email']) ? $data['confirmation_email'] = json_decode($data['confirmation_email']) : '';
+    isset($data['reminder_email']) ? $data['reminder_email'] = json_decode($data['reminder_email']) : '';
+
+    isset($data['confirmation_sms']) ? $data['confirmation_sms'] = json_decode($data['confirmation_sms']) : '';
+    isset($data['reminder_sms']) ? $data['reminder_sms'] = json_decode($data['reminder_sms']) : '';
+    $settings->populate($data);
+} else {
+    $settingModel = (new Appointmentpro_Model_Settings())->find(['value_id' => $option_value->getId()])->setValueId($option_value->getId())->save();
+    $settings->populate($settingModel->getData());
+}
+
+if (\Appointmentpro\Extension::isEnabled('classes')) {
+    $google_redirect_URL = trim($application->getBaseUrl() . '/' . $application->getKey() . '/appointmentpro/mobile_view/retrun-calendar');
+    $settings->setElementValueById('google_redirect_URL', $google_redirect_URL);
+}
+
+
+/*Payment Gateways Info*/
+$gatewaysModel = new Appointmentpro_Model_Gateways();
+$defailtGatewaysList = $gatewaysModel->getDefaults();
+
+/*Slider Manage*/
+$sliderFrom = new Appointmentpro_Form_Slider_Form();
+$sliderFrom->addNav("ads-save-nav", "Submit", false);
+$sliderFrom->setElementValueById('value_id', $option_value->getId());
+$sliders = (new Appointmentpro_Model_Slider())->findAll(['value_id' => $value_id, 'status != ?' => 'deleted'], 'id DESC');
+$deleteSliderFrom = new Appointmentpro_Form_Slider_Delete();
+/*Slider Manage End*/
+
+
+$labelModel = (new Appointmentpro_Model_Labelname())->find($option_value->getId(), "value_id");
+if (empty($labelModel->getId())) {
+    $defaultLabels = (new Appointmentpro_Model_Appointment())->getDefaultLabelName();
+    foreach ($defaultLabels as $key => $value) {
+        $aSave = (new Appointmentpro_Model_Labelname())
+            ->find(['value_id' => $option_value->getId(), 'label_key' => $key])
+            ->setValueId($option_value->getId())
+            ->setOriginalLabelName($value)
+            ->setLabelName($value)
+            ->setLabelKey($key)
+            ->save();
+    }
+}
+$labels = (new Appointmentpro_Model_Labelname())->findAll(array('value_id' => $option_value->getId()));
+?>
+<br>
+<div id="loadContent">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs parent-tab" role="tablist">
+        <li class="active" role="presentation">
+            <a href="#settings" aria-controls="access" role="tab" data-toggle="tab">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <span class="hidden-xs access"><?php echo p__('appointmentpro', "Settings") ?></span>
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#gateways" aria-controls="access" role="tab" data-toggle="tab"
+                href="/appointmentpro/dashboard/list">
+                <i class="fa fa-list-alt" aria-hidden="true"></i>
+                <span class="hidden-xs option"><?php echo p__('appointmentpro', "Payment Method") ?></span>
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#slider" aria-controls="options" role="tab" data-toggle="tab">
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                <span class="hidden-xs option"><?php echo p__('appointmentpro', "Sliders") ?></span>
+            </a>
+        </li>
+
+        <li role="presentation">
+            <a href="#weburl" aria-controls="options" role="tab" data-toggle="tab">
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                <span class="hidden-xs option"><?php echo p__('appointmentpro', "Integrations") ?></span>
+            </a>
+        </li>
+
+        <li role="presentation">
+            <a href="#managelabels " aria-controls="options" role="tab" data-toggle="tab">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                <span class="hidden-xs option"><?php echo p__('appointmentpro', "Manage Labels") ?></span>
+            </a>
+        </li>
+
+        <li role="presentation">
+            <a href="/appointmentpro/dashboard/list" target="_blank">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                <span class="hidden-xs option"><?php echo p__('appointmentpro', "Dashboard") ?></span>
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+        <!-- tabs content -->
+        <div role="tabpanel" class="tab-pane active" id="settings">
+            <div class="feature-block-list">
+                <h3 class="title-editor no-border-radius title-feature-indent" style="position: relative;">
+                    <?php echo p__('appointmentpro', 'Settings'); ?>
+                </h3>
+            </div>
+            <div class="section">
+                <?php echo $settings; ?>
+                <br><br>
+                <?php echo $this->importBackground($option_value, false, false); ?>
+            </div>
+        </div>
+
+
+        <!-- tabs content -->
+        <div role="tabpanel" class="tab-pane" id="managelabels">
+            <div class="feature-block-list">
+                <h3 class="title-editor no-border-radius title-feature-indent" style="position: relative;">
+                    <?php echo p__('appointmentpro', 'Manage Labels'); ?>
+                </h3>
+            </div>
+            <div class="section">
+                <table class="table content-white-bkg" id="lables">
+                    <thead>
+                        <tr class="border-blue">
+                            <th><?php echo p__('appointmentpro', 'Original Label Name'); ?></th>
+                            <th><?php echo p__('appointmentpro', 'Label Name'); ?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($labels as $values):
+                            $values = $values->getData();
+                            $originalLabel = $values['original_label_name'];
+
+                            if (
+                                !\Appointmentpro\Extension::isEnabled('classes') &&
+                                in_array($originalLabel, ['Classes', 'Class'], true)
+                            ) {
+                                continue;
+                            }
+                        ?>
+                            <tr>
+                                <td><?php echo p__('appointmentpro', $values['original_label_name']); ?></td>
+                                <td><?php echo p__('appointmentpro', $values['label_name']) ?></td>
+                                <td class="edit-action open-edit"
+                                    data-id="label_<?php echo $labelModel->getId(); ?>"
+                                    data-form-url="<?php echo __path("/appointmentpro/label/loadform", array("id" => $values['id'], "value_id" => $value_id)); ?>">
+                                    <i class="fa fa-pencil"></i>
+                                </td>
+
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <tr class="edit-form" data-id="label_<?php echo $labelModel->getId(); ?>" style="display: none;">
+                        <td colspan="3">
+                            <p class="close-edit" data-clear="true" data-id="label_<?php echo $labelModel->getId(); ?>">
+                                <i class="fa fa-times"></i><?php echo p__('appointmentpro', "Close") ?>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- tabs content -->
+        <div role="tabpanel" class="tab-pane" id="weburl">
+            <div class="feature-block-list">
+                <h3 class="title-editor no-border-radius title-feature-indent" style="position: relative;">
+                    <?php echo p__('appointmentpro', 'Appointment Web URL'); ?>
+                </h3>
+            </div>
+            <div class="section" style="margin-top: 10px;">
+                <?php
+                $application = $this->getApplication();
+                $appKey = $application->getKey();
+                $webURL = $application->getBaseUrl() . '/' . $appKey . '/appointmentpro/' . $value_id . '/213848';
+                ?>
+                <div class="form-group sb-form-line ">
+                    <div name="apt_widget" id="apt_widget" is_form_horizontal="1" color="color-blue"
+                        class="sb-form-html">
+                        <label for="apt_widget" class="sb-form-line-title col-sm-3 optional">
+                            <?php echo p__('appointmentpro', 'Integrations'); ?>
+                        </label>
+                        <figure class="highlight">
+                            <pre><code><?php echo htmlentities($webURL); ?></code></pre>
+                        </figure>
+                    </div>
+                </div>
+
+                <?php
+                $apt_widget_template = "<script src='#SITE_URL#/var/apps/browser/features/appointmentpro/assets/js/appointmentpro-wiz.js'></script><div id='wiz-appointment' height='500' uri='#MOBILE_URL#'></div>";
+                $code = str_replace("#SITE_URL#", $application->getBaseUrl(), $apt_widget_template);
+                $code = str_replace("#MOBILE_URL#", $webURL, $code);
+                ?>
+                <div class="form-group sb-form-line ">
+                    <div name="apt_widget" id="apt_widget" is_form_horizontal="1" color="color-blue"
+                        class="sb-form-html">
+                        <label for="apt_widget" class="sb-form-line-title col-sm-3 optional">
+                            <?php echo p__('appointmentpro', 'Integrations'); ?>
+                        </label>
+                        <figure class="highlight">
+                            <pre><code><?php echo htmlentities($code); ?></code></pre>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Layout settings tab -->
+        <div role="tabpanel" class="tab-pane" id="gateways">
+            <div class="feature-block-list">
+                <h3 class="title-editor no-border-radius title-feature-indent"
+                    style="position: relative;"> <?php echo p__('appointmentpro', 'Payment Gateways'); ?>
+                </h3>
+
+                <div class="container-fluid first-row-feature feature-manage-items">
+                    <table class="table content-white-bkg sb-pager">
+                        <thead>
+                            <tr class="border-blue">
+                                <th class="sortable" style="width:10%;"><?php echo p__('appointmentpro', 'S.NO'); ?></th>
+                                <th class="sortable" style="width:50%;"><?php echo p__('appointmentpro', 'Gateway'); ?></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($defailtGatewaysList as $key => $gateway): ?>
+                                <tr id="gateway_manage_element_<?php echo $gateway['code']; ?>"
+                                    class="gateway-manage-element sb-pager">
+                                    <td><?php echo $key + 1; ?></td>
+                                    <td><?php echo $gateway['name']; ?></td>
+                                    <td class="edit-action open-edit text-right"
+                                        data-id="gateway_<?php echo $gateway['code']; ?>"
+                                        data-form-url="<?php echo __path("/appointmentpro/gateways/loadform", array("code" => $gateway['code'], "value_id" => $value_id)); ?>">
+                                        <i class="fa fa-pencil"></i>
+                                    </td>
+                                </tr>
+                                <tr class="edit-form" data-id="gateway_<?php echo $gateway['code']; ?>"
+                                    style="display: none;">
+                                    <td colspan="5">
+                                        <p class="close-edit" data-id="gateway_<?php echo $gateway['code']; ?>">
+                                            <i class="fa fa-times"></i><?php echo p__('appointmentpro', "Close") ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br><br>
+        </div>
+
+
+        <!-- slider settings tab -->
+        <div role="tabpanel" class="tab-pane" id="slider">
+            <!-- Services block -->
+            <div class="feature-block-add margin-top">
+                <h3 class="title-editor no-border-radius title-feature-indent">
+                    <?php echo p__('appointmentpro', 'Slider'); ?>
+                    <button type="button"
+                        class="feature-toggle-add toggle_design color-blue pull-right bt-header-right btn">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </h3>
+            </div>
+
+            <div class="feature-block-create margin-top">
+                <h3 class="title-editor no-border-radius title-feature-indent">
+                    <?php echo p__('appointmentpro', 'Create a New Slider'); ?>
+                </h3>
+                <div class="container-fluid">
+                    <?php echo $sliderFrom; ?>
+                </div>
+            </div>
+
+            <br>
+            <?php if ($sliders->count() > 0): ?>
+                <div class="feature-block-list">
+                    <div class="margin-top">
+                        <h3 class="title-editor no-border-radius title-feature-indent">
+                            <?php echo p__('appointmentpro', 'Manage Slider'); ?>
+                            <button type="button"
+                                class="toggle_design color-blue pull-right bt-header-right btn feature-toggle-items">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        </h3>
+                        <div class="container-fluid first-row-feature feature-manage-items">
+                            <table class="table content-white-bkg sb-pager">
+                                <thead>
+                                    <tr class="border-blue">
+                                        <th class="sortable"
+                                            style="width:10%;"><?php echo p__('appointmentpro', 'S.NO'); ?></th>
+                                        <th class="sortable"
+                                            style="width:50%;"><?php echo p__('appointmentpro', 'Name'); ?></th>
+                                        <th style="width:20%;"> <?php echo p__('appointmentpro', 'Status'); ?></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($sliders as $key => $slider): ?>
+                                        <tr id="slider_manage_element_<?php echo $slider->getId(); ?>"
+                                            class="slider-manage-element sb-pager">
+                                            <td><?php echo $key + 1; ?></td>
+                                            <td><?php echo $slider->getSliderName(); ?></td>
+                                            <td><?php echo $slider->getStatus(); ?></td>
+                                            <td class="edit-action open-edit text-right"
+                                                data-id="slider_<?php echo $slider->getId(); ?>"
+                                                data-form-url="<?php echo __path("/appointmentpro/slider/loadform", array("slider_id" => $slider->getId(), "value_id" => $value_id)); ?>">
+                                                <i class="fa fa-pencil"></i>
+                                            </td>
+
+                                            <td class="delete-action">
+                                                <?php
+                                                $deleteSliderFrom->setAttrib("data-rowid", "slider_manage_element_" . $slider->getId());
+                                                $deleteSliderFrom->getElement("id")->setValue($slider->getId());
+                                                echo $deleteSliderFrom;
+                                                ?>
+                                            </td>
+                                        </tr>
+                                        <tr class="edit-form" data-id="slider_<?php echo $slider->getId(); ?>"
+                                            style="display: none;">
+                                            <td colspan="5">
+                                                <p class="close-edit" data-id="store_<?php echo $slider->getId(); ?>">
+                                                    <i class="fa fa-times"></i><?php p__('appointmentpro', "Close") ?>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        bindForms("#loadContent");
+
+        setInterval(function() {
+            if ($('.select_payment_paypal').val() == 1) {
+                formlivecondition();
+            } else {
+                formsandboxcondition();
+            }
+        }, 3000);
+
+        function formlivecondition() {
+            $('#sandboxusername').parent().parent().hide();
+            $('#sandboxpassword').parent().parent().hide();
+            $('#sandboxsignature').parent().parent().hide();
+            $('#username').parent().parent().show();
+            $('#password').parent().parent().show();
+            $('#signature').parent().parent().show();
+        }
+
+        function formsandboxcondition() {
+            $('#sandboxusername').parent().parent().show();
+            $('#sandboxpassword').parent().parent().show();
+            $('#sandboxsignature').parent().parent().show();
+            $('#username').parent().parent().hide();
+            $('#password').parent().parent().hide();
+            $('#signature').parent().parent().hide();
+        }
+
+        $(document).off('change', '.select_payment_paypal');
+        $(document).on('change', '.select_payment_paypal', function() {
+            if (this.value == 1) {
+                formlivecondition();
+            } else {
+                formsandboxcondition();
+            }
+        });
+
+    });
+</script>

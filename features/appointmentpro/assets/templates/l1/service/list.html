@@ -1,0 +1,52 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-service">
+
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+ 
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+        <div class="loader"
+             ng-show="is_loading">
+            <ion-spinner icon="android"
+                         class="spinner-custom"></ion-spinner>
+        </div>
+      
+     <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading" ng-repeat="service in payout.services">
+         <a class="item item-custom item-avatar remove-border item-icon-right" >
+          <img class="service-image-grid" ng-click="goTo(service.service_id)" ng-src="{{ appointmentproImage(service.featured_image) }}">
+          <h2  ng-click="goTo(service.service_id)">{{service.name}}</h2>
+          <p ng-hide="settings.price_hide">
+            <span ng-if="!service.is_sale">
+              {{service.price_with_currency}}
+            </span>
+            <span ng-if="service.is_sale">
+              {{service.price_with_currency}} <del><small>{{ service.orginal_price }}</small></del>
+            </span>
+          </p>
+          <p nf-if="service.description!=''" sb-html="service.description" ng-click="descriptionInfo(service.description)"></p>
+          <i class="icon ion-chevron-right"  ng-click="goTo(service.service_id)"></i>
+        </a>
+     </div>
+
+     <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading"  ng-if="payout.services.length == 0">
+        <a class="item item-custom remove-border">
+          <div class="row text-center">
+              <div class="col text-center ">
+                <p> {{ "No service available" | translate:"appointmentpro" }}!</p>
+              </div>
+            </div>
+        </a>
+       </div>
+  </ion-content>
+
+  <style type="text/css">
+    .list {
+      margin-bottom: 5px;
+    }
+  </style>
+
+</ion-view>

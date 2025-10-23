@@ -1,0 +1,82 @@
+<ion-view sb-page-background
+          class="appointmentpro appointmentpro-calendar">
+
+    <ion-nav-title>{{ ::"Choose a Date and Time" | translate:"appointmentpro" }}</ion-nav-title>
+ 
+    <ion-content class="has-header"
+                 id="item-content"
+                 scrollbar-y="false"
+                 overflow-scroll="false"
+                 delegate-handle="mainScroll">
+
+        <div class="loader"
+             ng-show="is_loading">
+            <ion-spinner icon="android"
+                         class="spinner-custom"></ion-spinner>
+        </div>
+      
+      <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading">
+       
+        <div class="item item-custom remove-border calendar">
+           <div id="calendar"></div>
+        </div>
+      </div>
+
+     <div class="list" ng-class="{'card' : settings.list_design}"  ng-show="!is_loading">
+      <!-- /Calendar -->
+      <div class="loader" ng-show="is_loading_time">
+          <ion-spinner class="spinner-custom"></ion-spinner>
+      </div>
+      <!-- Time -->
+      <div class="part-time" ng-show="!is_loading_time">
+          <div class="list" ng-show="cart.provider_id > 0">
+
+             <div class="item item-divider item-divider-custom remove-border text-center" ng-show="payout.status== 'success'">
+              {{ ::"Available Slots" | translate:"appointmentpro" }}
+            </div>
+
+            <div class="item item-divider item-divider-custom text-center remove-border" ng-show="payout.status== 'error'">
+                  <p>{{payout.message}}</p>
+            </div>
+            
+            <div class="part-time-available" ng-show="payout.status== 'success'">
+                  <div class="row item item-divider item-divider-custom text-center remove-border">
+                      <div class="col col-33">
+                          <b>{{ ::"Morning" | translate:"appointmentpro" }}</b>
+                      </div>
+                      <div class="col col-33">
+                          <b>{{ ::"Afternoon" | translate:"appointmentpro" }}</b>
+                      </div>
+                      <div class="col col-33">
+                          <b>{{ ::"Evening" | translate:"appointmentpro" }}</b>
+                      </div>
+                  </div>
+                  <div class="row item item-custom time-slots text-center remove-border">
+                      <div class="col col-33">
+                          <div ng-repeat="(k,v) in morningTime">
+                              <a style="cursor: pointer" ng-click="choiceSlotTime(k,v)">{{ v }}</a>
+                              <br />
+                          </div>
+                      </div>
+                      <div class="col col-33">
+                          <div ng-repeat="(k,v) in afternoonTime">
+                              <a style="cursor: pointer" ng-click="choiceSlotTime(k,v)">{{v}}</a>
+                              <br />
+                          </div>
+                      </div>
+                      <div class="col col-33">
+                          <div ng-repeat="(k,v) in eveningTime">
+                              <a style="cursor: pointer" ng-click="choiceSlotTime(k,v)">{{v}}</a>
+                              <br />
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- /Time --> 
+      
+      </div>
+      
+  </ion-content>
+</ion-view>
