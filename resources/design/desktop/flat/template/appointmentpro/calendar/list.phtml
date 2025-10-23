@@ -916,9 +916,15 @@ $minDate = date('d-m-Y', strtotime("-7 days"));
 			if (typeof bookingJson !== 'undefined' && bookingJson) {
 				var loadedEvents = [];
 				$.each(bookingJson, function(key, value) {
-					var startTime = new Date(value.apttime);
-					var endTime = new Date(value.aptendtime);
-					var userId = usersIndex[value.provider_id];
+                                        var startTime = new Date(value.apttime);
+                                        var endTime = new Date(value.aptendtime);
+                                        var provider1Id = value.provider_id;
+                                        var provider2Id = value.service_provider_id_2 || provider1Id;
+                                        var provider1UserId = usersIndex[provider1Id];
+                                        var provider2UserId =
+                                                typeof usersIndex[provider2Id] !== 'undefined'
+                                                        ? usersIndex[provider2Id]
+                                                        : provider1UserId;
 
 					// Check if this appointment has break time configuration
 					var hasBreakConfig = value.work_time_before_break && value.break_duration && value.work_time_after_break && value.break_is_bookable;
@@ -938,19 +944,19 @@ $minDate = date('d-m-Y', strtotime("-7 days"));
 						var chunk2End = new Date(chunk2Start.getTime() + (workAfter * 60 * 1000));
 
 						// Add both work chunks as separate events for overlap checking
-						loadedEvents.push({
-							start: chunk1Start,
-							end: chunk1End,
-							userId: userId,
+                                                loadedEvents.push({
+                                                        start: chunk1Start,
+                                                        end: chunk1End,
+                                                        userId: provider1UserId,
 							id: value.appointment_id + '_chunk1',
 							parentId: value.appointment_id,
 							isChunk: true
 						});
 
-						loadedEvents.push({
-							start: chunk2Start,
-							end: chunk2End,
-							userId: userId,
+                                                loadedEvents.push({
+                                                        start: chunk2Start,
+                                                        end: chunk2End,
+                                                        userId: provider2UserId,
 							id: value.appointment_id + '_chunk2',
 							parentId: value.appointment_id,
 							isChunk: true
@@ -963,10 +969,10 @@ $minDate = date('d-m-Y', strtotime("-7 days"));
 						});
 					} else {
 						// Regular appointment without chunks
-						loadedEvents.push({
-							start: startTime,
-							end: endTime,
-							userId: userId,
+                                                loadedEvents.push({
+                                                        start: startTime,
+                                                        end: endTime,
+                                                        userId: provider1UserId,
 							id: value.appointment_id
 						});
 					}
@@ -2909,8 +2915,14 @@ $minDate = date('d-m-Y', strtotime("-7 days"));
 				var chunk1Start = new Date(str);
 				var chunk1End = new Date(chunk1Start.getTime() + (workBefore * 60 * 1000));
 
-				var provider1Id = value.provider_id; // First provider (before + during break)
-				var provider2Id = value.service_provider_id_2 || value.provider_id; // Second provider (after break), fallback to first if not set
+                                var provider1Id = value.provider_id; // First provider (before + during break)
+                                var provider2Id = value.service_provider_id_2 || value.provider_id; // Second provider (after break), fallback to first if not set
+                                var provider1UserId = usersIndex[provider1Id];
+                                var provider2UserId = typeof usersIndex[provider2Id] !== 'undefined'
+                                        ? usersIndex[provider2Id]
+                                        : provider1UserId;
+                                var provider1Info = providerData[provider1Id] || null;
+                                var provider2Info = providerData[provider2Id] || provider1Info;
 
 				// Break period is NOT shown on calendar (creates gap for other appointments)
 				var breakEnd = new Date(chunk1End.getTime() + (breakDuration * 60 * 1000));
@@ -2923,11 +2935,11 @@ $minDate = date('d-m-Y', strtotime("-7 days"));
 					'id': value.appointment_id + '_chunk1',
 					'start': chunk1Start,
 					'end': chunk1End,
-					'userId': usersIndex[value.provider_id],
+                                        'userId': provider1UserId,
 					'title': title + '<br><?php echo p__("appointmentpro", "Part 1"); ?>',
 					'detail': value,
 					'ids': ids,
-					'provider': providerData[value.provider_id],
+                                        'provider': provider1Info,
 					'readOnly': true,
 					'isChunk': true,
 					'chunkType': 'work',
@@ -2939,11 +2951,11 @@ $minDate = date('d-m-Y', strtotime("-7 days"));
 					'id': value.appointment_id + '_chunk2',
 					'start': chunk2Start,
 					'end': chunk2End,
-					'userId': usersIndex[value.provider_id],
+                                        'userId': provider2UserId,
 					'title': title + '<br><?php echo p__("appointmentpro", "Part 2"); ?>',
 					'detail': value,
 					'ids': ids,
-					'provider': providerData[value.provider_id],
+                                        'provider': provider2Info,
 					'readOnly': true,
 					'isChunk': true,
 					'chunkType': 'work',
@@ -2951,15 +2963,17 @@ $minDate = date('d-m-Y', strtotime("-7 days"));
 				};
 
 				// Only push work chunks - break time is not shown (creates gap for other bookings)
-				eventData.events.push(evt1);
-				eventData.events.push(evt2);
+                                eventData.events.push(evt1);
+                                eventData.events.push(evt2);
 
-				console.log('Appointment chunked (break creates gap):', value.appointment_id, {
-					'original': [str, endt],
-					'chunk1 (work)': [chunk1Start, chunk1End],
-					'break (gap)': [chunk1End, breakEnd],
-					'chunk2 (work)': [chunk2Start, chunk2End]
-				});
+                                console.log('Appointment chunked (break creates gap):', value.appointment_id, {
+                                        'original': [str, endt],
+                                        'chunk1 (work)': [chunk1Start, chunk1End],
+                                        'break (gap)': [chunk1End, breakEnd],
+                                        'chunk2 (work)': [chunk2Start, chunk2End],
+                                        'provider1Id': provider1Id,
+                                        'provider2Id': provider2Id
+                                });
 			} else {
 				// Regular appointment without break time
 				var evt = {
