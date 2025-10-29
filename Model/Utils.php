@@ -183,7 +183,7 @@ class Appointmentpro_Model_Utils
      * @param int $currentServiceId
      * @return array
      */
-    public function checkAppointmentWithBreaks($appointmentData, $timeArray, $timeDiff, $totalBookingPerSlot, $breakInfo, $currentServiceId)
+    public function checkAppointmentWithBreaks($appointmentData, $timeArray, $timeDiff, $totalBookingPerSlot, $breakInfo, $currentServiceId, $currentProviderId = null)
     {
         $slotConflictCount = []; // Track how many conflicts each slot has
 
@@ -226,6 +226,20 @@ class Appointmentpro_Model_Utils
                     $secondWorkStart = $breakEnd;
                     $secondWorkEnd = $existingEnd;
 
+                    $hasSecondaryProvider = !empty($existingAppointment['service_provider_id_2'])
+                        && $existingAppointment['service_provider_id_2'] != $existingAppointment['service_provider_id'];
+
+                    $checkFirstWork = true;
+                    $checkSecondWork = true;
+
+                    if ($hasSecondaryProvider && $currentProviderId) {
+                        if ($existingAppointment['service_provider_id'] == $currentProviderId) {
+                            $checkSecondWork = false;
+                        } elseif ($existingAppointment['service_provider_id_2'] == $currentProviderId) {
+                            $checkFirstWork = false;
+                        }
+                    }
+
                     // Check if new appointment would overlap with WORK periods only
                     // Break period is available for booking
                     if ($currentServiceBreakData && $currentServiceBreakData['break_is_bookable']) {
@@ -244,8 +258,8 @@ class Appointmentpro_Model_Utils
                         $newSecondOverlapsExistingFirst = !($potentialEndTime <= $firstWorkStart || $newSecondWorkStart >= $firstWorkEnd);
 
                         if (
-                            $overlapsExistingFirstWork || $overlapsExistingSecondWork ||
-                            $newFirstOverlapsExistingSecond || $newSecondOverlapsExistingFirst
+                            ($checkFirstWork && ($overlapsExistingFirstWork || $newSecondOverlapsExistingFirst)) ||
+                            ($checkSecondWork && ($overlapsExistingSecondWork || $newFirstOverlapsExistingSecond))
                         ) {
                             $hasConflict = true;
                         }
@@ -254,7 +268,7 @@ class Appointmentpro_Model_Utils
                         $overlapsFirstWork = !($potentialEndTime <= $firstWorkStart || $potentialStartTime >= $firstWorkEnd);
                         $overlapsSecondWork = !($potentialEndTime <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
 
-                        if ($overlapsFirstWork || $overlapsSecondWork) {
+                        if (($checkFirstWork && $overlapsFirstWork) || ($checkSecondWork && $overlapsSecondWork)) {
                             $hasConflict = true;
                         }
                     }

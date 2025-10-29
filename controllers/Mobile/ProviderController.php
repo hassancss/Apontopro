@@ -154,7 +154,8 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
                                     $timeDiff,
                                     $total_booking_per_slot,
                                     $breakInfo,
-                                    $inputParams['service_id']
+                                    $inputParams['service_id'],
+                                    isset($inputParams['provider_id']) ? $inputParams['provider_id'] : null
                                 );
                             } else {
                                 // Regular appointment checking: removes all overlapping booked slots
