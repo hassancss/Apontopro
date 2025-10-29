@@ -49,6 +49,11 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
         try {
             $inputParams = $this->getRequest()->getBodyParams();
             $value_id = $this->getRequest()->getParam('value_id');
+
+            // Convert slashes to dashes first for proper date parsing
+            $date = str_replace('/', '-', $inputParams['date']);
+            // Normalize date format to d-m-Y (same as desktop)
+            $inputParams['date'] = date('d-m-Y', strtotime($date));
             $date = str_replace('/', '-', $inputParams['date']);
 
             $queryData = (new Appointmentpro_Model_Provider())->getServiceTime($date, $inputParams);
@@ -123,20 +128,26 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
                         if (sizeof($queryData['appointments'])) {
                             $total_booking_per_slot = (int) $queryData['spData']['total_booking_per_slot'];
 
-                            // Check if ANY existing appointments have break time configuration
+                            // Check if current service has break time configuration
+                            $currentHasBreakTime = $hasBreakTime;
+
+                            // Also check if ANY existing appointments have break time configuration
                             $hasExistingBreaks = false;
-                            foreach ($queryData['appointments'] as $existingApp) {
-                                $existingBreakConfig = (new Appointmentpro_Model_ServiceBreakConfig())
-                                    ->find(['service_id' => $existingApp['service_id']]);
-                                if ($existingBreakConfig->getId() && $existingBreakConfig->getBreakIsBookable()) {
-                                    $hasExistingBreaks = true;
-                                    break;
+                            if (!$currentHasBreakTime) {
+                                foreach ($queryData['appointments'] as $existingApp) {
+                                    $existingBreakConfig = (new Appointmentpro_Model_ServiceBreakConfig())
+                                        ->find(['service_id' => $existingApp['service_id']]);
+                                    if ($existingBreakConfig->getId() && $existingBreakConfig->getBreakIsBookable()) {
+                                        $hasExistingBreaks = true;
+                                        break;
+                                    }
                                 }
                             }
 
-                            // Use checkAppointmentWithBreaks if current service OR existing appointments have breaks
-                            if ($hasExistingBreaks) {
-                                // Use break-aware checking
+                            // Use checkAppointmentWithBreaks if current service OR any existing appointments have breaks
+                            // This ensures booked slots are properly filtered out
+                            if ($currentHasBreakTime || $hasExistingBreaks) {
+                                // Break-aware checking: removes overlapping booked slots, allows booking during break periods
                                 $timeArray = (new Appointmentpro_Model_Utils())->checkAppointmentWithBreaks(
                                     $queryData['appointments'],
                                     $timeArray,
@@ -146,29 +157,26 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
                                     $inputParams['service_id']
                                 );
                             } else {
-                                // Regular appointment checking (no breaks anywhere)
-                                $timeArray = (new Appointmentpro_Model_Utils())->checkAppoinment($queryData['appointments'], $timeArray, $timeDiff, $total_booking_per_slot);
+                                // Regular appointment checking: removes all overlapping booked slots
+                                $timeArray = (new Appointmentpro_Model_Utils())->checkAppoinment(
+                                    $queryData['appointments'],
+                                    $timeArray,
+                                    $timeDiff,
+                                    $total_booking_per_slot
+                                );
                             }
                         }
 
                         $timeArray = array_values($timeArray);
-                        $convertTimeArray = [];
-                        $valueTimeArray = [];
 
                         $setting = (new Appointmentpro_Model_Settings())->find($value_id, "value_id");
                         $result = $setting->getData();
-
                         ($result['time_format'] == 1) ? $format = '' : $format = 'A';
-                        // foreach ($timeArray as $timeVal) {
-                        //     $key = (string) $timeVal;
-                        //     $convertTimeArray[$key] = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
-                        // }
                         // Available Tiime
                         $convertTimeArray = (new Appointmentpro_Model_Utils())->filterTimeSlot($timeArray, $timeDiff, $hasBreakTime ? $breakInfo : null);
 
-
                         if (sizeof($convertTimeArray)) {
-                            $returnArray = [];
+                            $returnArray = $timeArray = [];
                             $returnArray['serviceTime'] = (string) $timeDiff;
                             $returnArray['sId'] = $queryData['spData']['id'];
                             $returnArray['displayTime'] = $convertTimeArray;
@@ -179,8 +187,7 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
                         } else {
                             $data['message'] = p__("appointmentpro", 'The requested date has no availability!');
                             $data['status'] = 'error';
-                            $data['error_code'] = '103';
-                            $data['timeArray'] = $timeArray;
+                            $data['convertTimeArray'] = $convertTimeArray;
                         }
                     }
                 }

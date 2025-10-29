@@ -143,26 +143,26 @@ class Appointmentpro_Model_Utils
     public function checkAppoinment($appointmentData, $timeArray, $timeDiff, $totalBookingPerSlot = 1)
     {
         $unsetTimes = [];
+
         foreach ($appointmentData as $queryVal) {
             foreach ($timeArray as $timeKey => $timeVal) {
                 $checkFrom = $timeVal;
                 $checkTo = strtotime('+' . $timeDiff . ' minutes', $checkFrom);
-                // if ($checkFrom >= $queryVal['appointment_time'] && $checkFrom < $queryVal['appointment_end_time']) {
-                //     $unsetTimes[$timeKey] = $unsetTimes[$timeKey] + 1;
-                // } elseif ($checkTo <= $queryVal['appointment_time'] && $checkTo > $queryVal['appointment_end_time']) {
-                //     $unsetTimes[$timeKey] = $unsetTimes[$timeKey] + 1;
-                // } elseif ($queryVal['appointment_time'] >= $checkFrom && $queryVal['appointment_time'] < $checkTo) {
-                //     $unsetTimes[$timeKey] = $unsetTimes[$timeKey] + 1;
-                // } elseif ($queryVal['appointment_end_time'] <= $checkFrom && $queryVal['appointment_end_time'] > $checkTo) {
-                //     $unsetTimes[$timeKey] = $unsetTimes[$timeKey] + 1;
-                // }
 
-                if ($checkFrom >= $queryVal['appointment_time'] && $checkFrom < $queryVal['appointment_end_time']) {
+                // Check if there's ANY overlap between the potential booking and existing appointment
+                // Overlap occurs if: start time is before existing end AND end time is after existing start
+                $hasOverlap = !($checkTo <= $queryVal['appointment_time'] || $checkFrom >= $queryVal['appointment_end_time']);
+
+                if ($hasOverlap) {
+                    if (!isset($unsetTimes[$timeKey])) {
+                        $unsetTimes[$timeKey] = 0;
+                    }
                     $unsetTimes[$timeKey] = $unsetTimes[$timeKey] + 1;
                 }
             }
         }
 
+        // Remove slots that have reached the booking limit
         foreach ($unsetTimes as $tKey => $tValue) {
             if ($totalBookingPerSlot <= $tValue) {
                 unset($timeArray[$tKey]);
@@ -185,7 +185,7 @@ class Appointmentpro_Model_Utils
      */
     public function checkAppointmentWithBreaks($appointmentData, $timeArray, $timeDiff, $totalBookingPerSlot, $breakInfo, $currentServiceId)
     {
-        $availableSlots = [];
+        $slotConflictCount = []; // Track how many conflicts each slot has
 
         // Get current service break configuration
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -197,13 +197,14 @@ class Appointmentpro_Model_Utils
         $currentServiceDuration = $timeDiff * 60; // Convert minutes to seconds
 
         foreach ($timeArray as $timeKey => $potentialStartTime) {
-            $canBook = true;
+            $conflictCount = 0;
             $potentialEndTime = $potentialStartTime + $currentServiceDuration;
 
             // Check against all existing appointments
             foreach ($appointmentData as $existingAppointment) {
                 $existingStart = $existingAppointment['appointment_time'];
                 $existingEnd = $existingAppointment['appointment_end_time'];
+                $hasConflict = false;
 
                 // Get break config for existing appointment
                 $select = $db->select()
@@ -217,7 +218,7 @@ class Appointmentpro_Model_Utils
                     $existingBreakDuration = $existingBreakData['break_duration'] * 60;
                     $existingWorkAfter = $existingBreakData['work_time_after_break'] * 60;
 
-                    // Define existing appointment periods
+                    // Define existing appointment work periods (not including break)
                     $firstWorkStart = $existingStart;
                     $firstWorkEnd = $existingStart + $existingWorkBefore;
                     $breakStart = $firstWorkEnd;
@@ -225,39 +226,61 @@ class Appointmentpro_Model_Utils
                     $secondWorkStart = $breakEnd;
                     $secondWorkEnd = $existingEnd;
 
-                    // Special logic: Allow bookings during break periods
-                    // But ensure the entire booking fits within the break period
-                    if ($potentialStartTime >= $breakStart && $potentialStartTime < $breakEnd) {
-                        // Starting during break period - check if entire booking fits in break
-                        if ($potentialEndTime <= $breakEnd) {
-                            // Entire booking fits within break period - allow it
-                            continue; // Don't block this slot, check next appointment
-                        } else {
-                            // Booking would extend into second work period - not allowed
-                            $canBook = false;
-                            break;
+                    // Check if new appointment would overlap with WORK periods only
+                    // Break period is available for booking
+                    if ($currentServiceBreakData && $currentServiceBreakData['break_is_bookable']) {
+                        // New appointment also has break time - check work chunks only
+                        $newWorkBefore = $currentServiceBreakData['work_time_before_break'] * 60;
+                        $newBreakDuration = $currentServiceBreakData['break_duration'] * 60;
+
+                        $newFirstWorkEnd = $potentialStartTime + $newWorkBefore;
+                        $newBreakEnd = $newFirstWorkEnd + $newBreakDuration;
+                        $newSecondWorkStart = $newBreakEnd;
+
+                        // Check work chunk overlaps (excluding break times)
+                        $overlapsExistingFirstWork = !($newFirstWorkEnd <= $firstWorkStart || $potentialStartTime >= $firstWorkEnd);
+                        $overlapsExistingSecondWork = !($potentialEndTime <= $secondWorkStart || $newSecondWorkStart >= $secondWorkEnd);
+                        $newFirstOverlapsExistingSecond = !($newFirstWorkEnd <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
+                        $newSecondOverlapsExistingFirst = !($potentialEndTime <= $firstWorkStart || $newSecondWorkStart >= $firstWorkEnd);
+
+                        if (
+                            $overlapsExistingFirstWork || $overlapsExistingSecondWork ||
+                            $newFirstOverlapsExistingSecond || $newSecondOverlapsExistingFirst
+                        ) {
+                            $hasConflict = true;
                         }
-                    }
+                    } else {
+                        // New appointment is regular service - check against work periods only
+                        $overlapsFirstWork = !($potentialEndTime <= $firstWorkStart || $potentialStartTime >= $firstWorkEnd);
+                        $overlapsSecondWork = !($potentialEndTime <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
 
-                    // For bookings NOT starting in break period, check work period overlaps
-                    $overlapsFirstWork = !($potentialEndTime <= $firstWorkStart || $potentialStartTime >= $firstWorkEnd);
-                    $overlapsSecondWork = !($potentialEndTime <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
-
-                    if ($overlapsFirstWork || $overlapsSecondWork) {
-                        $canBook = false;
-                        break;
+                        if ($overlapsFirstWork || $overlapsSecondWork) {
+                            $hasConflict = true;
+                        }
                     }
                 } else {
                     // Existing appointment is regular service - check full duration overlap
-                    if (!($potentialEndTime <= $existingStart || $potentialStartTime >= $existingEnd)) {
-                        $canBook = false;
-                        break;
+                    $hasOverlap = !($potentialEndTime <= $existingStart || $potentialStartTime >= $existingEnd);
+                    if ($hasOverlap) {
+                        $hasConflict = true;
                     }
+                }
+
+                if ($hasConflict) {
+                    $conflictCount++;
                 }
             }
 
-            if ($canBook) {
-                $availableSlots[$timeKey] = $potentialStartTime;
+            // Store conflict count for this slot
+            $slotConflictCount[$timeKey] = $conflictCount;
+        }
+
+        // Remove slots that exceed the booking limit
+        $availableSlots = [];
+        foreach ($timeArray as $timeKey => $timeVal) {
+            $conflicts = isset($slotConflictCount[$timeKey]) ? $slotConflictCount[$timeKey] : 0;
+            if ($conflicts < $totalBookingPerSlot) {
+                $availableSlots[$timeKey] = $timeVal;
             }
         }
 
