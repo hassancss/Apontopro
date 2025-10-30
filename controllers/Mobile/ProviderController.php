@@ -110,7 +110,7 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
                             // Don't change timeDiff here - it should remain the actual service time for conflict checking
                         }
 
-                        // Generate time slots using 5-minute intervals for booking
+                        // Generate time slots using 30-minute intervals for booking
                         $timeBound = strtotime('-30 minutes', $toTime);
                         if ($timeDiff > 0) {
                             for ($i = $fromTime; $i <= $timeBound; $i = strtotime('+30 minutes', $i)) {
@@ -175,7 +175,12 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
                         ($result['time_format'] == 1) ? $format = '' : $format = 'A';
                         // Available Tiime
                         $convertTimeArray = (new Appointmentpro_Model_Utils())->filterTimeSlot($timeArray, $timeDiff, $hasBreakTime ? $breakInfo : null);
-
+                          $data['meta'] = [
+                                'timeArray' => $timeArray,
+                                'convertTimeArray' => $convertTimeArray,
+                                'timeDiff' => $timeDiff,
+                                'breakInfo' => $hasBreakTime ? $breakInfo : null
+                            ];
                         if (sizeof($convertTimeArray)) {
                             $returnArray = $timeArray = [];
                             $returnArray['serviceTime'] = (string) $timeDiff;
@@ -184,6 +189,7 @@ class Appointmentpro_Mobile_ProviderController extends Application_Controller_Mo
                             $data['status'] = 'success';
                             $data['data'] = $returnArray;
                             $data['queryData'] = $queryData;
+                          
                             // $data['timeArray'] = $timeArray;
                         } else {
                             $data['message'] = p__("appointmentpro", 'The requested date has no availability!');

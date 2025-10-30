@@ -185,69 +185,40 @@ class Appointmentpro_Model_Utils
      */
     public function checkAppointmentWithBreaks($appointmentData, $timeArray, $timeDiff, $totalBookingPerSlot, $breakInfo, $currentServiceId, $currentProviderId = null)
     {
-        $slotConflictCount = [];
+        $slotConflictCount = []; // Track how many conflicts each slot has
 
+        // Get current service break configuration
         $db = Zend_Db_Table::getDefaultAdapter();
+        $select = $db->select()
+            ->from('appointment_service_break_config')
+            ->where('service_id = ?', $currentServiceId);
+        $currentServiceBreakData = $db->fetchRow($select);
 
-        // Determine the structure of the service being booked
-        $currentServiceBreakData = null;
-        $currentServiceDuration = $timeDiff * 60; // Default to service time + buffer
-
-        if (!empty($breakInfo)) {
-            $currentServiceBreakData = [
-                'work_time_before_break' => (int) $breakInfo['work_before'],
-                'break_duration' => (int) $breakInfo['break_duration'],
-                'work_time_after_break' => (int) $breakInfo['work_after'],
-                'break_is_bookable' => !empty($breakInfo['break_is_bookable'])
-            ];
-
-            $currentServiceDuration = (
-                $currentServiceBreakData['work_time_before_break'] +
-                $currentServiceBreakData['break_duration'] +
-                $currentServiceBreakData['work_time_after_break']
-            ) * 60;
-        } else {
-            // Fallback to database lookup when break info is not provided explicitly
-            $select = $db->select()
-                ->from('appointment_service_break_config')
-                ->where('service_id = ?', $currentServiceId);
-            $currentServiceBreakData = $db->fetchRow($select);
-
-            if ($currentServiceBreakData && !empty($currentServiceBreakData['break_is_bookable'])) {
-                $currentServiceDuration = (
-                    $currentServiceBreakData['work_time_before_break'] +
-                    $currentServiceBreakData['break_duration'] +
-                    $currentServiceBreakData['work_time_after_break']
-                ) * 60;
-            }
-        }
-
-        $breakConfigCache = [];
+        $currentServiceDuration = $timeDiff * 60; // Convert minutes to seconds
 
         foreach ($timeArray as $timeKey => $potentialStartTime) {
             $conflictCount = 0;
             $potentialEndTime = $potentialStartTime + $currentServiceDuration;
 
+            // Check against all existing appointments
             foreach ($appointmentData as $existingAppointment) {
                 $existingStart = $existingAppointment['appointment_time'];
                 $existingEnd = $existingAppointment['appointment_end_time'];
                 $hasConflict = false;
 
-                $serviceId = $existingAppointment['service_id'];
-                if (!array_key_exists($serviceId, $breakConfigCache)) {
-                    $select = $db->select()
-                        ->from('appointment_service_break_config')
-                        ->where('service_id = ?', $serviceId);
-                    $breakConfigCache[$serviceId] = $db->fetchRow($select) ?: null;
-                }
+                // Get break config for existing appointment
+                $select = $db->select()
+                    ->from('appointment_service_break_config')
+                    ->where('service_id = ?', $existingAppointment['service_id']);
+                $existingBreakData = $db->fetchRow($select);
 
-                $existingBreakData = $breakConfigCache[$serviceId];
+                if ($existingBreakData && $existingBreakData['break_is_bookable']) {
+                    // Existing appointment has break time
+                    $existingWorkBefore = $existingBreakData['work_time_before_break'] * 60;
+                    $existingBreakDuration = $existingBreakData['break_duration'] * 60;
+                    $existingWorkAfter = $existingBreakData['work_time_after_break'] * 60;
 
-                if ($existingBreakData && !empty($existingBreakData['break_is_bookable'])) {
-                    $existingWorkBefore = (int) $existingBreakData['work_time_before_break'] * 60;
-                    $existingBreakDuration = (int) $existingBreakData['break_duration'] * 60;
-                    $existingWorkAfter = (int) $existingBreakData['work_time_after_break'] * 60;
-
+                    // Define existing appointment work periods (not including break)
                     $firstWorkStart = $existingStart;
                     $firstWorkEnd = $existingStart + $existingWorkBefore;
                     $breakStart = $firstWorkEnd;
@@ -255,8 +226,7 @@ class Appointmentpro_Model_Utils
                     $secondWorkStart = $breakEnd;
                     $secondWorkEnd = $existingEnd;
 
-                    $hasSecondaryProvider = !empty($existingAppointment['service_provider_id_2'])
-                        && $existingAppointment['service_provider_id_2'] != $existingAppointment['service_provider_id'];
+                    $hasSecondaryProvider = !empty($existingAppointment['service_provider_id_2']) && $existingAppointment['service_provider_id_2'] != $existingAppointment['service_provider_id'];
 
                     $checkFirstWork = true;
                     $checkSecondWork = true;
@@ -269,14 +239,18 @@ class Appointmentpro_Model_Utils
                         }
                     }
 
-                    if ($currentServiceBreakData && !empty($currentServiceBreakData['break_is_bookable'])) {
-                        $newWorkBefore = (int) $currentServiceBreakData['work_time_before_break'] * 60;
-                        $newBreakDuration = (int) $currentServiceBreakData['break_duration'] * 60;
+                    // Check if new appointment would overlap with WORK periods only
+                    // Break period is available for booking
+                    if ($currentServiceBreakData && $currentServiceBreakData['break_is_bookable']) {
+                        // New appointment also has break time - check work chunks only
+                        $newWorkBefore = $currentServiceBreakData['work_time_before_break'] * 60;
+                        $newBreakDuration = $currentServiceBreakData['break_duration'] * 60;
 
                         $newFirstWorkEnd = $potentialStartTime + $newWorkBefore;
                         $newBreakEnd = $newFirstWorkEnd + $newBreakDuration;
                         $newSecondWorkStart = $newBreakEnd;
 
+                        // Check work chunk overlaps (excluding break times)
                         $overlapsExistingFirstWork = !($newFirstWorkEnd <= $firstWorkStart || $potentialStartTime >= $firstWorkEnd);
                         $overlapsExistingSecondWork = !($potentialEndTime <= $secondWorkStart || $newSecondWorkStart >= $secondWorkEnd);
                         $newFirstOverlapsExistingSecond = !($newFirstWorkEnd <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
@@ -289,6 +263,7 @@ class Appointmentpro_Model_Utils
                             $hasConflict = true;
                         }
                     } else {
+                        // New appointment is regular service - check against work periods only
                         $overlapsFirstWork = !($potentialEndTime <= $firstWorkStart || $potentialStartTime >= $firstWorkEnd);
                         $overlapsSecondWork = !($potentialEndTime <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
 
@@ -297,6 +272,7 @@ class Appointmentpro_Model_Utils
                         }
                     }
                 } else {
+                    // Existing appointment is regular service - check full duration overlap
                     $hasOverlap = !($potentialEndTime <= $existingStart || $potentialStartTime >= $existingEnd);
                     if ($hasOverlap) {
                         $hasConflict = true;
@@ -308,9 +284,11 @@ class Appointmentpro_Model_Utils
                 }
             }
 
+            // Store conflict count for this slot
             $slotConflictCount[$timeKey] = $conflictCount;
         }
 
+        // Remove slots that exceed the booking limit
         $availableSlots = [];
         foreach ($timeArray as $timeKey => $timeVal) {
             $conflicts = isset($slotConflictCount[$timeKey]) ? $slotConflictCount[$timeKey] : 0;
@@ -379,38 +357,75 @@ class Appointmentpro_Model_Utils
     {
         $perSlotTime = 30; // minutes per slot
         $convertTimeArray = [];
-        $format = '';
+        $format = ''; // Will be set based on settings
 
-        $workBefore = isset($breakInfo['work_before']) ? (int) $breakInfo['work_before'] : 0;
-        $breakDuration = isset($breakInfo['break_duration']) ? (int) $breakInfo['break_duration'] : 0;
-        $workAfter = isset($breakInfo['work_after']) ? (int) $breakInfo['work_after'] : 0;
+        $workBefore = $breakInfo['work_before'];
+        $breakDuration = $breakInfo['break_duration'];
+        $workAfter = $breakInfo['work_after'];
+        $breakIsBookable = $breakInfo['break_is_bookable'];
 
         $totalServiceTime = $workBefore + $breakDuration + $workAfter;
+        $totalRequiredSlots = ceil($totalServiceTime / $perSlotTime);
 
-        $closingTime = null;
-        if (!empty($timeArray)) {
-            $lastSlot = end($timeArray);
-            $closingTime = strtotime('+5 minutes', $lastSlot);
-            reset($timeArray);
-        }
+        if ($breakIsBookable) {
+            // For services with bookable break time, still need to verify full service can fit
+            // Only show slots where the ENTIRE service (chunks + break) can fit
+            foreach ($timeArray as $tkey => $timeVal) {
+                $canFitService = true;
+                $requiredEndTime = strtotime('+' . ($totalServiceTime - $perSlotTime) . ' minutes', $timeVal);
 
-        foreach ($timeArray as $timeVal) {
-            $serviceEndTime = strtotime('+' . $totalServiceTime . ' minutes', $timeVal);
+                // Verify we have enough consecutive time slots for the full service duration
+                $currentSlotIndex = $tkey;
+                for ($i = 0; $i < $totalRequiredSlots; $i++) {
+                    $expectedTime = strtotime('+' . ($i * $perSlotTime) . ' minutes', $timeVal);
 
-            if ($closingTime && $serviceEndTime > $closingTime) {
-                continue;
+                    // Check if this time slot exists in the available array
+                    $slotExists = false;
+                    foreach ($timeArray as $availableTime) {
+                        if ($availableTime == $expectedTime) {
+                            $slotExists = true;
+                            break;
+                        }
+                    }
+
+                    if (!$slotExists) {
+                        $canFitService = false;
+                        break;
+                    }
+                }
+
+                // Only show this slot if the full service duration can fit
+                if ($canFitService && $requiredEndTime <= end($timeArray)) {
+                    $keyTime = (string) $timeVal;
+                    $displayTime = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
+                    $convertTimeArray[$keyTime] = $displayTime;
+                }
             }
+        } else {
+            // For services without bookable break time, only show full service slots
+            foreach ($timeArray as $tkey => $timeVal) {
+                // Check if we have enough consecutive slots for the entire service
+                $canFitService = true;
+                $requiredEndTime = strtotime('+' . ($totalServiceTime - $perSlotTime) . ' minutes', $timeVal);
 
-            $keyTime = (string) $timeVal;
-            $displayTime = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
+                // Verify we have enough consecutive time slots
+                $currentSlotIndex = $tkey;
+                for ($i = 0; $i < $totalRequiredSlots; $i++) {
+                    if (
+                        !isset($timeArray[$currentSlotIndex + $i]) ||
+                        $timeArray[$currentSlotIndex + $i] != strtotime('+' . ($i * $perSlotTime) . ' minutes', $timeVal)
+                    ) {
+                        $canFitService = false;
+                        break;
+                    }
+                }
 
-            $convertTimeArray[$keyTime] = [
-                'time' => $displayTime,
-                'has_break' => true,
-                'work_before' => $workBefore,
-                'break_duration' => $breakDuration,
-                'work_after' => $workAfter
-            ];
+                if ($canFitService && $requiredEndTime <= end($timeArray)) {
+                    $keyTime = (string) $timeVal;
+                    $displayTime = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
+                    $convertTimeArray[$keyTime] = $displayTime;
+                }
+            }
         }
 
         return $convertTimeArray;
