@@ -230,12 +230,15 @@ class Appointmentpro_Model_Utils
 
                     $checkFirstWork = true;
                     $checkSecondWork = true;
+                    $providerRole = null; // Track which segment the current provider handles
 
                     if ($hasSecondaryProvider && $currentProviderId) {
                         if ($existingAppointment['service_provider_id'] == $currentProviderId) {
                             $checkSecondWork = false;
+                            $providerRole = 'first';
                         } elseif ($existingAppointment['service_provider_id_2'] == $currentProviderId) {
                             $checkFirstWork = false;
+                            $providerRole = 'second';
                         }
                     }
 
@@ -256,19 +259,39 @@ class Appointmentpro_Model_Utils
                         $newFirstOverlapsExistingSecond = !($newFirstWorkEnd <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
                         $newSecondOverlapsExistingFirst = !($potentialEndTime <= $firstWorkStart || $newSecondWorkStart >= $firstWorkEnd);
 
-                        if (
-                            ($checkFirstWork && ($overlapsExistingFirstWork || $newSecondOverlapsExistingFirst)) ||
-                            ($checkSecondWork && ($overlapsExistingSecondWork || $newFirstOverlapsExistingSecond))
-                        ) {
-                            $hasConflict = true;
+                        if ($providerRole === 'first') {
+                            if ($overlapsExistingFirstWork || $newSecondOverlapsExistingFirst) {
+                                $hasConflict = true;
+                            }
+                        } elseif ($providerRole === 'second') {
+                            if ($overlapsExistingSecondWork || $newFirstOverlapsExistingSecond) {
+                                $hasConflict = true;
+                            }
+                        } else {
+                            if (
+                                ($checkFirstWork && ($overlapsExistingFirstWork || $newSecondOverlapsExistingFirst)) ||
+                                ($checkSecondWork && ($overlapsExistingSecondWork || $newFirstOverlapsExistingSecond))
+                            ) {
+                                $hasConflict = true;
+                            }
                         }
                     } else {
                         // New appointment is regular service - check against work periods only
                         $overlapsFirstWork = !($potentialEndTime <= $firstWorkStart || $potentialStartTime >= $firstWorkEnd);
                         $overlapsSecondWork = !($potentialEndTime <= $secondWorkStart || $potentialStartTime >= $secondWorkEnd);
 
-                        if (($checkFirstWork && $overlapsFirstWork) || ($checkSecondWork && $overlapsSecondWork)) {
-                            $hasConflict = true;
+                        if ($providerRole === 'first') {
+                            if ($overlapsFirstWork) {
+                                $hasConflict = true;
+                            }
+                        } elseif ($providerRole === 'second') {
+                            if ($overlapsSecondWork) {
+                                $hasConflict = true;
+                            }
+                        } else {
+                            if (($checkFirstWork && $overlapsFirstWork) || ($checkSecondWork && $overlapsSecondWork)) {
+                                $hasConflict = true;
+                            }
                         }
                     }
                 } else {
