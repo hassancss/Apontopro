@@ -390,67 +390,87 @@ class Appointmentpro_Model_Utils
         $totalServiceTime = $workBefore + $breakDuration + $workAfter;
         $totalRequiredSlots = ceil($totalServiceTime / $perSlotTime);
 
+        $timeValues = array_values($timeArray);
+        if (empty($timeValues)) {
+            return $convertTimeArray;
+        }
+
+        $timeLookup = [];
+        foreach ($timeValues as $timeValue) {
+            $timeLookup[$timeValue] = true;
+        }
+
+        $maxAvailableTime = max($timeValues);
+
         if ($breakIsBookable) {
-            // For services with bookable break time, still need to verify full service can fit
-            // Only show slots where the ENTIRE service (chunks + break) can fit
-            foreach ($timeArray as $tkey => $timeVal) {
-                $canFitService = true;
+            // For services with bookable break time, verify each work segment separately
+            foreach ($timeValues as $timeVal) {
+                // First work segment must be fully available
+                if (!$this->hasContinuousSlots($timeLookup, $timeVal, $workBefore, $perSlotTime, $maxAvailableTime)) {
+                    continue;
+                }
+
+                $secondWorkStart = strtotime('+' . ($workBefore + $breakDuration) . ' minutes', $timeVal);
+
+                // Second work segment must also be available
+                if (!$this->hasContinuousSlots($timeLookup, $secondWorkStart, $workAfter, $perSlotTime, $maxAvailableTime)) {
+                    continue;
+                }
+
+                // Ensure the overall service duration fits in the schedule window
                 $requiredEndTime = strtotime('+' . ($totalServiceTime - $perSlotTime) . ' minutes', $timeVal);
-
-                // Verify we have enough consecutive time slots for the full service duration
-                $currentSlotIndex = $tkey;
-                for ($i = 0; $i < $totalRequiredSlots; $i++) {
-                    $expectedTime = strtotime('+' . ($i * $perSlotTime) . ' minutes', $timeVal);
-
-                    // Check if this time slot exists in the available array
-                    $slotExists = false;
-                    foreach ($timeArray as $availableTime) {
-                        if ($availableTime == $expectedTime) {
-                            $slotExists = true;
-                            break;
-                        }
-                    }
-
-                    if (!$slotExists) {
-                        $canFitService = false;
-                        break;
-                    }
+                if ($requiredEndTime > $maxAvailableTime) {
+                    continue;
                 }
 
-                // Only show this slot if the full service duration can fit
-                if ($canFitService && $requiredEndTime <= end($timeArray)) {
-                    $keyTime = (string) $timeVal;
-                    $displayTime = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
-                    $convertTimeArray[$keyTime] = $displayTime;
-                }
+                $keyTime = (string) $timeVal;
+                $displayTime = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
+                $convertTimeArray[$keyTime] = $displayTime;
             }
         } else {
             // For services without bookable break time, only show full service slots
-            foreach ($timeArray as $tkey => $timeVal) {
-                // Check if we have enough consecutive slots for the entire service
-                $canFitService = true;
+            foreach ($timeValues as $timeVal) {
+                if (!$this->hasContinuousSlots($timeLookup, $timeVal, $totalServiceTime, $perSlotTime, $maxAvailableTime)) {
+                    continue;
+                }
+
                 $requiredEndTime = strtotime('+' . ($totalServiceTime - $perSlotTime) . ' minutes', $timeVal);
-
-                // Verify we have enough consecutive time slots
-                $currentSlotIndex = $tkey;
-                for ($i = 0; $i < $totalRequiredSlots; $i++) {
-                    if (
-                        !isset($timeArray[$currentSlotIndex + $i]) ||
-                        $timeArray[$currentSlotIndex + $i] != strtotime('+' . ($i * $perSlotTime) . ' minutes', $timeVal)
-                    ) {
-                        $canFitService = false;
-                        break;
-                    }
+                if ($requiredEndTime > $maxAvailableTime) {
+                    continue;
                 }
 
-                if ($canFitService && $requiredEndTime <= end($timeArray)) {
-                    $keyTime = (string) $timeVal;
-                    $displayTime = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
-                    $convertTimeArray[$keyTime] = $displayTime;
-                }
+                $keyTime = (string) $timeVal;
+                $displayTime = Appointmentpro_Model_Utils::timestampTotime($timeVal, $format);
+                $convertTimeArray[$keyTime] = $displayTime;
             }
         }
 
         return $convertTimeArray;
+    }
+
+    /**
+     * Determine if a service segment has enough consecutive slots available.
+     */
+    private function hasContinuousSlots(array $availableSlots, $segmentStart, $segmentDuration, $perSlotTime, $maxAvailableTime)
+    {
+        if ($segmentDuration <= 0) {
+            return true;
+        }
+
+        $requiredSlots = (int) ceil($segmentDuration / $perSlotTime);
+
+        for ($i = 0; $i < $requiredSlots; $i++) {
+            $expectedStart = strtotime('+' . ($i * $perSlotTime) . ' minutes', $segmentStart);
+
+            if ($expectedStart > $maxAvailableTime) {
+                return false;
+            }
+
+            if (!isset($availableSlots[$expectedStart])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
