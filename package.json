@@ -2,7 +2,7 @@
   "name": "Appointmentpro",
   "description": "Take appointments anytime from your App or at the store.",
   "type": "module",
-  "version": "4.7.55",
+  "version": "4.7.60",
   "dependencies": {
     "system": {
       "type": "SAE",

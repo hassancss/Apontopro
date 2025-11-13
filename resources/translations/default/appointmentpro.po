@@ -2468,8 +2468,8 @@ msgstr "Set %s Date breaks/Holidays"
 
 # GMT 1614757039.606
 msgctxt "appointmentpro"
-msgid "Date And Time"
-msgstr "Date And Time"
+msgid "Date and Time"
+msgstr "Date and Time"
 
 # GMT 1614757039.607
 #, mobile
@@ -2878,3 +2878,21 @@ msgstr "Test Mode"
 msgctxt "appointmentpro"
 msgid ""
 msgstr ""
+
+# GMT 1614757039.678
+#, mobile
+msgctxt "appointmentpro"
+msgid "Leave a message"
+msgstr "Leave a message"
+
+# GMT 1614757039.679
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking has been"
+msgstr "Your booking has been"
+
+# GMT 1614757039.680
+#, mobile
+msgctxt "appointmentpro"
+msgid "Your booking has been %s with %s on %s at %s."
+msgstr "Your booking has been %s with %s on %s at %s."
