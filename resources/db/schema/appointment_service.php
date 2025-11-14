@@ -167,6 +167,17 @@ $schemas['appointment_service'] = [
         'default' => 1,
         'comment' => '1 for visible to users, 0 for hidden from users'
     ],
+    'manual_booking_required' => [
+        'type' => 'tinyint(1)',
+        'default' => 0,
+        'comment' => '1 when the service can only be booked manually'
+    ],
+    'manual_booking_message' => [
+        'type' => 'text',
+        'charset' => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+        'is_null' => true,
+    ],
     'created_at' => [
         'type' => 'datetime',
     ],

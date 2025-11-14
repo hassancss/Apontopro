@@ -1632,6 +1632,27 @@ msgctxt "appointmentpro"
 msgid "No service available"
 msgstr "No service available"
 
+msgid "Manual Booking Required"
+msgstr "Manual Booking Required"
+
+msgid "Show a custom message instead of allowing online booking"
+msgstr "Show a custom message instead of allowing online booking"
+
+msgid "Manual Booking Message"
+msgstr "Manual Booking Message"
+
+msgid "This text is shown to customers when they tap the service."
+msgstr "This text is shown to customers when they tap the service."
+
+msgid "Please contact us directly to book this service."
+msgstr "Please contact us directly to book this service."
+
+msgid "Please contact the salon to book this service."
+msgstr "Please contact the salon to book this service."
+
+msgid "Manual booking required"
+msgstr "Manual booking required"
+
 # GMT 1614757039.469
 #, mobile
 msgctxt "appointmentpro"

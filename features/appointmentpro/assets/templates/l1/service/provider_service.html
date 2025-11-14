@@ -41,9 +41,9 @@
         <img
           class="service-image-grid"
           ng-src="{{ appointmentproImage(service.featured_image) }}"
-          ng-click="goToProviderCalendar(service.service_id)"
+          ng-click="goToProviderCalendar(service)"
         />
-        <h2 ng-click="goToProviderCalendar(service.service_id)">
+        <h2 ng-click="goToProviderCalendar(service)">
           {{service.service_name}}
         </h2>
         <p ng-hide="settings.price_hide">
@@ -63,7 +63,7 @@
         <i
           ng-if="settings.enable_booking"
           class="icon ion-chevron-right"
-          ng-click="goToProviderCalendar(service.service_id)"
+          ng-click="goToProviderCalendar(service)"
         ></i>
       </a>
     </div>

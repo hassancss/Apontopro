@@ -266,6 +266,9 @@ class Appointmentpro_Mobile_LocationController extends Application_Controller_Mo
 
                 $value['currency_symbol'] = Core_Model_Language::getCurrencySymbol();
                 $value['price_with_currency'] = Appointmentpro_Model_Utils::displayPrice($value['price'], Core_Model_Language::getCurrencySymbol(), $settings['number_of_decimals'], $settings['decimal_separator'], $settings['thousand_separator'], $settings['currency_position']);
+                if (!empty($value['manual_booking_required'])) {
+                    $value['manual_booking_message'] = $value['manual_booking_message'] ?: p__('appointmentpro', 'Please contact the salon to book this service.');
+                }
 
                 $servicesJson[] = $value;
             }
