@@ -59,8 +59,15 @@ angular
         	Dialog.alert($translate.instant("Description", "appointmentpro") ,description , "OK", 60000, "appointmentpro");         
 	    }
 
-		$scope.goTo = function(service_id) {
-       		$state.go("appointmentpro-provider", { value_id: $scope.value_id, service_id: service_id  }, { reload: true } );
+		$scope.goTo = function(service) {
+       		if($scope.showManualBookingMessage(service)) {
+           		    return;
+       		}
+       		var serviceId = service;
+       		if(angular.isObject(service)) {
+           		    serviceId = service.service_id || service.serviceId;
+       		}
+       		$state.go("appointmentpro-provider", { value_id: $scope.value_id, service_id: serviceId  }, { reload: true } );
         }	    
         
         // When entering the feature, we check the origin!
