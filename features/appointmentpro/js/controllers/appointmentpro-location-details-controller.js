@@ -115,15 +115,18 @@ angular
 
 
         $scope.bookAService = function (service) {
+            if($scope.showManualBookingMessage(service)) {
+                return;
+            }
 
             if(!Customer.isLoggedIn()){
                 $scope.login(); return false;
            }
-           
+
             if(!$scope.settings.enable_booking){
                 return false;
             }
-            
+
             $scope.closeModalLocationService();
             $scope.cart = Appointmentpro.cart;
             $scope.cart.location_id = $scope.location_info.location_id;
