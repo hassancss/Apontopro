@@ -252,7 +252,9 @@ class Appointmentpro_Model_Db_Table_Provider extends Core_Model_Db_Table
                     "s.special_end",
                     "s.total_booking_per_slot",
                     "s.description",
-                    "s.visible_to_user"
+                    "s.visible_to_user",
+                    "s.manual_booking_required",
+                    "s.manual_booking_message"
                 ]
             );
 

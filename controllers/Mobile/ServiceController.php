@@ -47,6 +47,9 @@ class Appointmentpro_Mobile_ServiceController extends Application_Controller_Mob
                 $service['price_with_currency'] = Appointmentpro_Model_Utils::displayPrice($service['price'], Core_Model_Language::getCurrencySymbol(), $settings['number_of_decimals'], $settings['decimal_separator'], $settings['thousand_separator'], $settings['currency_position']);
 
                 $service['currency_symbol'] = Core_Model_Language::getCurrencySymbol();
+                if (!empty($service['manual_booking_required'])) {
+                    $service['manual_booking_message'] = $service['manual_booking_message'] ?: p__('appointmentpro', 'Please contact the salon to book this service.');
+                }
                 $serviceJson[] = $service;
             }
 
@@ -104,6 +107,9 @@ class Appointmentpro_Mobile_ServiceController extends Application_Controller_Mob
 
                 $service['price_with_currency'] = Appointmentpro_Model_Utils::displayPrice($service['price'], Core_Model_Language::getCurrencySymbol(), $settings['number_of_decimals'], $settings['decimal_separator'], $settings['thousand_separator'], $settings['currency_position']);
                 $service['currency_symbol'] = Core_Model_Language::getCurrencySymbol();
+                if (!empty($service['manual_booking_required'])) {
+                    $service['manual_booking_message'] = $service['manual_booking_message'] ?: p__('appointmentpro', 'Please contact the salon to book this service.');
+                }
 
                 $serviceJson[] = $service;
             }

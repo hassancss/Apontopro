@@ -212,6 +212,11 @@ class Appointmentpro_ServiceController extends Application_Controller_Default
                     throw new Exception(p__('appointmentpro', 'Service time is required and must be a valid number greater than 0. Received: ' . var_export($param['service_time'] ?? 'NOT_SET', true)));
                 }
                 $status = $param['status'] == 1 ? 1 : 0;
+                $manualBookingRequired = !empty($param['manual_booking_required']) ? 1 : 0;
+                $manualBookingMessage = trim($param['manual_booking_message'] ?? '');
+                if ($manualBookingRequired && $manualBookingMessage === '') {
+                    $manualBookingMessage = p__('appointmentpro', 'Please contact the salon to book this service.');
+                }
                 $model = (new Appointmentpro_Model_Service())
                     ->find(['service_id' => $param['service_id']])
                     ->setValueId($param['value_id'])
@@ -227,6 +232,8 @@ class Appointmentpro_ServiceController extends Application_Controller_Default
                     ->setDescription($param['description'])
                     ->setTotalBookingPerSlot($param['total_booking_per_slot'])
                     ->setVisibleToUser(!empty($param['visible_to_user']) ? 1 : 0)
+                    ->setManualBookingRequired($manualBookingRequired)
+                    ->setManualBookingMessage($manualBookingMessage)
                     ->setStatus($status);
 
                 if (!empty($param['featured_image'])) {

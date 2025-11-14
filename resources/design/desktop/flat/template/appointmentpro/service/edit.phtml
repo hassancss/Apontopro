@@ -178,6 +178,30 @@ foreach ($serviceLocation as $key => $value) {
                                                             </div>
                                                         </div>
 
+                                                        <div class="form-group">
+                                                            <div class="col-sm-4">
+                                                                <label for="manual_booking_required">
+                                                                    <?php echo p__("appointmentpro", 'Manual Booking Required'); ?>
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <input type="checkbox" name="manual_booking_required" id="manual_booking_required" value="1" <?php echo ($service->getManualBookingRequired() == 1) ? 'checked' : ''; ?> />
+                                                                <label for="manual_booking_required" class="checkbox-label"><?php echo p__("appointmentpro", 'Show a custom message instead of allowing online booking'); ?></label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" id="manual_booking_message_group" style="display: <?php echo ($service->getManualBookingRequired() == 1) ? 'block' : 'none'; ?>;">
+                                                            <div class="col-sm-4">
+                                                                <label for="manual_booking_message">
+                                                                    <?php echo p__("appointmentpro", 'Manual Booking Message'); ?>
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <textarea cols="12" rows="3" class="input-flat" name="manual_booking_message" id="manual_booking_message" placeholder="<?php echo p__("appointmentpro", 'Please contact us directly to book this service.'); ?>"><?php echo $service->getManualBookingMessage(); ?></textarea>
+                                                                <p class="small"><?php echo p__("appointmentpro", 'This text is shown to customers when they tap the service.'); ?></p>
+                                                            </div>
+                                                        </div>
+
                                                         <!-- Break Time Configuration -->
                                                         <div class="form-group">
                                                             <div class="col-sm-4">
@@ -456,6 +480,21 @@ foreach ($serviceLocation as $key => $value) {
         $('#break_time_config').show();
         updateServiceTimeFromBreakConfig();
     }
+
+    var defaultManualBookingMessage = '<?php echo addslashes(p__("appointmentpro", 'Please contact us directly to book this service.')); ?>';
+    function toggleManualBookingMessageField() {
+        if ($('#manual_booking_required').is(':checked')) {
+            $('#manual_booking_message_group').slideDown();
+            if (!$('#manual_booking_message').val()) {
+                $('#manual_booking_message').val(defaultManualBookingMessage);
+            }
+        } else {
+            $('#manual_booking_message_group').slideUp();
+        }
+    }
+
+    $('#manual_booking_required').on('change', toggleManualBookingMessageField);
+    toggleManualBookingMessageField();
 
     $('#serviceform').submit(function(e) {
         e.preventDefault();

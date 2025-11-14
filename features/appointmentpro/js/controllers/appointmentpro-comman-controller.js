@@ -3,7 +3,7 @@
  */
 angular
     .module('starter')
-    .controller('AppointmentproCommanController', function ($rootScope, SB, $scope, $stateParams, $state, $translate, Loader, $timeout, Appointmentpro, $ionicModal, Customer, $ionicActionSheet) {
+    .controller('AppointmentproCommanController', function (Dialog, $rootScope, SB, $scope, $stateParams, $state, $translate, Loader, $timeout, Appointmentpro, $ionicModal, Customer, $ionicActionSheet) {
     $scope.settings = Appointmentpro.getAppointmentproSettings(); 
     $scope.value_id = Appointmentpro.value_id = $stateParams.value_id;
 
@@ -83,7 +83,7 @@ angular
          */
         $scope.loginRequired = function(){
             if (!Customer.isLoggedIn()) {
-                Customer.loginModal($scope, function () { 
+                Customer.loginModal($scope, function () {
                     Loader.show();
                     $timeout(function () {
                         $scope.is_logged_in = Customer.isLoggedIn();
@@ -100,6 +100,22 @@ angular
                  Customer.loginModal();
             }
         }
+
+        $scope.showManualBookingMessage = function(service) {
+            if(!service) {
+                return false;
+            }
+            var required = service.manual_booking_required;
+            if(required === true || required === 1 || required === '1') {
+                var message = service.manual_booking_message;
+                if(!message) {
+                    message = $translate.instant("Please contact the salon to book this service.", "appointmentpro");
+                }
+                Dialog.alert($translate.instant("Manual booking required", "appointmentpro"), message, "OK", -1, "appointmentpro");
+                return true;
+            }
+            return false;
+        };
 
         /**
          * close info
@@ -151,10 +167,17 @@ angular
         /**
          * Redirect To Provider calendar
          */
-        $scope.goToProviderCalendar = function (service_id) {           
+        $scope.goToProviderCalendar = function (service) {
+            if($scope.showManualBookingMessage(service)) {
+                return;
+            }
+            var service_id = service;
+            if(angular.isObject(service)) {
+                service_id = service.service_id || service.serviceId;
+            }
             $scope.cart = Appointmentpro.cart;
-            $scope.cart.service_id = service_id;         
-            Appointmentpro.cart = $scope.cart;            
+            $scope.cart.service_id = service_id;
+            Appointmentpro.cart = $scope.cart;
             $state.go("appointmentpro-calendar", { value_id: $scope.value_id, provider_id: $scope.cart.provider_id }, { reload: true });
         }
        

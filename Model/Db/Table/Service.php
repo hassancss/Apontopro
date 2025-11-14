@@ -44,7 +44,9 @@ class Appointmentpro_Model_Db_Table_Service extends Core_Model_Db_Table
                 "total_booking_per_slot",
                 "visible_to_user",
                 "special_end",
-                "created_at"
+                "created_at",
+                "manual_booking_required",
+                "manual_booking_message"
             ]);
 
         $select->joinLeft(['c' => 'appointment_category'], 'c.category_id = main.category_id', ['c.name as category_name']);
@@ -136,6 +138,8 @@ class Appointmentpro_Model_Db_Table_Service extends Core_Model_Db_Table
                 "special_start",
                 "special_end",
                 "visible_to_user",
+                "manual_booking_required",
+                "manual_booking_message",
             ]);/*  $select->joinLeft(['c' => 'appointment_category'], 'c.category_id = main.category_id', ['c.name as category_name'])*/;
 
         $select->joinLeft(['sl' => 'appointment_service_location'], 'main.service_id = sl.service_id', ['service_location_id']);
