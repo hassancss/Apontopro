@@ -94,7 +94,8 @@ class Appointmentpro_Model_Cron extends Core_Model_Default
     public function reminderJob()
     {
 
-        $params = [
+        
+        return $params = [
             "type" => 'upcoming',
             "service_type" => 'all',
             "status" => [3], //Accepted,
